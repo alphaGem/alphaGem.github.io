@@ -6,12 +6,12 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 08 Feb 2018 21:31:54 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Feb 2018 21:31:54 +0800</lastBuildDate>
+    <pubDate>Fri, 09 Feb 2018 20:31:58 +0800</pubDate>
+    <lastBuildDate>Fri, 09 Feb 2018 20:31:58 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
-        <title>WC2018游记</title>
+        <title>NOIWC2018游记</title>
         <description>&lt;p&gt;到长沙&lt;del&gt;玩了一发&lt;/del&gt;参加了NOI2018冬眠营，然后因为太弱正解基本都没听懂，但是学了一堆的奇奇怪怪的东西，像什么分析方法乱搞骗分之类的，这里把个人认为比较好的idea不完全列举如下。&lt;del&gt;不过感觉拿出去应该都是烂大街的东西。&lt;/del&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;section&quot;&gt;势能函数分析&lt;/h3&gt;
@@ -70,35 +70,17 @@
 
 &lt;p&gt;利用替罪羊树的重构思想可以高分甚至 $AC$。&lt;/p&gt;
 
+&lt;h3 id=&quot;section-5&quot;&gt;一些长得像“树上最长链”一样的问题的近似求解&lt;/h3&gt;
+
+&lt;p&gt;可以使用类似于找最长链的方法，找一个基准点，找到离它最远的点，接着以这个点为基准点重复上面的操作，多次迭代，并且多选几次基准点，就有可能跑出优秀的解。&lt;/p&gt;
+
 &lt;h3 id=&quot;etc&quot;&gt;etc…&lt;/h3&gt;
 
 &lt;p&gt;然后学着学着就比赛了，比赛的时候T2看错题意，居然直接过了大样例，出考场完听别人说题面出锅了我才发现自己看错了题意。于是就因为这个看错题意节省了一堆时间，但是最后T1还是有12分暴力没调出来，最后就滚粗了。而且感觉自己预支了省选的RP[害怕.jpg]。&lt;/p&gt;
 </description>
         <pubDate>Thu, 08 Feb 2018 00:00:00 +0800</pubDate>
-        <link>http://yourdomain.com/2018/02/08/WC2018%E6%B8%B8%E8%AE%B0.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2018/02/08/WC2018%E6%B8%B8%E8%AE%B0.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>test2</title>
-        <description>&lt;p&gt;$a\ test\ for\ \LaTeX$&lt;/p&gt;
-</description>
-        <pubDate>Wed, 07 Feb 2018 00:00:00 +0800</pubDate>
-        <link>http://yourdomain.com/2018/02/07/test2.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2018/02/07/test2.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>test</title>
-        <description>&lt;p&gt;This is a test.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 07 Feb 2018 00:00:00 +0800</pubDate>
-        <link>http://yourdomain.com/2018/02/07/test.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2018/02/07/test.html</guid>
+        <link>http://yourdomain.com/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</guid>
         
         
       </item>
