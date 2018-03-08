@@ -6,8 +6,13 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
+<<<<<<< HEAD
     <pubDate>Thu, 08 Mar 2018 14:15:36 +0800</pubDate>
     <lastBuildDate>Thu, 08 Mar 2018 14:15:36 +0800</lastBuildDate>
+=======
+    <pubDate>Fri, 09 Feb 2018 20:34:32 +0800</pubDate>
+    <lastBuildDate>Fri, 09 Feb 2018 20:34:32 +0800</lastBuildDate>
+>>>>>>> a195a7c54879d03952c118bd8fa86a99579fc9f2
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -69,6 +74,10 @@
 &lt;p&gt;还有后面比赛的题目，有一颗树，一开始只有 $1$ 已知，每一次你需要选择一个已知点 $x$ 和一个点 $y$ ，然后交互库会返回 $x$ 到 $y$ 路径上离 $x$ 最近的点 $z$，并且如果 $z$ 是未知点，它就会被标记成已知点（开地图过程）。然后你需要用 $nlogn$ 级别的操作次数开完整个地图。&lt;/p&gt;
 
 &lt;p&gt;利用替罪羊树的重构思想可以高分甚至 $AC$。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;一些长得像“树上最长链”一样的问题的近似求解&lt;/h3&gt;
+
+&lt;p&gt;可以使用类似于找最长链的方法，找一个基准点，找到离它最远的点，接着以这个点为基准点重复上面的操作，多次迭代，并且多选几次基准点，就有可能跑出优秀的解。&lt;/p&gt;
 
 &lt;h3 id=&quot;etc&quot;&gt;etc…&lt;/h3&gt;
 
