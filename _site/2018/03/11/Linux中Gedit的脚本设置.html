@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title> Linux下Gedit的脚本设置 </title>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <!--script src="/mathjax/MathJax-2.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script-->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax:
+      {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'text'],
+        inlineMath: [["$","$"]],
+        displayMath: [["$$", "$$"]]
+      }
+    });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <a href="https://alphagem.github.io"> <h1>alphaGem's blog</h1> </a>
+        <h2></h2>
+        <a href="https://github.com/alphaGem" class="button"><small>Follow me on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          
+          <h2>Linux下Gedit的脚本设置</h2>
+<p class="meta">11 Mar 2018</p>
+
+<p>因为后面可能非常非常经常要用Gedit写题了，所以来总结一下如何用Gedit的脚本功能来搭建一个舒服的调题环境为妙。</p>
+
+<h3 id="section">基础配置</h3>
+
+<p>首先找到Gedit的偏好设定并且将运行外部脚本的功能开起来，然后打开工具找到“管理外部插件”并且新建一个内容如下的脚本：</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/sh</span>
+<span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
+<span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
+<span class="nv">c</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$s</span>|cut -d. -f1<span class="sb">`</span>
+g++ <span class="nv">$s</span> -o <span class="nv">$c</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
+<span class="nb">echo</span> <span class="s2">"Success!"</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
+<span class="nb">echo</span> <span class="s2">"Now let's go..."</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
+gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
+<span class="s2">"time </span><span class="nv">$d</span><span class="s2">/</span><span class="nv">$c</span><span class="s2">; echo; echo 'Press ENTER to continue...';read"</span></code></pre></figure>
+
+<p>（这里末尾有\的是指接下一行，至于最后一段的用&amp;&amp;连接是为了编译失败就不运行。在实际使用的时候可以不换行并且删掉\字符，这里使用是为了能够保证代码长度不超过框框的宽度）</p>
+
+<p>那这里面的句子是什么意思呢？</p>
+
+<p>其中第一行代表这是一个脚本。</p>
+
+<p>第二行定义了一个值为当前目录的变量。</p>
+
+<p>第三行定义了一个值为当前的cpp文件名的变量。</p>
+
+<p>第四行是把当前的文件名以点分割并且取前半段。注意这里使用的是重音符 ‘`‘，不要打成单引号啦~</p>
+<text>
+第五行是先编译运行当前的cpp文件（g++ $s -o $c）；
+然后在下方的提示框里面输出成功的消息（两个echo）；
+接着打开一个新终端（gnome-terminal）：
+先把这个终端的运行目录设定成当前的目录（--working-directory=$d）；
+然后是我也不知道是干什么的-x bash；
+然后是执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time $d/$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo 'Press ENTER to continue'，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。
+</text>
+<p>接着把它保存为快捷键Ctrl+F11，并保存当前文件即可。</p>
+
+<p>接下来按下Ctrl+F11，如果编译失败就会在下方显示错误信息，成功就会新弹出一个超级良心der终端，是给这个程序专用的，再也不用担心做题的时候程序提前退出然后因为是用粘贴的结果就在终端里面打了一堆乱七八糟的命令x</p>
+
+<h3 id="section-1">调试模式</h3>
+
+<p>新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#ifdef DEBUG
+#define debug(a...) fprintf(stderr,a);
+#else
+#define debug(a...)
+#endif</span></code></pre></figure>
+
+<p>然后接下来在代码里面要调试的地方直接调用debug函数，例如</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></figure>
+
+<p>接下来就可以实现如果是Ctrl+F8就会往stderr里面输出debug语句，否则按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。</p>
+
+<p>注意：在define里面的fprintf后面最好接一个分号，防止自己一不小心就打出</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">,</span><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="n">werken</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></code></pre></figure>
+
+<p>这样的代码，然后就成功在正式测试的时候CE啦！</p>
+
+<p>当然，自己定义一个新的空函数也是可以的，可以降低CE风险。</p>
+
+<p>但是还是要注意的是如果你为了调试在 $O(n)$ 的算法里面调用了 $O(n^2)$ 次的空函数不删仍然是会T得很惨的吧……</p>
+
+<p>所以也不是万能的。（这句话的深层含义：出锅了不要打我啊喂！）</p>
+
+<p>于是就可以成功地在debug和release模式之间自由切换了x</p>
+
+<p>所以大概就长成这样子了如果读不懂可能就是我的语文能力问题了这我也救不了自己了。</p>
+
+
+<br><br><br>
+<hr>
+<footer class="footer">
+  
+  
+    这里还没有人评论过呀……
+  
+  <br><br>
+  <noscript>Please enable JavaScript to view the comment form powered by <a href="https://commentit.io/">Comm(ent|it)</a></noscript>
+  <div id="commentit"></div>
+  <script type="text/javascript">
+    /** CONFIGURATION VARIABLES **/
+    var commentitUsername = 'alphaGem';
+    var commentitRepo = 'alphaGem/alphaGem.github.io';
+    var commentitPath = '_posts/2018-03-11-Linux中Gedit的脚本设置.md';
+    /** DON'T EDIT FOLLOWING LINES **/
+    (function(){
+      var commentit = document.createElement('script');
+      commentit.type = 'text/javascript';
+      commentit.async = true;
+      commentit.src = 'https://commentit.io/static/embed/dist/commentit.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(commentit);
+    })();
+  </script>
+</footer>
+
+
+        </section>
+
+        <aside id="sidebar">
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</p>
+        </aside>
+      </div>
+    </div>
+  </body>
+  <hr>
+  <footer class="footer">
+  </footer>
+</html>
