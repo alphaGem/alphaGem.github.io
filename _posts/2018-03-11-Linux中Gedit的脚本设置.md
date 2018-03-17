@@ -52,9 +52,9 @@ gnome-terminal --working-directory=$d -x bash -c \
 
 {%highlight cpp%}
 #ifdef DEBUG
-#define debug(a...) fprintf(stderr,a);
+#define debug(a...) fprintf(stderr,a)，fflush(stderr)
 #else
-#define debug(a...)
+#define debug(a...) 1
 #endif
 {%endhighlight%}
 
@@ -64,9 +64,11 @@ gnome-terminal --working-directory=$d -x bash -c \
 debug("x=%d\n",x);
 {%endhighlight%}
 
-接下来就可以实现如果是Ctrl+F8就会往stderr里面输出debug语句，否则按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。
+于是调用这个函数就可以往stderr里面输出debug语句，并**利用fflush让它立即显示在屏幕上**了。（这很重要，我被坑过，就是因为东西还堆在IO缓冲区内导致输出语句很诡异而调不出题）
 
-注意：在define里面的fprintf后面最好接一个分号，防止自己一不小心就打出
+接下来就可以实现如果是Ctrl+F8就可以输出调试语句，按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。
+
+注意：在第二个define里面要把debug(a...)替换成1而不是空，防止自己一不小心就打出
 
 {%highlight cpp%}
 for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
@@ -74,7 +76,7 @@ for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
 
 这样的代码，然后就成功在正式测试的时候CE啦！
 
-当然，自己定义一个新的空函数也是可以的，可以降低CE风险。
+当然，自己定义一个新的空函数也是可以的。
 
 但是还是要注意的是如果你为了调试在 $O(n)$ 的算法里面调用了 $O(n^2)$ 次的空函数不删仍然是会T得很惨的吧……
 

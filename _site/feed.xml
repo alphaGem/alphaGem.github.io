@@ -6,8 +6,8 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 14 Mar 2018 08:26:47 +0800</pubDate>
-    <lastBuildDate>Wed, 14 Mar 2018 08:26:47 +0800</lastBuildDate>
+    <pubDate>Sat, 17 Mar 2018 14:22:57 +0800</pubDate>
+    <lastBuildDate>Sat, 17 Mar 2018 14:22:57 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -56,24 +56,26 @@ gnome-terminal --working-directory&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
 &lt;p&gt;新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#ifdef DEBUG
-#define debug(a...) fprintf(stderr,a);
+#define debug(a...) fprintf(stderr,a)，fflush(stderr)
 #else
-#define debug(a...)
+#define debug(a...) 1
 #endif&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;然后接下来在代码里面要调试的地方直接调用debug函数，例如&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;debug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x=%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;接下来就可以实现如果是Ctrl+F8就会往stderr里面输出debug语句，否则按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。&lt;/p&gt;
+&lt;p&gt;于是调用这个函数就可以往stderr里面输出debug语句，并&lt;strong&gt;利用fflush让它立即显示在屏幕上&lt;/strong&gt;了。（这很重要，我被坑过，就是因为东西还堆在IO缓冲区内导致输出语句很诡异而调不出题）&lt;/p&gt;
 
-&lt;p&gt;注意：在define里面的fprintf后面最好接一个分号，防止自己一不小心就打出&lt;/p&gt;
+&lt;p&gt;接下来就可以实现如果是Ctrl+F8就可以输出调试语句，按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。&lt;/p&gt;
+
+&lt;p&gt;注意：在第二个define里面要把debug(a…)替换成1而不是空，防止自己一不小心就打出&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;debug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x=%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;werken&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;这样的代码，然后就成功在正式测试的时候CE啦！&lt;/p&gt;
 
-&lt;p&gt;当然，自己定义一个新的空函数也是可以的，可以降低CE风险。&lt;/p&gt;
+&lt;p&gt;当然，自己定义一个新的空函数也是可以的。&lt;/p&gt;
 
 &lt;p&gt;但是还是要注意的是如果你为了调试在 $O(n)$ 的算法里面调用了 $O(n^2)$ 次的空函数不删仍然是会T得很惨的吧……&lt;/p&gt;
 

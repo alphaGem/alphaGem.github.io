@@ -88,24 +88,26 @@ gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</s
 <p>新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#ifdef DEBUG
-#define debug(a...) fprintf(stderr,a);
+#define debug(a...) fprintf(stderr,a)，fflush(stderr)
 #else
-#define debug(a...)
+#define debug(a...) 1
 #endif</span></code></pre></figure>
 
 <p>然后接下来在代码里面要调试的地方直接调用debug函数，例如</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></figure>
 
-<p>接下来就可以实现如果是Ctrl+F8就会往stderr里面输出debug语句，否则按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。</p>
+<p>于是调用这个函数就可以往stderr里面输出debug语句，并<strong>利用fflush让它立即显示在屏幕上</strong>了。（这很重要，我被坑过，就是因为东西还堆在IO缓冲区内导致输出语句很诡异而调不出题）</p>
 
-<p>注意：在define里面的fprintf后面最好接一个分号，防止自己一不小心就打出</p>
+<p>接下来就可以实现如果是Ctrl+F8就可以输出调试语句，按Ctrl+F11不会输出，评测的时候也不会输出的功能惹。</p>
+
+<p>注意：在第二个define里面要把debug(a…)替换成1而不是空，防止自己一不小心就打出</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">,</span><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="n">werken</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></code></pre></figure>
 
 <p>这样的代码，然后就成功在正式测试的时候CE啦！</p>
 
-<p>当然，自己定义一个新的空函数也是可以的，可以降低CE风险。</p>
+<p>当然，自己定义一个新的空函数也是可以的。</p>
 
 <p>但是还是要注意的是如果你为了调试在 $O(n)$ 的算法里面调用了 $O(n^2)$ 次的空函数不删仍然是会T得很惨的吧……</p>
 
