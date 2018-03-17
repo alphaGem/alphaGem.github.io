@@ -6,8 +6,8 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 17 Mar 2018 14:22:57 +0800</pubDate>
-    <lastBuildDate>Sat, 17 Mar 2018 14:22:57 +0800</lastBuildDate>
+    <pubDate>Sat, 17 Mar 2018 14:27:08 +0800</pubDate>
+    <lastBuildDate>Sat, 17 Mar 2018 14:27:08 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -77,7 +77,7 @@ gnome-terminal --working-directory&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
 
 &lt;p&gt;当然，自己定义一个新的空函数也是可以的。&lt;/p&gt;
 
-&lt;p&gt;但是还是要注意的是如果你为了调试在 $O(n)$ 的算法里面调用了 $O(n^2)$ 次的空函数不删仍然是会T得很惨的吧……&lt;/p&gt;
+&lt;p&gt;但是还是要注意的是如果你为了调试在 $O(n)$ 的算法里面调用了 $O(n^2)$ 次的啥都不会干的debug函数不删仍然是会T得很惨的吧……&lt;/p&gt;
 
 &lt;p&gt;所以也不是万能的。（这句话的深层含义：出锅了不要打我啊喂！）&lt;/p&gt;
 
