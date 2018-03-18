@@ -84,7 +84,7 @@ for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
 
 于是就可以成功地在debug和release模式之间自由切换了x
 
-###适用于python的版本
+### 适用于python的版本
 
 {%highlight shell%}
 #!/bin/sh
