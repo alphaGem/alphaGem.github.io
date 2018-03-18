@@ -6,8 +6,8 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 17 Mar 2018 14:27:08 +0800</pubDate>
-    <lastBuildDate>Sat, 17 Mar 2018 14:27:08 +0800</lastBuildDate>
+    <pubDate>Sun, 18 Mar 2018 20:29:19 +0800</pubDate>
+    <lastBuildDate>Sun, 18 Mar 2018 20:29:19 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -82,6 +82,16 @@ gnome-terminal --working-directory&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
 &lt;p&gt;所以也不是万能的。（这句话的深层含义：出锅了不要打我啊喂！）&lt;/p&gt;
 
 &lt;p&gt;于是就可以成功地在debug和release模式之间自由切换了x&lt;/p&gt;
+
+&lt;h3 id=&quot;python&quot;&gt;适用于python的版本&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GEDIT_CURRENT_DOCUMENT_DIR&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GEDIT_CURRENT_DOCUMENT_NAME&lt;/span&gt;
+gnome-terminal --working-directory&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$d&lt;/span&gt; -x bash -c &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;&quot;python &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$d&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$s&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;; echo; echo &#39;Press ENTER to continue...&#39;;read&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;于是就可以喜闻乐见地直接快捷键运行python了。&lt;/p&gt;
 
 &lt;p&gt;所以大概就长成这样子了如果读不懂可能就是我的语文能力问题了这我也救不了自己了。&lt;/p&gt;
 </description>

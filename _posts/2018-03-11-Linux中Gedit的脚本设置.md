@@ -84,4 +84,16 @@ for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
 
 于是就可以成功地在debug和release模式之间自由切换了x
 
+###适用于python的版本
+
+{%highlight shell%}
+#!/bin/sh
+d=$GEDIT_CURRENT_DOCUMENT_DIR
+s=$GEDIT_CURRENT_DOCUMENT_NAME
+gnome-terminal --working-directory=$d -x bash -c \
+"python $d/$s; echo; echo 'Press ENTER to continue...';read"
+{%endhighlight%}
+
+于是就可以喜闻乐见地直接快捷键运行python了。
+
 所以大概就长成这样子了如果读不懂可能就是我的语文能力问题了这我也救不了自己了。

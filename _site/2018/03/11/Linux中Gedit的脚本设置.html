@@ -115,6 +115,16 @@ gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</s
 
 <p>于是就可以成功地在debug和release模式之间自由切换了x</p>
 
+<h3 id="python">适用于python的版本</h3>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/sh</span>
+<span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
+<span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
+gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
+<span class="s2">"python </span><span class="nv">$d</span><span class="s2">/</span><span class="nv">$s</span><span class="s2">; echo; echo 'Press ENTER to continue...';read"</span></code></pre></figure>
+
+<p>于是就可以喜闻乐见地直接快捷键运行python了。</p>
+
 <p>所以大概就长成这样子了如果读不懂可能就是我的语文能力问题了这我也救不了自己了。</p>
 
 
