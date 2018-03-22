@@ -59,7 +59,7 @@ tags: [信息竞赛,电脑操作,Linux,Gedit,脚本,调试]
 
 {%highlight cpp%}
     #ifdef DEBUG
-    #define debug(a...) fprintf(stderr,a)，fflush(stderr)
+    #define debug(a...) fprintf(stderr,a),fflush(stderr)
     #else
     #define debug(a...) 1
     #endif
