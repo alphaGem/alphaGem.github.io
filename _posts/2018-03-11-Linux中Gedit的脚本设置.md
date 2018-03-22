@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Linux下Gedit的脚本设置
+categories: [OI,computer]
 ---
 
 因为后面可能非常非常经常要用Gedit写题了，所以来总结一下如何用Gedit的脚本功能来搭建一个舒服的调题环境为妙。

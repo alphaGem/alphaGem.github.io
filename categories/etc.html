@@ -1,0 +1,20 @@
+---
+layout: page
+title: 其它杂记分类
+---
+
+<div class="home">
+  <h2>这里是其它杂记分类哟！</h2>
+  <p>这里记录一些杂七杂八的东西嗯。</p>
+  <ul class="post-list">
+    {% for post in site.categories.etc %}
+      <h3>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h3>
+      <div style="padding-left: 24px">
+      <li><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></li>
+      <p>{{post.excerpt}}</p>
+      </div>
+    {% endfor %}
+  </ul>
+</div>

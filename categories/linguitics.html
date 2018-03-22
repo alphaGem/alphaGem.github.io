@@ -1,0 +1,20 @@
+---
+layout: page
+title: 語言音韻分類
+---
+
+<div class="home">
+  <h2>这里是語言音韻分類呀！</h2>
+  <p>出於練習、嚴謹性、兼容性等原因，本分類下的內容都是繁體中文的。</p>
+  <ul class="post-list">
+    {% for post in site.categories.linguitics %}
+      <h3>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h3>
+      <div style="padding-left: 24px">
+      <li><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></li>
+      <p>{{post.excerpt}}</p>
+      </div>
+    {% endfor %}
+  </ul>
+</div>

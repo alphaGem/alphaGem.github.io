@@ -1,0 +1,20 @@
+---
+layout: page
+title: 自然科学分类
+---
+
+<div class="home">
+  <h2>这里是自然科学分类唔！</h2>
+  <p>因为不知道写些什么的缘故，这里的内容可能不会很常更新……？</p>
+  <ul class="post-list">
+    {% for post in site.categories.science %}
+      <h3>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h3>
+      <div style="padding-left: 24px">
+      <li><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></li>
+      <p>{{post.excerpt}}</p>
+      </div>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,14 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
+    <title>alphaGem&#39;s blog</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 </description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 18 Mar 2018 20:38:20 +0800</pubDate>
-    <lastBuildDate>Sun, 18 Mar 2018 20:38:20 +0800</lastBuildDate>
+    <link>https://alphagem.github.io/</link>
+    <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 22 Mar 2018 12:24:22 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Mar 2018 12:24:22 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>分治最小割与其证明</title>
+        <description>&lt;p&gt;校内互测的时候搬了个分治最小割板子题(CQOI2016)，然后结果讲题的时候被要求证明分治最小割的结论，结果就尬住了……&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;什么是分治最小割？&lt;/h3&gt;
+
+&lt;p&gt;看一个例题，这个题就是上面提到的CQOI2016的分治最小割板子题“不同的最小割”。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;学过图论的同学都知道最小割的概念：对于一个图，某个对图中结点的划分将图中所有结点分成两个部分，如果结点 $s,t$ 不在同一个部分中，则称这个划分是关于 $s,t$ 的割。对于带权图来说，将所有顶点处在不同部分的边的权值相加所得到的值定义为这个割的容量，而 $s,t$ 的最小割指的是在关于 $s,t$ 的割中容量最小的割。&lt;/p&gt;
+
+  &lt;p&gt;对冲刺 NOI 竞赛的选手而言，求带权图中两点的最小割已经不是什么难事了。我们可以把视野放宽，考虑有 $N$ 个点的无向连通图中所有点对的最小割的容量，共能得到 $\frac{N(N−1)}{2}$ 个数值。这些数值中互不相同的有多少个呢？这似乎是个有趣的问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;于是我们就强行套用结论解决了这个问题：&lt;/p&gt;
+
+&lt;p&gt;首先，一个图中不同的最小割最多有 $n-1$ 个，并且采用分治最小割模板我们可以求出这 $n-1$ 个不同的最小割。对于这道题，我们把这些最小割sort一下unique一下就完事了。&lt;/p&gt;
+
+&lt;p&gt;而分治最小割的模板是这样的：&lt;/p&gt;
+
+&lt;p&gt;对于一个图 $G=(V,E)$，假设我们现在当前工作中的点的集合是 $S$，其中 $S\subseteq V$ ；&lt;/p&gt;
+
+&lt;p&gt;我们就从 $S$ 中选出一个点 $s$ 和一个点 $t$，在原图 $G$ 上以 $s$ 为源，$t$ 为汇跑一遍最小割；&lt;/p&gt;
+
+&lt;p&gt;假设割出来两个集合分别叫做 $A$ 和 $B$，则最小割的代价为 $w$，且 $s$ 在集合 $A$ 中，$t$ 在集合 $B$ 中，那么我们就知道 $A$ 到 $B$ 的任意点对最小割都会是 $w$。我们就可以暴力更新 $A,B$ 间的点对的最小割。&lt;/p&gt;
+
+&lt;p&gt;然后递归处理 $S=A\cap S$ 和 $S=B\cap S$ 的情况。&lt;/p&gt;
+
+&lt;p&gt;最后我们就求出了任意点对的最小割。&lt;/p&gt;
+
+&lt;p&gt;为什么这是对的？&lt;/p&gt;
+
+&lt;p&gt;于是开始搜索相关的证明/说明，结果要么是“我不会”，要么是随便口糊了一下，要么是机翻风格……反正看着不是很舒服。&lt;/p&gt;
+
+&lt;p&gt;所以就记个板子到此结束了？&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;你改悔罢！&lt;/h3&gt;
+
+&lt;p&gt;接下来开始一段乱七八糟的说明。这段说明的目标是在大致保证严谨性的前提下尽可能让人读懂，但是由于语文和OI水平均有限，所以……&lt;/p&gt;
+
+&lt;p&gt;对于图 $G=(V,E)$，考虑其中不同的两个点 $A_0,D_0$，假设在图上对于 $A_0,D_0$ 跑了一遍最小割以后把图分成了 $S,T$ 两个集合，然后再取不同的两个点 $B_0,C_0$，假设 $B_0,C_0$ 在图 $G$ 上跑一遍最小割以后图被分成了 $X,Y$ 两个集合。&lt;/p&gt;
+
+&lt;p&gt;同时我们不妨设 $A_0\in S,D_0\in T;C_0\in X, B_0\in Y$。&lt;/p&gt;
+
+&lt;p&gt;我们首先需要说明对于一对 $S,T$ &lt;strong&gt;存在&lt;/strong&gt;一对 $X$ 与 $Y$ 使得 $S\subseteq X$ 或 $X\subseteq S$，即 $S\cap X,T\cap X,S\cap Y,T\cap Y$ 这四个把图恰好分成了四份的集合中有一份为空，通俗地来讲就是“最小割不跨立”。如果这个结论是对的，我们就可以从这个结论推出上面的递归处理部分是正确的。&lt;/p&gt;
+
+&lt;p&gt;直接做不好下手，于是考虑使用反证法。&lt;/p&gt;
+
+&lt;p&gt;不妨设 $S\cap X,S\cap Y,T\cap X,T\cap Y$ 分别为 $A,B,C,D$，且这四个集合都不为空。&lt;/p&gt;
+
+&lt;p&gt;那么实际上就是 $A\cup B=S,C\cup D=T,A\cup C=X,B\cup D=Y$。&lt;/p&gt;
+
+&lt;p&gt;各个集合缩点以后连边情况如图所示。图中 $S,T,X,Y$ 分别是上二个、下二个、左二个、右二个。&lt;/p&gt;
+
+&lt;p&gt;也就是说 $A_0$ 在上半边，$B_0$ 在右半边，$C_0$ 在左半边，$D_0$ 在下半边。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2018-03-21-s1.png&quot; alt=&quot;[pic1]&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中，$A_0$ 与 $D_0$ 不会在一个缩完的点中，$B_0$ 与 $C_0$ 不会在一个缩完的点中，否则就没有割开。&lt;/p&gt;
+
+&lt;p&gt;分几种情况讨论：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;$A_0,B_0,C_0,D_0$ 中有某两个点在 $A,B,C,D$ 中的同一个集合内（可能重合）。&lt;/p&gt;
+
+    &lt;p&gt;此时如果另外两个点在同一个集合内，那么显然我们只要令 $X=S,Y=T$ 就完事了。&lt;/p&gt;
+
+    &lt;p&gt;于是这里不妨假设是 $A_0$ 与 $C_0$ 都在集合 $A$ 中，而 $B_0$ 在 $B$ 中，$D_0$ 在 $D$ 中。&lt;/p&gt;
+
+    &lt;p&gt;首先考虑 $C_0$ 与 $B_0$ 的所有可能成为最小割的割。它们分别是&lt;/p&gt;
+
+    &lt;p&gt;$a+b+e,a+c+e+f,a+f+d$&lt;/p&gt;
+
+    &lt;p&gt;由于 $C_0$ 与 $B_0$ 的实际上的最小割是分隔了 $S,T$ 的 $a+c+e+f$，那么我们有&lt;/p&gt;
+
+    &lt;p&gt;$a+c+e+f\le a+b+e$ 即 $c+f\le b$&lt;/p&gt;
+
+    &lt;p&gt;$a+c+e+f\le a+f+d$ 即 $c+e\le d$&lt;/p&gt;
+
+    &lt;p&gt;同样地，考虑 $A_0$ 与 $D_0$ 的最小割，我们可以得到&lt;/p&gt;
+
+    &lt;p&gt;$f+d\le a$&lt;/p&gt;
+
+    &lt;p&gt;$b+e\le c$&lt;/p&gt;
+
+    &lt;p&gt;$b+d\le a+c$&lt;/p&gt;
+
+    &lt;p&gt;解不等式可以得到 $e=0,f=0,b=c$。于是实际上 $X-Y$ 的割可以被从 $a+c$（这里 $e,f$ 已经是 $0$ 了所以舍去）被等效为 $a+b$ ，也就是相当于我们把 $C$ 集合从 $X$ 集合里面挖了出来丢到了 $Y$ 里面。这个时候 $T\cap X’=T\cap A$ 就为空集啦！&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$A_0,B_0,C_0,D_0$ 在四个不同的集合内。&lt;/p&gt;
+
+    &lt;p&gt;则不妨设 $A_0\in A,B_0\in B,C_0\in C,D_0\in D$。&lt;/p&gt;
+
+    &lt;p&gt;这时候令 $X=S,Y=T$ 也是可以的。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;于是我们就证明完了上面的这个结论：&lt;strong&gt;存在&lt;/strong&gt;一种方案使得四个集合有一个为空。也就是只会分出三个非空集合。&lt;/p&gt;
+
+&lt;p&gt;好的。考虑递归处理部分。现在还是设当前在处理 $S$ ，它被割成了 $A,B$ 两个子集。对于一个集合 $A$ 中取出的两个点，它们的最小割一定会把这个集合 $A$ 分成两个非空集合。根据上面的结论，存在一种方案只分出三个非空集合，所以说存在方案 $A$ 中的点不会把 $B$ 集合割开，就影响不到 $B$ 集合内部某两个点的割，分治是对的。&lt;/p&gt;
+
+&lt;p&gt;做完啦！&lt;/p&gt;
+</description>
+        <pubDate>Wed, 21 Mar 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/03/21/%E5%88%86%E6%B2%BB%E6%9C%80%E5%B0%8F%E5%89%B2%E4%B8%8E%E5%85%B6%E8%AF%81%E6%98%8E.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/03/21/%E5%88%86%E6%B2%BB%E6%9C%80%E5%B0%8F%E5%89%B2%E4%B8%8E%E5%85%B6%E8%AF%81%E6%98%8E.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>网络流</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
     
       <item>
         <title>Linux下Gedit的脚本设置</title>
@@ -96,9 +214,13 @@ gnome-terminal --working-directory&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
 &lt;p&gt;所以大概就长成这样子了如果读不懂可能就是我的语文能力问题了这我也救不了自己了。&lt;/p&gt;
 </description>
         <pubDate>Sun, 11 Mar 2018 00:00:00 +0800</pubDate>
-        <link>http://yourdomain.com/2018/03/11/Linux%E4%B8%ADGedit%E7%9A%84%E8%84%9A%E6%9C%AC%E8%AE%BE%E7%BD%AE.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2018/03/11/Linux%E4%B8%ADGedit%E7%9A%84%E8%84%9A%E6%9C%AC%E8%AE%BE%E7%BD%AE.html</guid>
+        <link>https://alphagem.github.io/2018/03/11/Linux%E4%B8%ADGedit%E7%9A%84%E8%84%9A%E6%9C%AC%E8%AE%BE%E7%BD%AE.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/03/11/Linux%E4%B8%ADGedit%E7%9A%84%E8%84%9A%E6%9C%AC%E8%AE%BE%E7%BD%AE.html</guid>
         
+        
+        <category>OI</category>
+        
+        <category>computer</category>
         
       </item>
     
@@ -171,9 +293,13 @@ gnome-terminal --working-directory&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
 &lt;p&gt;然后学着学着就比赛了，比赛的时候T2看错题意，居然直接过了大样例，出考场完听别人说题面出锅了我才发现自己看错了题意。于是就因为这个看错题意节省了一堆时间，但是最后T1还是有12分暴力没调出来，最后就滚粗了。而且感觉自己预支了省选的RP[害怕.jpg]。&lt;/p&gt;
 </description>
         <pubDate>Thu, 08 Feb 2018 00:00:00 +0800</pubDate>
-        <link>http://yourdomain.com/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</guid>
+        <link>https://alphagem.github.io/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</guid>
         
+        <category>NOIWC2018</category>
+        
+        
+        <category>OI</category>
         
       </item>
     

@@ -1,0 +1,20 @@
+---
+layout: page
+title: 电脑操作分类
+---
+
+<div class="home">
+  <h2>这里是电脑操作分类呢！</h2>
+  <p>比起信息竞赛分类，这里的更多侧重于系统、软硬件等相关与计算机使用时候的一些奇怪的技巧……</p>
+  <ul class="post-list">
+    {% for post in site.categories.computer %}
+      <h3>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h3>
+      <div style="padding-left: 24px">
+      <li><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></li>
+      <p>{{post.excerpt}}</p>
+      </div>
+    {% endfor %}
+  </ul>
+</div>
