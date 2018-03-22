@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linux下Gedit的脚本设置
+title: Linux中Gedit的脚本设置
 categories: [OI,computer]
 tags: [信息竞赛,电脑操作,Linux,Gedit,脚本,调试]
 ---
