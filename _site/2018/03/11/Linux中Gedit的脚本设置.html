@@ -20,9 +20,10 @@
     MathJax.Hub.Config({
       tex2jax:
       {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'text'],
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
         inlineMath: [["$","$"]],
-        displayMath: [["$$", "$$"]]
+        displayMath: [["$$", "$$"]],
+        processEscapes: true
       }
     });
     </script>
@@ -75,7 +76,7 @@
     <span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
     <span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
     <span class="nv">c</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$s</span>|cut -d. -f1<span class="sb">`</span>
-    g++ <span class="se">\$</span>s -o <span class="se">\$</span>c <span class="o">&amp;&amp;</span><span class="se">\</span>
+    g++ <span class="nv">$s</span> -o <span class="nv">$c</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
     <span class="nb">echo</span> <span class="s2">"Success!"</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
     <span class="nb">echo</span> <span class="s2">"Now let's go..."</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
     gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
@@ -92,14 +93,19 @@
 <p>第三行定义了一个值为当前的cpp文件名的变量。</p>
 
 <p>第四行是把当前的文件名以点分割并且取前半段。注意这里使用的是重音符 ‘`‘，不要打成单引号啦~</p>
-<text>
-第五行是先编译运行当前的cpp文件（g++ $s -o $c）；
-然后在下方的提示框里面输出成功的消息（两个echo）；
-接着打开一个新终端（gnome-terminal）：
-先把这个终端的运行目录设定成当前的目录（--working-directory=$d）；
-然后是我也不知道是干什么的-x bash；
-然后是执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time $d/$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo 'Press ENTER to continue'，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。
-</text>
+
+<p>第五行是先编译运行当前的cpp文件（g++ \$ s -o \$c）；</p>
+
+<p>然后在下方的提示框里面输出成功的消息（两个echo）；</p>
+
+<p>接着打开一个新终端（gnome-terminal）：</p>
+
+<p>先把这个终端的运行目录设定成当前的目录（–working-directory=\$d）；</p>
+
+<p>然后是我也不知道是干什么的-x bash；</p>
+
+<p>然后是执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time \$d/\$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo ‘Press ENTER to continue’，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。</p>
+
 <p>接着把它保存为快捷键Ctrl+F11，并保存当前文件即可。</p>
 
 <p>接下来按下Ctrl+F11，如果编译失败就会在下方显示错误信息，成功就会新弹出一个超级良心der终端，是给这个程序专用的，再也不用担心做题的时候程序提前退出然后因为是用粘贴的结果就在终端里面打了一堆乱七八糟的命令x</p>
