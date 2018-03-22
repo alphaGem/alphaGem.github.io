@@ -6,8 +6,8 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 22 Mar 2018 19:08:10 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Mar 2018 19:08:10 +0800</lastBuildDate>
+    <pubDate>Thu, 22 Mar 2018 20:06:33 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Mar 2018 20:06:33 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -158,17 +158,13 @@
 
 &lt;p&gt;第四行是把当前的文件名以点分割并且取前半段。注意这里使用的是重音符 ‘`‘，不要打成单引号啦~&lt;/p&gt;
 
-&lt;p&gt;第五行是先编译运行当前的cpp文件（g++ \$ s -o \$c）；&lt;/p&gt;
+&lt;p&gt;第五行是先编译运行当前的cpp文件（g++ \$s -o \$c）；&lt;/p&gt;
 
 &lt;p&gt;然后在下方的提示框里面输出成功的消息（两个echo）；&lt;/p&gt;
 
 &lt;p&gt;接着打开一个新终端（gnome-terminal）：&lt;/p&gt;
 
-&lt;p&gt;先把这个终端的运行目录设定成当前的目录（–working-directory=\$d）；&lt;/p&gt;
-
-&lt;p&gt;然后是我也不知道是干什么的-x bash；&lt;/p&gt;
-
-&lt;p&gt;然后是执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time \$d/\$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo ‘Press ENTER to continue’，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。&lt;/p&gt;
+&lt;p&gt;先把这个终端的运行目录设定成当前的目录（–working-directory=\$d），然后是我也不知道是干什么的-x bash，然后是执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time \$d/\$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo ‘Press ENTER to continue’，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。&lt;/p&gt;
 
 &lt;p&gt;接着把它保存为快捷键Ctrl+F11，并保存当前文件即可。&lt;/p&gt;
 
