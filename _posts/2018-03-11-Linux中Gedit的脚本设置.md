@@ -2,6 +2,7 @@
 layout: post
 title: Linux下Gedit的脚本设置
 categories: [OI,computer]
+tags: [信息竞赛,电脑操作,Linux,Gedit,脚本,调试]
 ---
 
 因为后面可能非常非常经常要用Gedit写题了，所以来总结一下如何用Gedit的脚本功能来搭建一个舒服的调题环境为妙。
@@ -12,15 +13,15 @@ categories: [OI,computer]
 
 {%highlight shell%}
 
-#!/bin/sh
-d=$GEDIT_CURRENT_DOCUMENT_DIR
-s=$GEDIT_CURRENT_DOCUMENT_NAME
-c=`echo $s|cut -d. -f1`
-g++ $s -o $c &&\
-echo "Success!" &&\
-echo "Now let's go..." &&\
-gnome-terminal --working-directory=$d -x bash -c \
-"time $d/$c; echo; echo 'Press ENTER to continue...';read"
+    #!/bin/sh
+    d=$GEDIT_CURRENT_DOCUMENT_DIR
+    s=$GEDIT_CURRENT_DOCUMENT_NAME
+    c=`echo $s|cut -d. -f1`
+    g++ \$s -o \$c &&\
+    echo "Success!" &&\
+    echo "Now let's go..." &&\
+    gnome-terminal --working-directory=$d -x bash -c \
+    "time $d/$c; echo; echo 'Press ENTER to continue...';read"
 
 {%endhighlight%}
 
@@ -52,17 +53,17 @@ gnome-terminal --working-directory=$d -x bash -c \
 新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：
 
 {%highlight cpp%}
-#ifdef DEBUG
-#define debug(a...) fprintf(stderr,a)，fflush(stderr)
-#else
-#define debug(a...) 1
-#endif
+    #ifdef DEBUG
+    #define debug(a...) fprintf(stderr,a)，fflush(stderr)
+    #else
+    #define debug(a...) 1
+    #endif
 {%endhighlight%}
 
 然后接下来在代码里面要调试的地方直接调用debug函数，例如
 
 {%highlight cpp%}
-debug("x=%d\n",x);
+    debug("x=%d\n",x);
 {%endhighlight%}
 
 于是调用这个函数就可以往stderr里面输出debug语句，并**利用fflush让它立即显示在屏幕上**了。（这很重要，我被坑过，就是因为东西还堆在IO缓冲区内导致输出语句很诡异而调不出题）
@@ -72,7 +73,7 @@ debug("x=%d\n",x);
 注意：在第二个define里面要把debug(a...)替换成1而不是空，防止自己一不小心就打出
 
 {%highlight cpp%}
-for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
+    for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
 {%endhighlight%}
 
 这样的代码，然后就成功在正式测试的时候CE啦！
@@ -88,11 +89,11 @@ for(i=1;i<=n;i++,debug("x=%d\n",x))werken(i);
 ### 适用于python的版本
 
 {%highlight shell%}
-#!/bin/sh
-d=$GEDIT_CURRENT_DOCUMENT_DIR
-s=$GEDIT_CURRENT_DOCUMENT_NAME
-gnome-terminal --working-directory=$d -x bash -c \
-"python $d/$s; echo; echo 'Press ENTER to continue...';read"
+    #!/bin/sh
+    d=$GEDIT_CURRENT_DOCUMENT_DIR
+    s=$GEDIT_CURRENT_DOCUMENT_NAME
+    gnome-terminal --working-directory=$d -x bash -c \
+    "python $d/$s; echo; echo 'Press ENTER to continue...';read"
 {%endhighlight%}
 
 于是就可以喜闻乐见地直接快捷键运行python了。

@@ -42,7 +42,28 @@
         <section id="main-content">
           
           <h2>Linux下Gedit的脚本设置</h2>
-<p class="meta">Mar 11, 2018</p>
+<p class="meta">
+  Mar 11, 2018
+  <br/>
+  
+  
+    标签：
+  
+  
+    信息竞赛
+  
+    电脑操作
+  
+    Linux
+  
+    Gedit
+  
+    脚本
+  
+    调试
+  
+</p>
+<hr>
 
 <p>因为后面可能非常非常经常要用Gedit写题了，所以来总结一下如何用Gedit的脚本功能来搭建一个舒服的调题环境为妙。</p>
 
@@ -50,15 +71,15 @@
 
 <p>首先找到Gedit的偏好设定并且将运行外部脚本的功能开起来，然后打开工具找到“管理外部插件”并且新建一个内容如下的脚本：</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/sh</span>
-<span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
-<span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
-<span class="nv">c</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$s</span>|cut -d. -f1<span class="sb">`</span>
-g++ <span class="nv">$s</span> -o <span class="nv">$c</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
-<span class="nb">echo</span> <span class="s2">"Success!"</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
-<span class="nb">echo</span> <span class="s2">"Now let's go..."</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
-gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
-<span class="s2">"time </span><span class="nv">$d</span><span class="s2">/</span><span class="nv">$c</span><span class="s2">; echo; echo 'Press ENTER to continue...';read"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    <span class="c">#!/bin/sh</span>
+    <span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
+    <span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
+    <span class="nv">c</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$s</span>|cut -d. -f1<span class="sb">`</span>
+    g++ <span class="se">\$</span>s -o <span class="se">\$</span>c <span class="o">&amp;&amp;</span><span class="se">\</span>
+    <span class="nb">echo</span> <span class="s2">"Success!"</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
+    <span class="nb">echo</span> <span class="s2">"Now let's go..."</span> <span class="o">&amp;&amp;</span><span class="se">\</span>
+    gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
+    <span class="s2">"time </span><span class="nv">$d</span><span class="s2">/</span><span class="nv">$c</span><span class="s2">; echo; echo 'Press ENTER to continue...';read"</span></code></pre></figure>
 
 <p>（这里末尾有\的是指接下一行，至于最后一段的用&amp;&amp;连接是为了编译失败就不运行。在实际使用的时候可以不换行并且删掉\字符，这里使用是为了能够保证代码长度不超过框框的宽度）</p>
 
@@ -87,15 +108,15 @@ gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</s
 
 <p>新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#ifdef DEBUG
-#define debug(a...) fprintf(stderr,a)，fflush(stderr)
-#else
-#define debug(a...) 1
-#endif</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="cp">#ifdef DEBUG
+</span>    <span class="cp">#define debug(a...) fprintf(stderr,a)，fflush(stderr)
+</span>    <span class="cp">#else
+</span>    <span class="cp">#define debug(a...) 1
+</span>    <span class="cp">#endif</span></code></pre></figure>
 
 <p>然后接下来在代码里面要调试的地方直接调用debug函数，例如</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></figure>
 
 <p>于是调用这个函数就可以往stderr里面输出debug语句，并<strong>利用fflush让它立即显示在屏幕上</strong>了。（这很重要，我被坑过，就是因为东西还堆在IO缓冲区内导致输出语句很诡异而调不出题）</p>
 
@@ -103,7 +124,7 @@ gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</s
 
 <p>注意：在第二个define里面要把debug(a…)替换成1而不是空，防止自己一不小心就打出</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">,</span><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="n">werken</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">,</span><span class="n">debug</span><span class="p">(</span><span class="s">"x=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="n">werken</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></code></pre></figure>
 
 <p>这样的代码，然后就成功在正式测试的时候CE啦！</p>
 
@@ -117,11 +138,11 @@ gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</s
 
 <h3 id="python">适用于python的版本</h3>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/sh</span>
-<span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
-<span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
-gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
-<span class="s2">"python </span><span class="nv">$d</span><span class="s2">/</span><span class="nv">$s</span><span class="s2">; echo; echo 'Press ENTER to continue...';read"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    <span class="c">#!/bin/sh</span>
+    <span class="nv">d</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_DIR</span>
+    <span class="nv">s</span><span class="o">=</span><span class="nv">$GEDIT_CURRENT_DOCUMENT_NAME</span>
+    gnome-terminal --working-directory<span class="o">=</span><span class="nv">$d</span> -x bash -c <span class="se">\</span>
+    <span class="s2">"python </span><span class="nv">$d</span><span class="s2">/</span><span class="nv">$s</span><span class="s2">; echo; echo 'Press ENTER to continue...';read"</span></code></pre></figure>
 
 <p>于是就可以喜闻乐见地直接快捷键运行python了。</p>
 
