@@ -6,9 +6,131 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 22 Mar 2018 20:06:33 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Mar 2018 20:06:33 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Mar 2018 08:13:52 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Mar 2018 08:13:52 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>遗传算法</title>
+        <description>&lt;p&gt;遗传算法是一种神奇的近似算法，可以近似解决很多问题，写得好的话最优化问题可能可以多拿分&lt;del&gt;，有的时候搞不好还能踩标算&lt;/del&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;遗传算法是怎么工作的？&lt;/h3&gt;
+
+&lt;p&gt;遗传算法的idea来自于达尔文进化论，所以一起复习一下生物知识吧x&lt;/p&gt;
+
+&lt;p&gt;————————————————–我是一条分割线w————————————————–&lt;/p&gt;
+
+&lt;p&gt;首先是一些&lt;strong&gt;定义&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;（接下来开始假的生物）（可能连定义都是不准确的）&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;基因&lt;/h4&gt;
+
+&lt;p&gt;基因是一个串，通常会是一个零一串，有的时候也会是其它类型的串。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;个体&lt;/h4&gt;
+
+&lt;p&gt;个体是一个携带有基因的奇怪东西(?)，个体之间可以交配，体现为基因串的杂糅。&lt;/p&gt;
+
+&lt;p&gt;以下内容中，所有个体组成的集合记作 $S$。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;适应函数&lt;/h4&gt;
+
+&lt;p&gt;评估一个个体的好坏的一个函数。因为要进行自然选择，所以适应函数的设计挺重要的吧。&lt;/p&gt;
+
+&lt;p&gt;以下内容中，适应函数记作 $f$，一个个体 $u$ 的适应函数值可能被记作 $f_u$ 或者 $f(u)$。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;环境&lt;/h4&gt;
+
+&lt;p&gt;由适应函数和选择方式构成。承担起筛选个体的任务。&lt;/p&gt;
+
+&lt;p&gt;————————————————我是另一条分割线w————————————————&lt;/p&gt;
+
+&lt;p&gt;遗传算法的一轮过程大概如下：&lt;/p&gt;
+
+&lt;h4 id=&quot;i-&quot;&gt;I. 交配&lt;/h4&gt;
+
+&lt;p&gt;找出两个优秀的个体，然后让它们两个交配（看起来不用考虑性别强行无性繁殖w）&lt;/p&gt;
+
+&lt;p&gt;交配的方式大概如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;交叉法&lt;/p&gt;
+
+    &lt;p&gt;记两个交配的串分别为 $S$ 与 $T$，长度均为 $n$，则选择一个值 $k\in[1,n)$，将 $S[1..k)$ 与 $T[k..n]$ 拼接在一起得到新串。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;​&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;ii-&quot;&gt;II. 变异&lt;/h4&gt;
+
+&lt;p&gt;对于新生成的个体进行变异操作，引入新的个体，不然可能遗传到后面大家就都长一样了呀。&lt;/p&gt;
+
+&lt;p&gt;变异的方式大概如下&lt;/p&gt;
+
+&lt;h4 id=&quot;iii-&quot;&gt;III. 修补/雕琢（可选）&lt;/h4&gt;
+
+&lt;p&gt;有的时候我们可能会造出不合法的解，这样我们就有两种应对方法：丢弃和修补。当不合法解出现概率低或不会遗传出不合法解的时候可以直接丢弃，不然我们就要考虑修补解。修补解通常可以使用小规模爆搜，设计启发函数并以此为基础进行贪心等方法。&lt;/p&gt;
+
+&lt;p&gt;有的时候我们可能会生成有冗余成分的解，这是我们可以考虑按一定概率对这个解进行雕琢，把冗余部分去掉。这样可以保证个体更优，但有丧失种群多样性的弊端，需要权衡调整。&lt;/p&gt;
+
+&lt;p&gt;这两个东西都是比较需要具体问题具体分析的。&lt;/p&gt;
+
+&lt;h4 id=&quot;iv-&quot;&gt;IV. 选择&lt;/h4&gt;
+
+&lt;p&gt;对于各个个体计算它们的适应函数，并且按照适应函数的值按概率保留最优秀的一部分解进入下一轮遗传。&lt;/p&gt;
+
+&lt;p&gt;选择的方式大概如下&lt;/p&gt;
+
+&lt;p&gt;如果所有个体的适应值的和是 $C=\sum_{u\in S}f(u)$，对于一个个体 $u$，如果它的适应值为 $f(u)$，则可以设计为它有 $\frac{f(u)}C$ 的概率存活到下一轮。&lt;/p&gt;
+
+&lt;p&gt;然后我们就回到步骤I，直到我们觉得遗传得差不多了为止。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;看起来很厉害，那碰上实际问题怎么用呢？&lt;/h3&gt;
+
+&lt;p&gt;接下来举个栗子x&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 23 Mar 2018 08:13:52 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/03/23/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/03/23/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title></title>
+        <description>
+</description>
+        <pubDate>Fri, 23 Mar 2018 08:13:52 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/03/23/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/03/23/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>現學現賣中古漢語語音隨記一・從普通話與福州話進行簡單聲調推導</title>
+        <description>&lt;p&gt;這裏主要介紹一些簡單的從普通話與福州話的發音推導出中古漢語聲調的方法。&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 23 Mar 2018 08:13:52 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/03/23/%E7%8F%BE%E5%AD%B8%E7%8F%BE%E8%B3%A3%E4%B8%AD%E5%8F%A4%E6%BC%A2%E8%AA%9E%E8%AA%9E%E9%9F%B3%E9%9A%A8%E8%A8%98%E4%B8%80-%E5%BE%9E%E6%99%AE%E9%80%9A%E8%A9%B1%E8%88%87%E7%A6%8F%E5%B7%9E%E8%A9%B1%E9%80%B2%E8%A1%8C%E7%B0%A1%E5%96%AE%E8%81%B2%E8%AA%BF%E6%8E%A8%E5%B0%8E.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/03/23/%E7%8F%BE%E5%AD%B8%E7%8F%BE%E8%B3%A3%E4%B8%AD%E5%8F%A4%E6%BC%A2%E8%AA%9E%E8%AA%9E%E9%9F%B3%E9%9A%A8%E8%A8%98%E4%B8%80-%E5%BE%9E%E6%99%AE%E9%80%9A%E8%A9%B1%E8%88%87%E7%A6%8F%E5%B7%9E%E8%A9%B1%E9%80%B2%E8%A1%8C%E7%B0%A1%E5%96%AE%E8%81%B2%E8%AA%BF%E6%8E%A8%E5%B0%8E.html</guid>
+        
+        <category>語言音韻</category>
+        
+        <category>中古漢語</category>
+        
+        <category>福州話</category>
+        
+        
+        <category>linguitics</category>
+        
+      </item>
     
       <item>
         <title>分治最小割与其证明</title>
@@ -129,7 +251,7 @@
       </item>
     
       <item>
-        <title>Linux下Gedit的脚本设置</title>
+        <title>Linux中Gedit的脚本设置</title>
         <description>&lt;p&gt;因为后面可能非常非常经常要用Gedit写题了，所以来总结一下如何用Gedit的脚本功能来搭建一个舒服的调题环境为妙。&lt;/p&gt;
 
 &lt;h3 id=&quot;section&quot;&gt;基础配置&lt;/h3&gt;
@@ -175,7 +297,7 @@
 &lt;p&gt;新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;    &lt;span class=&quot;cp&quot;&gt;#ifdef DEBUG
-&lt;/span&gt;    &lt;span class=&quot;cp&quot;&gt;#define debug(a...) fprintf(stderr,a)，fflush(stderr)
+&lt;/span&gt;    &lt;span class=&quot;cp&quot;&gt;#define debug(a...) fprintf(stderr,a),fflush(stderr)
 &lt;/span&gt;    &lt;span class=&quot;cp&quot;&gt;#else
 &lt;/span&gt;    &lt;span class=&quot;cp&quot;&gt;#define debug(a...) 1
 &lt;/span&gt;    &lt;span class=&quot;cp&quot;&gt;#endif&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;

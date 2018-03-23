@@ -13,7 +13,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title> Linux下Gedit的脚本设置 </title>
+    <title> Linux中Gedit的脚本设置 </title>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     <!--script src="/mathjax/MathJax-2.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script-->
     <script type="text/x-mathjax-config">
@@ -42,7 +42,7 @@
       <div class="inner clearfix">
         <section id="main-content">
           
-          <h2>Linux下Gedit的脚本设置</h2>
+          <h2>Linux中Gedit的脚本设置</h2>
 <p class="meta">
   Mar 11, 2018
   <br/>
@@ -111,7 +111,7 @@
 <p>新开一个脚本，把刚刚那一段东西里面的g++后面的编译命令里增加一个-DDEBUG，这个脚本快捷键保存为Ctrl+F8，然后在自己的代码开头加入如下一段内容：</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="cp">#ifdef DEBUG
-</span>    <span class="cp">#define debug(a...) fprintf(stderr,a)，fflush(stderr)
+</span>    <span class="cp">#define debug(a...) fprintf(stderr,a),fflush(stderr)
 </span>    <span class="cp">#else
 </span>    <span class="cp">#define debug(a...) 1
 </span>    <span class="cp">#endif</span></code></pre></figure>

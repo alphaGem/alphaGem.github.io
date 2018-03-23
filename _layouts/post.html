@@ -6,11 +6,11 @@ layout: default
   {{ page.date | date: "%b %-d, %Y" }}
   <br/>
   {%for tag in page.tags%}
-    {%if tag==語言音韻%}
+    {%if tag == '語言音韻'%}
       {%assign trad=true%}
     {%endif%}
   {%endfor%}
-  {%if trad==true%}
+  {%if trad%}
     標籤：
   {%else%}
     标签：
