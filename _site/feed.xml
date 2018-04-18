@@ -6,113 +6,61 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 27 Mar 2018 22:17:06 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Mar 2018 22:17:06 +0800</lastBuildDate>
+    <pubDate>Wed, 18 Apr 2018 20:58:20 +0800</pubDate>
+    <lastBuildDate>Wed, 18 Apr 2018 20:58:20 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
-        <title>遗传算法</title>
-        <description>&lt;p&gt;遗传算法是一种神奇的近似算法，可以近似解决很多问题，写得好的话最优化问题可能可以多拿分&lt;del&gt;，有的时候搞不好还能踩标算&lt;/del&gt;。&lt;/p&gt;
+        <title>输出语句调试科技系列</title>
+        <description>&lt;p&gt;GDB都是邪教，printf系列调试大法好。（其实是我不会用GDB……）于是这里就是一些printf调试科技的总结。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;遗传算法是怎么工作的？&lt;/h3&gt;
+&lt;h3 id=&quot;section&quot;&gt;基础操作&lt;/h3&gt;
 
-&lt;p&gt;遗传算法的idea来自于达尔文进化论，所以一起复习一下生物知识吧x&lt;/p&gt;
+&lt;p&gt;如&lt;a href=&quot;/2018/03/11/Linux中Gedit的脚本设置&quot;&gt;Linux中Gedit的脚本设置&lt;/a&gt;一文所述，我们有如下的基础操作方法：&lt;/p&gt;
 
-&lt;p&gt;————————————————–我是一条分割线w————————————————–&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;cp&quot;&gt;#ifdef DEBUG
+&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#define debug(a...) fprintf(stderr,a),fflush(stderr)
+&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#else
+&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#define debug(a...) 1
+&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#endif&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;首先是一些&lt;strong&gt;定义&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;接着我们就只需要像调用printf函数一样地调用debug就可以实现当且仅当预定义了宏“DEBUG”才把错误信息输出到stderr。&lt;/p&gt;
 
-&lt;p&gt;（接下来开始假的生物）（可能连定义都是不准确的）&lt;/p&gt;
+&lt;h3 id=&quot;section-1&quot;&gt;进阶操作&lt;/h3&gt;
 
-&lt;h4 id=&quot;section-1&quot;&gt;基因&lt;/h4&gt;
+&lt;p&gt;最近淆了个变长参数函数的用法，所以……&lt;/p&gt;
 
-&lt;p&gt;基因是一个串，通常会是一个零一串，有的时候也会是其它类型的串。&lt;/p&gt;
+&lt;p&gt;首先引用头文件cstdarg&lt;/p&gt;
 
-&lt;h4 id=&quot;section-2&quot;&gt;个体&lt;/h4&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,...)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;cp&quot;&gt;#ifdef DEBUG
+&lt;/span&gt;		&lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;va_list&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;va_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;va_arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;；&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;fflush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;va_end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;cp&quot;&gt;#endif
+&lt;/span&gt;	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;个体是一个携带有基因的奇怪东西(?)，个体之间可以交配，体现为基因串的杂糅。&lt;/p&gt;
+&lt;p&gt;接着就可以以如下方式进行调试：&lt;/p&gt;
 
-&lt;p&gt;以下内容中，所有个体组成的集合记作 $S$。&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;i,f[i]: &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h4 id=&quot;section-3&quot;&gt;适应函数&lt;/h4&gt;
-
-&lt;p&gt;评估一个个体的好坏的一个函数。因为要进行自然选择，所以适应函数的设计挺重要的吧。&lt;/p&gt;
-
-&lt;p&gt;以下内容中，适应函数记作 $f$，一个个体 $u$ 的适应函数值可能被记作 $f_u$ 或者 $f(u)$。&lt;/p&gt;
-
-&lt;h4 id=&quot;section-4&quot;&gt;环境&lt;/h4&gt;
-
-&lt;p&gt;由适应函数和选择方式构成。承担起筛选个体的任务。&lt;/p&gt;
-
-&lt;p&gt;————————————————我是另一条分割线w————————————————&lt;/p&gt;
-
-&lt;p&gt;遗传算法的一轮过程大概如下：&lt;/p&gt;
-
-&lt;h4 id=&quot;i-&quot;&gt;I. 交配&lt;/h4&gt;
-
-&lt;p&gt;找出两个优秀的个体，然后让它们两个交配（看起来不用考虑性别强行无性繁殖w）&lt;/p&gt;
-
-&lt;p&gt;交配的方式大概如下：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;交叉法&lt;/p&gt;
-
-    &lt;p&gt;记两个交配的串分别为 $S$ 与 $T$，长度均为 $n$，则选择一个值 $k\in[1,n)$，将 $S[1..k)$ 与 $T[k..n]$ 拼接在一起得到新串。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;​&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;ii-&quot;&gt;II. 变异&lt;/h4&gt;
-
-&lt;p&gt;对于新生成的个体进行变异操作，引入新的个体，不然可能遗传到后面大家就都长一样了呀。&lt;/p&gt;
-
-&lt;p&gt;变异的方式大概如下&lt;/p&gt;
-
-&lt;h4 id=&quot;iii-&quot;&gt;III. 修补/雕琢（可选）&lt;/h4&gt;
-
-&lt;p&gt;有的时候我们可能会造出不合法的解，这样我们就有两种应对方法：丢弃和修补。当不合法解出现概率低或不会遗传出不合法解的时候可以直接丢弃，不然我们就要考虑修补解。修补解通常可以使用小规模爆搜，设计启发函数并以此为基础进行贪心等方法。&lt;/p&gt;
-
-&lt;p&gt;有的时候我们可能会生成有冗余成分的解，这是我们可以考虑按一定概率对这个解进行雕琢，把冗余部分去掉。这样可以保证个体更优，但有丧失种群多样性的弊端，需要权衡调整。&lt;/p&gt;
-
-&lt;p&gt;这两个东西都是比较需要具体问题具体分析的。&lt;/p&gt;
-
-&lt;h4 id=&quot;iv-&quot;&gt;IV. 选择&lt;/h4&gt;
-
-&lt;p&gt;对于各个个体计算它们的适应函数，并且按照适应函数的值按概率保留最优秀的一部分解进入下一轮遗传。&lt;/p&gt;
-
-&lt;p&gt;选择的方式大概如下&lt;/p&gt;
-
-&lt;p&gt;如果所有个体的适应值的和是 $C=\sum_{u\in S}f(u)$，对于一个个体 $u$，如果它的适应值为 $f(u)$，则可以设计为它有 $\frac{f(u)}C$ 的概率存活到下一轮。&lt;/p&gt;
-
-&lt;p&gt;然后我们就回到步骤I，直到我们觉得遗传得差不多了为止。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-5&quot;&gt;看起来很厉害，那碰上实际问题怎么用呢？&lt;/h3&gt;
-
-&lt;p&gt;接下来举个栗子x&lt;/p&gt;
-
+&lt;p&gt;变长参数这里以-1结尾，实际运用的时候可以以你需要的数字结尾，只要把db函数里面的循环终止条件改成等于你所设定的数字就好了。然后当且仅当预定义了宏DEBUG，程序会输出一行形如”i,f[i]: 2 10”这样的信息，就省去了每次调试打%d并且还要算好有几个%d之类的麻烦。比较适合那种要输出几百次调试的题目。&lt;/p&gt;
 </description>
-        <pubDate>Tue, 27 Mar 2018 22:17:06 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/03/27/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/03/27/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95.html</guid>
+        <pubDate>Wed, 18 Apr 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/04/18/%E8%BE%93%E5%87%BA%E8%AF%AD%E5%8F%A5%E8%B0%83%E8%AF%95%E7%A7%91%E6%8A%80%E7%B3%BB%E5%88%97.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/04/18/%E8%BE%93%E5%87%BA%E8%AF%AD%E5%8F%A5%E8%B0%83%E8%AF%95%E7%A7%91%E6%8A%80%E7%B3%BB%E5%88%97.html</guid>
         
         <category>信息竞赛</category>
         
+        <category>调试</category>
         
-        <category>OI</category>
         
-      </item>
-    
-      <item>
-        <title></title>
-        <description>
-</description>
-        <pubDate>Tue, 27 Mar 2018 22:17:06 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/03/27/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/03/27/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95.html</guid>
-        
+        <category>信息竞赛</category>
         
       </item>
     
@@ -484,7 +432,7 @@
 
 &lt;p&gt;接着打开一个新终端（gnome-terminal）：&lt;/p&gt;
 
-&lt;p&gt;先把这个终端的运行目录设定成当前的目录（–working-directory=\$d），然后是我也不知道是干什么的-x bash，然后是执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time \$d/\$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo ‘Press ENTER to continue’，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。&lt;/p&gt;
+&lt;p&gt;先把这个终端的运行目录设定成当前的目录（–working-directory=\$d），然后是调用bash的-x bash，然后是在这个bash里面执行一些命令（-c），命令的内容用双引号包起来。命令的内容首先是计时地运行你的程序（time \$d/\$c），注意这里是绝对路径，接着输出一个换行（echo），然后输出一行提示信息（echo ‘Press ENTER to continue’，注意是单引号），最后一个read实现输入等到回车后再关闭窗口。&lt;/p&gt;
 
 &lt;p&gt;接着把它保存为快捷键Ctrl+F11，并保存当前文件即可。&lt;/p&gt;
 
@@ -521,6 +469,8 @@
 &lt;p&gt;所以也不是万能的。（这句话的深层含义：出锅了不要打我啊喂！）&lt;/p&gt;
 
 &lt;p&gt;于是就可以成功地在debug和release模式之间自由切换了x&lt;/p&gt;
+
+&lt;p&gt;关于进一步的科技，可以参照&lt;a href=&quot;/2018/04/18/输出语句调试科技系列.html&quot;&gt;输出语句调试科技系列&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;python&quot;&gt;适用于python的版本&lt;/h3&gt;
 
