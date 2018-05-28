@@ -6,9 +6,556 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 18 Apr 2018 21:42:55 +0800</pubDate>
-    <lastBuildDate>Wed, 18 Apr 2018 21:42:55 +0800</lastBuildDate>
+    <pubDate>Mon, 28 May 2018 09:24:17 +0800</pubDate>
+    <lastBuildDate>Mon, 28 May 2018 09:24:17 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Educational Codeforces Round44爆炸记</title>
+        <description>&lt;p&gt;在rating=2089的接近橙名时候打了一发Edu Round，结果被虐得超惨……好在没有什么FST导致一发回蓝之类的。而且最后开放Hack的时候叉人是真的爽，也算是没有白掉rating？&lt;/p&gt;
+
+&lt;h3 id=&quot;wa-on-pretest&quot;&gt;紧张刺激的WA on pretest&lt;/h3&gt;
+
+&lt;p&gt;以下题目按照AC顺序列出。阅读时建议跳过题面。&lt;/p&gt;
+
+&lt;h4 id=&quot;a---chess-placinghttpcodeforcescomcontest985problema&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/A&quot;&gt;A - Chess Placing&lt;/a&gt;&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;You are given a chessboard of size $1\times n$. It is guaranteed that &lt;em&gt;n&lt;/em&gt; is even. The chessboard is painted like this: “BWBW…BW”.&lt;/p&gt;
+
+  &lt;p&gt;Some cells of the board are occupied by the chess pieces. Each cell contains no more than one chess piece. It is known that the total number of pieces equals to $\frac{n}{2}$.&lt;/p&gt;
+
+  &lt;p&gt;In one step you can move one of the pieces one cell to the left or to the right. You cannot move pieces beyond the borders of the board. You also cannot move pieces to the cells that are already occupied.&lt;/p&gt;
+
+  &lt;p&gt;Your task is to place all the pieces in the cells of the same color using the minimum number of moves (all the pieces must occupy only the black cells or only the white cells after all the moves are made).&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;The first line of the input contains one integer $n$ ($2\le n\le 100$, $n$ is even) — the size of the chessboard.&lt;/p&gt;
+
+  &lt;p&gt;The second line of the input contains $\frac{n}{2}$ integer numbers $p_1,p_2,\ldots,p_{\frac{n}{2}}$ ($1\le p_i\le n$) — initial positions of the pieces. It is guaranteed that all the positions are distinct.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;Print one integer — the minimum number of moves you have to make to place all the pieces in the cells of the same color.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一个大水题直接被我想复杂了，用什么贪心模拟……还交了一发FST的假贪心……直接sort以后按顺序把 $a_i$ 与 $2i$(或 $2i-1$)作差的绝对值并求和，然后把与 $2i$ 作的差和与 $2i-1$ 作的差取 $\min$ 就好了。&lt;/p&gt;
+
+&lt;p&gt;罚时++&lt;/p&gt;
+
+&lt;p&gt;接着为了多捞一些分跳过了B题，毕竟后面的题目掉分快。&lt;/p&gt;
+
+&lt;h4 id=&quot;c---liebigs-barrelshttpcodeforcescomcontest985problemc&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/C&quot;&gt;C - Liebig’s Barrels&lt;/a&gt;&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;You have $m=n\cdot k$ wooden staves. The &lt;em&gt;i&lt;/em&gt;-th stave has length $a_i$. You have to assemble $n$ barrels consisting of $k$ staves each, you can use any $k$ staves to construct a barrel. Each stave must belong to exactly one barrel.&lt;/p&gt;
+
+  &lt;p&gt;Let volume $v_j$ of barrel $j$ be equal to the length of the minimal stave in it.&lt;/p&gt;
+
+  &lt;p&gt;&lt;img src=&quot;http://codeforces.com/predownloaded/66/8e/668e3bce94c546efd818de5a228c816594b7cc60.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+  &lt;p&gt;You want to assemble exactly $n$ barrels with the maximal total sum of volumes. But you have to make them equal enough, so a difference between volumes of any pair of the resulting barrels must not exceed $l$, i.e. $| v_x-v_y|\le l$ for any $1\le x\le n$ and $1\le y\le n$.&lt;/p&gt;
+
+  &lt;p&gt;Print maximal total sum of volumes of equal enough barrels or $0$ if it’s impossible to satisfy the condition above.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;The first line contains three space-separated integers $n$, $k$ and $l$ ($1\le n, k\le 10^5$, $1\le n\cdot k\le 10^5$, $0\le l\le 10^9$).&lt;/p&gt;
+
+  &lt;p&gt;The second line contains $m=n\cdot k$ space-separated integers $a_1, a_2, \ldots, a_m$ ($1\le a_i\le 10^9$) — lengths of staves.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;Print single integer — maximal total sum of the volumes of barrels or 0 if it’s impossible to construct exactly &lt;em&gt;n&lt;/em&gt; barrels satisfying the condition $|v_x-v_y| ≤ l$ for any $1\le x\le n$ and $1\le y\le n$.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一个简单的贪心构造题。&lt;/p&gt;
+
+&lt;p&gt;首先判断以下比最短的板子长不超过 $l$ 的板子有多少块，如果少于 $n$ 块直接输出 $0$，否则开始构造：首先拿最小的板子和比最小的板子长不超过 $l$ 的最长的 $n-1$ 块板子初始造 $n$ 个桶，接着从短往长把板子加到短板尽量短的桶里进去，如果一个桶用满了就只好开一个新桶。&lt;/p&gt;
+
+&lt;p&gt;结果想了一堆无脑假贪心，为了弥补第一题浪费的时间各种交上去无法过pretest。&lt;/p&gt;
+
+&lt;p&gt;罚时+=3&lt;/p&gt;
+
+&lt;h4 id=&quot;d---sand-fortresshttpcodeforcescomcontest985problemd&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/D&quot;&gt;D - Sand Fortress&lt;/a&gt;&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;You are going to the beach with the idea to build the greatest sand castle ever in your head! The beach is not as three-dimensional as you could have imagined, it can be decribed as a line of spots to pile up sand pillars. Spots are numbered $1$ through infinity from left to right.&lt;/p&gt;
+
+  &lt;p&gt;Obviously, there is not enough sand on the beach, so you brought $n$ packs of sand with you. Let height $h_i$ of the sand pillar on some spot $i$ be the number of sand packs you spent on it. You can’t split a sand pack to multiple pillars, all the sand from it should go to a single one. There is a fence of height equal to the height of pillar with $H$ sand packs to the left of the first spot and you should prevent sand from going over it.&lt;/p&gt;
+
+  &lt;p&gt;Finally you ended up with the following conditions to building the castle:&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;$h_1\le H$: no sand from the leftmost spot should go over the fence;&lt;/li&gt;
+    &lt;li&gt;For any $i\in [1,\infty)|h_i-h_i+1| \le 1$: large difference in heights of two neighboring pillars can lead sand to fall down from the higher one to the lower, you really don’t want this to happen;&lt;/li&gt;
+    &lt;li&gt;$\sum_{i=1}^{\infty}h_i=n$: you want to spend all the sand you brought with you.&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;As you have infinite spots to build, it is always possible to come up with some valid castle structure. Though you want the castle to be as compact as possible.&lt;/p&gt;
+
+  &lt;p&gt;Your task is to calculate the minimum number of spots you can occupy so that all the aforementioned conditions hold.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;The only line contains two integer numbers $n$ and $H$ ($1\le n, H\le 10^{18}$) — the number of sand packs you have and the height of the fence, respectively.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;Print the minimum number of spots you can occupy so the all the castle building conditions hold.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一个简单的二分题。最终的最优解形如左边一个直角梯形，右边一个等边直角三角形的形状去掉最上面的一层的一部分（也可能什么都不去掉）。于是直接二分最高点判断两块面积加起来是否大于或等于 $n$ 。注意分类讨论最高层有一个包和有两个包的情况。&lt;/p&gt;
+
+&lt;p&gt;结果一开始把 $h_1\le H$ 看成 $\forall i\in[1,\infty),h_i\le H$……&lt;/p&gt;
+
+&lt;p&gt;罚时+=3&lt;/p&gt;
+
+&lt;p&gt;然后赶紧急急忙忙交上去，结果最高层有两个包的情况没判……&lt;/p&gt;
+
+&lt;p&gt;罚时++&lt;/p&gt;
+
+&lt;p&gt;剩余时间10min。&lt;/p&gt;
+
+&lt;h4 id=&quot;b---switches-and-lampshttpcodeforcescomcontest985problemb&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/B&quot;&gt;B - Switches and Lamps&lt;/a&gt;&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;You are given $n$ switches and $m$ lamps. The $i$-th switch turns on some subset of the lamps. This information is given as the matrix $a$ consisting of $n$ rows and $m$ columns where $a_{i,j}=1$ if the $i$-th switch turns on the $j$-th lamp and $a_{i,j}=0$ if the $i$-th switch is not connected to the $j$-th lamp.&lt;/p&gt;
+
+  &lt;p&gt;Initially all $m$ lamps are turned off.&lt;/p&gt;
+
+  &lt;p&gt;Switches change state only from “off” to “on”. It means that if you press two or more switches connected to the same lamp then the lamp will be turned on after any of this switches is pressed and will remain its state even if any switch connected to this lamp is pressed afterwards.&lt;/p&gt;
+
+  &lt;p&gt;It is guaranteed that if you push all $n$ switches then all $m$ lamps will be turned on.&lt;/p&gt;
+
+  &lt;p&gt;Your think that you have too many switches and you would like to ignore one of them.&lt;/p&gt;
+
+  &lt;p&gt;Your task is to say if there exists such a switch that if you will ignore (not use) it but press all the other $n-1$ switches then all the $m$ lamps will be turned on.&lt;/p&gt;
+
+  &lt;p&gt;Input&lt;/p&gt;
+
+  &lt;p&gt;The first line of the input contains two integers $n$ and $m$ ($1\le n,m\le2000$) — the number of the switches and the number of the lamps.&lt;/p&gt;
+
+  &lt;p&gt;The following $n$ lines contain $m$ characters each. The character $a_{i,j}$ is equal to ‘1’ if the $i$-th switch turns on the $j$-th lamp and ‘0’ otherwise.&lt;/p&gt;
+
+  &lt;p&gt;It is guaranteed that if you press all $n$ switches all $m$ lamps will be turned on.&lt;/p&gt;
+
+  &lt;p&gt;Output&lt;/p&gt;
+
+  &lt;p&gt;Print “YES” if there is a switch that if you will ignore it and press all the other $n-1$ switches then all $m$ lamps will be turned on. Print “NO” if there is no such switch.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;直接开个 $cnt$ 记每个灯被几个开关开，接着枚举每个开关，如果不存在 $cnt=1$ 的灯由它控制，它就是没有用的。&lt;/p&gt;
+
+&lt;p&gt;于是拿到了本场第一个一发过pretest。&lt;/p&gt;
+
+&lt;p&gt;剩余时间5min。&lt;/p&gt;
+
+&lt;p&gt;交上去以后看了一下榜，发现自己居然是交4个题里面罚时最多的之一，感觉很不对劲。即使是我有8个罚时，但是前面还有很多人比我罚时多啊……&lt;/p&gt;
+
+&lt;p&gt;然后突然意识到这是Edu Round，罚时算的是所有题目的提交时间和，而不是每个题分别掉分，也就是说我如果先开B题在1.5h前直接A掉我可能也不会这么惨……&lt;/p&gt;
+
+&lt;p&gt;然后前面还有一整版的切掉5题的人，两个穿场的，感觉自己凉透了……&lt;/p&gt;
+
+&lt;p&gt;然后又看了看Friends Standings，发现同机房里一堆切掉ABCE然后rank比我高的，问了下听说E是个大水题……&lt;/p&gt;
+
+&lt;p&gt;比赛结束的那一刻，凌晨时分，整个机房，除了我，都像在聚众吸毒一样兴奋呢。&lt;/p&gt;
+
+&lt;h3 id=&quot;opening-hack&quot;&gt;更紧张刺激的深夜Opening Hack&lt;/h3&gt;
+
+&lt;p&gt;本来对Opening Hack不抱什么希望的。结果我们机房里有个人的E被叉掉了——&lt;/p&gt;
+
+&lt;p&gt;整个机房炸锅啦！&lt;/p&gt;
+
+&lt;p&gt;原本比赛结束时机房中声浪已是起伏不定，层起迭出，这下却是一浪高过一浪，大有海涌江横之势，完全不像一个凌晨的校园该有的样子。&lt;/p&gt;
+
+&lt;p&gt;紧接着过不久又一个人的E也被叉掉了，问了下发现三个人的E的做法是一样的……&lt;/p&gt;
+
+&lt;p&gt;于是大家都开始构数据叉最后一个人，要被叉的同学构数据构得最积极。（肥水不流外人田？）&lt;/p&gt;
+
+&lt;p&gt;然后我成功地第一个构出了一组数据，并且把它念给了另一个同学让他帮我check，结果一个口滑数据念错，刚发现自己念错的时候机房中传来了清脆的鼠标声——&lt;/p&gt;
+
+&lt;p&gt;“啪！”&lt;/p&gt;
+
+&lt;p&gt;然后那位要被叉的同学获得了一个Unsuccessful Hack。&lt;/p&gt;
+
+&lt;p&gt;在这里对自己念错数据的行为表示道歉并强烈谴责这种听得风是得雨拿别人想出的数据来叉自己的行为。（？）&lt;/p&gt;
+
+&lt;p&gt;另：亲手叉掉比自己排名高的队友感觉真好。&lt;/p&gt;
+
+&lt;p&gt;于是聚众赌博开始了！&lt;/p&gt;
+
+&lt;p&gt;所有人都抱着同一组数据到处叉人，其中有甚欧者，开出不少假代码而叉之，像我这种非酋……&lt;/p&gt;
+
+&lt;p&gt;综上所述，Codeforces是一种具有与毒品、赌博性质类似的危害巨大的东西。它具有成瘾性（例如一个人打完一把如果涨了rating就会想再打一把，如果掉了rating就会想再打一把）、致幻性（我今天这把稳了！）、心理伤害性（WA on test 97）、生理伤害性（大半夜不睡觉做什么呢）等诸多特点……&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;余波&lt;/h3&gt;
+
+&lt;p&gt;第二天再开榜，发现自己的排名涨了一点。抱着对E题的怨念，我坚持着点开一个又一个人的代码，结果点开一份代码以后，一个函数名称赫然刻在屏幕上……&lt;/p&gt;
+
+&lt;p&gt;DFS！&lt;/p&gt;
+
+&lt;p&gt;什么东西？&lt;/p&gt;
+
+&lt;p&gt;DFS！&lt;/p&gt;
+
+&lt;p&gt;认真看了一下，似乎是记忆化搜索，但是枚举转移的方式似乎很不优秀，大概算是加了剪枝的记忆化搜索……&lt;/p&gt;
+
+&lt;p&gt;于是构了一个极限数据把它卡成平方卡掉了。&lt;/p&gt;
+
+&lt;p&gt;接着开始开别人的代码，这么写的居然还不在少数……&lt;/p&gt;
+
+&lt;p&gt;于是最后成功拿到了+9。其实还可以叉更多的，只不过叉排名在自己后面的人没啥意义，而且我也累了……&lt;/p&gt;
+
+&lt;p&gt;然后看了一下hack记录，居然有一个200+的，几秒能hack一个人，怕不是写了脚本……&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;尾声&lt;/h3&gt;
+
+&lt;p&gt;rating-=42。&lt;/p&gt;
+
+&lt;p&gt;惨。&lt;/p&gt;
+
+&lt;p&gt;要是我B题先写应该还不至于这么惨……&lt;/p&gt;
+</description>
+        <pubDate>Sun, 27 May 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/05/27/Educational_Codeforces_Round44%E7%88%86%E7%82%B8%E8%AE%B0.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/05/27/Educational_Codeforces_Round44%E7%88%86%E7%82%B8%E8%AE%B0.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>Codeforces</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
+    
+      <item>
+        <title>國語羅馬字學習筆記</title>
+        <description>&lt;p&gt;成功浪費了大量時間學習這個奇怪的叫做國語羅馬字的東西。&lt;/p&gt;
+
+&lt;p&gt;變調規則真是多得要命，超麻煩。然而這個方案確實有字符全部限定在ASCII字符集的優點，寫起來看着也比較舒服。&lt;/p&gt;
+
+&lt;p&gt;本文大部分內容參照了維基百科“國語羅馬字”條目&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;聲母表&lt;/h3&gt;
+
+&lt;p&gt;其中形如A/B的東西中A是清音，B是濁音，不存在的東西用-表示&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;雙脣&lt;/td&gt;
+      &lt;td&gt;脣齒&lt;/td&gt;
+      &lt;td&gt;齒齦&lt;/td&gt;
+      &lt;td&gt;齦齶&lt;/td&gt;
+      &lt;td&gt;捲舌&lt;/td&gt;
+      &lt;td&gt;硬齶&lt;/td&gt;
+      &lt;td&gt;軟齶&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;鼻音&lt;/td&gt;
+      &lt;td&gt;-/m&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/n&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/gn&lt;/td&gt;
+      &lt;td&gt;-/ng&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;不送氣塞音&lt;/td&gt;
+      &lt;td&gt;b/-&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;d/-&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;送氣塞音&lt;/td&gt;
+      &lt;td&gt;p/-&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;t/-&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;不送氣塞擦音&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;tz/-&lt;/td&gt;
+      &lt;td&gt;j/-&lt;/td&gt;
+      &lt;td&gt;ji/-&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;g/-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;送氣塞擦音&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;ts/-&lt;/td&gt;
+      &lt;td&gt;ch/-&lt;/td&gt;
+      &lt;td&gt;chi/-&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;k/-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;擦音&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;f/-&lt;/td&gt;
+      &lt;td&gt;s/-&lt;/td&gt;
+      &lt;td&gt;sh/r&lt;/td&gt;
+      &lt;td&gt;shi/-&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;h/-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;邊音&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/-&lt;/td&gt;
+      &lt;td&gt;-/l&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;韻母表&lt;/h3&gt;
+
+&lt;h4 id=&quot;a&quot;&gt;主元音爲低元音/a/及其變體的&lt;/h4&gt;
+
+&lt;p&gt;其中各行分別爲開合齊撮四個呼，各列是不同韻尾，主元音是/a/及其變體。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;-∅&lt;/td&gt;
+      &lt;td&gt;-/i/&lt;/td&gt;
+      &lt;td&gt;-/u/&lt;/td&gt;
+      &lt;td&gt;-/n/&lt;/td&gt;
+      &lt;td&gt;-/ŋ/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;∅-&lt;/td&gt;
+      &lt;td&gt;a&lt;/td&gt;
+      &lt;td&gt;ai&lt;/td&gt;
+      &lt;td&gt;au&lt;/td&gt;
+      &lt;td&gt;an&lt;/td&gt;
+      &lt;td&gt;ang&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/j/-&lt;/td&gt;
+      &lt;td&gt;ia&lt;/td&gt;
+      &lt;td&gt;iai&lt;/td&gt;
+      &lt;td&gt;iau&lt;/td&gt;
+      &lt;td&gt;ian&lt;/td&gt;
+      &lt;td&gt;iang&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/w/-&lt;/td&gt;
+      &lt;td&gt;ua&lt;/td&gt;
+      &lt;td&gt;uai&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;uan&lt;/td&gt;
+      &lt;td&gt;uang&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/ɥ/-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;iuan&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;主元音爲中元音/ə/及其變體的&lt;/h4&gt;
+
+&lt;p&gt;其中各行分別爲開合齊撮四個呼，各列是不同韻尾，主元音是/ə/及其變體。&lt;/p&gt;
+
+&lt;p&gt;兒化音是el。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;-∅&lt;/td&gt;
+      &lt;td&gt;-/i/&lt;/td&gt;
+      &lt;td&gt;-/u/&lt;/td&gt;
+      &lt;td&gt;-/n/&lt;/td&gt;
+      &lt;td&gt;-/ŋ/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;∅-&lt;/td&gt;
+      &lt;td&gt;e/o *&lt;/td&gt;
+      &lt;td&gt;ei&lt;/td&gt;
+      &lt;td&gt;ou&lt;/td&gt;
+      &lt;td&gt;en&lt;/td&gt;
+      &lt;td&gt;eng&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/j/-&lt;/td&gt;
+      &lt;td&gt;ie&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;iou&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/w/-&lt;/td&gt;
+      &lt;td&gt;uo&lt;/td&gt;
+      &lt;td&gt;uei&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;uen **&lt;/td&gt;
+      &lt;td&gt;ueng&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/ɥ/-&lt;/td&gt;
+      &lt;td&gt;iue&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*: 在b,p,m,f後寫作o，在其它聲母後寫作e&lt;/p&gt;
+
+&lt;p&gt;**: 這是“溫”的韻母，關於它的描述似乎有兩種版本，一種是/uən/，另一種是/un/，也不好說哪個是對的。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;主元音爲高元音各音的&lt;/h4&gt;
+
+&lt;p&gt;（也有說法認爲這其中一部分是沒有主元音只有介音，另一部分主元音是/ə/，然而總覺得很彆扭……）&lt;/p&gt;
+
+&lt;p&gt;其中各行分別爲介音+主元音，各列分別爲不同韻尾&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;-∅&lt;/td&gt;
+      &lt;td&gt;-/n/&lt;/td&gt;
+      &lt;td&gt;-/ŋ/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/i/-&lt;/td&gt;
+      &lt;td&gt;i&lt;/td&gt;
+      &lt;td&gt;in&lt;/td&gt;
+      &lt;td&gt;ing&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/u/-&lt;/td&gt;
+      &lt;td&gt;u&lt;/td&gt;
+      &lt;td&gt;uen&lt;/td&gt;
+      &lt;td&gt;ong&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/y/-&lt;/td&gt;
+      &lt;td&gt;iu&lt;/td&gt;
+      &lt;td&gt;iun&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/ju/&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;iong&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;聲調規則&lt;/h3&gt;
+
+&lt;p&gt;最麻煩的一部分……&lt;/p&gt;
+
+&lt;p&gt;先貼一個原文。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;阴平声&lt;/td&gt;
+      &lt;td&gt;同无声调之拼法；例如：花 hua、乌 u。但浊音声母（m、n、l、r）则在声母后加 h；例如：猫 mhau、拉 lha、妞 nhiu、扔 rheng。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;阳平声&lt;/td&gt;
+      &lt;td&gt;(1) 在韵母（包含ong）的母音后面加 r；例如：茶 char、同 torng、神 shern。(2) 韵母为 i、u 开头者改为 y、w；例如：羊 yang、黄 hwang。(3) 韵母仅有单一母音 i、u 时则改为 yi、wu；例如：宜 yi、胡 hwu。iu 改为 yu；例如：徐 shyu。(4) 浊音声母（m、n、l、r）则同无声调之拼法；例如：民 min、泥 ni、连 lian、人 ren。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;上声&lt;/td&gt;
+      &lt;td&gt;(1) 韵母中仅有一个母音，则将其双写；例如：起 chii、古 guu、反 faan。(2) 将复合韵母中之 i、u 改为 e、o；例如：假 jea、管 goan、许 sheu、海 hae、好 hao。(3) 韵头韵尾都有 i、u 者，改韵头不改韵尾；例如：鸟 neau、拐 goai。(4) ei, ie, ou, uo 四韵则不改 i、u而是把 e、o 双写；例如：美 meei、口 koou、解 jiee、果 guoo。(5) 如音节为 i、u 开头时，则变音后在前加 y、w；例如：雅 yea、五 wuu。但 ie、uo两韵则改韵头为 y、w；例如：也 yee、我 woo。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;去声&lt;/td&gt;
+      &lt;td&gt;(1) 韵尾为 -i、-u、-n、-ng、-l 者改为 -y、-w、-nn、-nq、-ll；例如：在 tzay、到 daw、半 bann、正 jenq、二 ell。(2) 其他各韵（包含iu）在韵尾之后加 h；例如：世 shyh、地 dih。(3) 如音节为 i、u 开头时，应改为 y、w；例如：要 yaw、遇 yuh。但若 i、u 为唯一母音时则前加 y、w；例如：意 yih、映 yinq。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;轻声&lt;/td&gt;
+      &lt;td&gt;同无声调之拼法，在音节前方加上一点；例如：的 .de。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;然後是我閱讀了無數遍之後的仍然很麻煩的理解……&lt;/p&gt;
+
+&lt;p&gt;首先根據聲母韻母湊出一個“無聲調拼法”，接着：&lt;/p&gt;
+
+&lt;p&gt;陰平什麼都不變。否則進行兩步操作：&lt;/p&gt;
+
+&lt;p&gt;作基礎變化：&lt;/p&gt;
+
+&lt;p&gt;陽平改介音或高主元音（ong除外，因爲這裏的u寫作o）。介音中的i, u, iu改成y, w, yu；主元音中的i, u, iu改成yi, wu, yu。如果找不到可以改的介音或高主元音，那麼在主元音後加r。&lt;/p&gt;
+
+&lt;p&gt;上聲改出現的&lt;strong&gt;第一個非主元音&lt;/strong&gt;i或u，改成e或o。但是如果出現ie/ei-&amp;gt;ee或者uo/ou-&amp;gt;oo的情況會混淆，不作任何處理，這時也認爲沒有找到可更改的東西。接着如果找不到可更改的東西就雙寫主元音。&lt;/p&gt;
+
+&lt;p&gt;去聲改韻尾，-i, -u, -n, -ng, -l改爲-y, -w, -nn, -nq, -ll。如果找不到可更改的韻尾就在末尾加h。&lt;/p&gt;
+
+&lt;p&gt;接着進行修正：&lt;/p&gt;
+
+&lt;p&gt;否則，&lt;/p&gt;
+
+&lt;p&gt;如果開頭是寫作i, u的介音/j/, /w/，把它們變成y或w。&lt;/p&gt;
+
+&lt;p&gt;如果開頭是寫作e, o的介音/j/, /w/，在它們前面加上一個y或w。&lt;/p&gt;
+
+&lt;p&gt;如果開頭是主元音的i或u（上聲雙寫也在此例），在它們前面加上一個y或w。&lt;/p&gt;
+
+&lt;p&gt;另外的特殊規則：&lt;/p&gt;
+
+&lt;p&gt;考慮到平聲是根據清濁分陰陽的，濁聲母遇到陽平同無聲調之默認拼法，遇到陰平只需在聲母後加h而不需做任何其它變化。&lt;/p&gt;
+
+&lt;p&gt;輕聲同無聲調之拼法，但在前面加一個點’.’。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 06 May 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/05/06/%E5%9C%8B%E8%AA%9E%E7%BE%85%E9%A6%AC%E5%AD%97%E7%AD%86%E8%A8%98.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/05/06/%E5%9C%8B%E8%AA%9E%E7%BE%85%E9%A6%AC%E5%AD%97%E7%AD%86%E8%A8%98.html</guid>
+        
+        <category>語言音韻</category>
+        
+        <category>國語羅馬字</category>
+        
+        
+        <category>linguitics</category>
+        
+      </item>
     
       <item>
         <title>输出语句调试科技系列</title>
