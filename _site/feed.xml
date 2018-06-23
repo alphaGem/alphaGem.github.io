@@ -6,9 +6,96 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 Jun 2018 11:23:58 +0800</pubDate>
-    <lastBuildDate>Wed, 13 Jun 2018 11:23:58 +0800</lastBuildDate>
+    <pubDate>Sat, 23 Jun 2018 23:10:32 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jun 2018 23:10:32 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>SI基本单位重定义</title>
+        <description>&lt;p&gt;今年5月20号的时候看见SI要改基本单位定义的事情，于是跟物理社别的同学一起研究了一下……这次的重定义主题是“常量化”，新钦点了大量常数。然后千克原器这种玄学的东西终于可以从定义里面踢出去了啊哈哈哈哈！&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;定义不变的单位&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;秒&lt;/strong&gt;($\mathrm{s}$)：仍沿用现有的定义，一秒定义为铯133原子基态超精细能阶分裂辐射一个周期长度的 $9,192,631,770$ 倍。也就是说，我们钦点&lt;/p&gt;
+
+&lt;p&gt;$^{133}\mathrm{Cs}$原子基态超精细能阶分裂辐射频率为 $\Delta v(^{133}\mathrm{Cs})_{\mathrm{hfs}}=9,192,631,770\mathrm{Hz}$。&lt;/p&gt;
+
+&lt;p&gt;其中我们有 $\mathrm{Hz}=\mathrm{s^{-1}}$。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;米&lt;/strong&gt;($\mathrm{m}$)：仍沿用现有的定义，一米定义为真空中光在 $\frac{1}{299.792.458}\mathrm{s}$ 内通过的距离。也就是说，我们钦点&lt;/p&gt;
+
+&lt;p&gt;真空光速为 $c=299,792,458\mathrm{m\cdot s^{-1}}$。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;坎德拉&lt;/strong&gt;($\mathrm{cd}$)：仍沿用现有的定义，一坎德拉定义为频率为 $540×10^{12}\mathrm{Hz}$ 的单色辐射光源（黄绿色可见光）发出在特定方向辐射强度为 $\frac{1}{683}$ 瓦特每球面度的光时的发光强度。也就是说，我们钦点&lt;/p&gt;
+
+&lt;p&gt;频率为 $540×10^{12}\mathrm{Hz}$ 光辐射的发光效率为 $K_{\mathrm{cd}}=683 \mathrm{cd\cdot sr\cdot W^{-1}}$。&lt;/p&gt;
+
+&lt;p&gt;其中我们有 $\mathrm{W}=\mathrm{J\cdot s^{-1}}=\mathrm{N\cdot m\cdot s^{-1}}=\mathrm{kg\cdot m^2\cdot s^{-3}}$。&lt;/p&gt;
+
+&lt;p&gt;至于其它的频率？坎德拉是发光强度的单位，发光强度这个量的定义挺玄学的，它的定义采用了视见函数，实际上是跟人眼对不同波长光的敏感程度有关系的。视见函数怎么来？当然是找一堆人做实验测量……而 $540\times 10^{12}$ 是人眼最敏感的波长，所以就拿到定义里来了。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;定义改变的单位&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;千克&lt;/strong&gt;($\mathrm{kg}$)：现有的原定义是一千克定义为国际千克原器的质量。将被改用普朗克常数定义。我们钦点&lt;/p&gt;
+
+&lt;p&gt;普朗克常数为 $h=6.626,070,15\times10^{-34}\mathrm{J\cdot s}=6.626,070,15\times10^{−34} \mathrm{kg\cdot m^2\cdot s^{−1}}$。&lt;/p&gt;
+
+&lt;p&gt;然后根据米和秒，结合普朗克常数，我们可以得到千克。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;开尔文&lt;/strong&gt;($\mathrm{K}$)：现有的原定义是一开尔文定义为水的三相点与绝对零度的温度差的 $\frac{1}{273.16}$。将被改用玻尔兹曼常数定义。我们钦点&lt;/p&gt;
+
+&lt;p&gt;玻尔兹曼常数为 $k=1.380,649\times 10^{–23}\mathrm{J/K}$。&lt;/p&gt;
+
+&lt;p&gt;这样根据米、秒和千克，我们可以得到焦耳，再结合玻尔兹曼常数，我们可以得到开尔文。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;摩尔&lt;/strong&gt;($\mathrm{mol}$)：现有的原定义是 $12\mathrm{g}^{12}\mathrm{C}$ 含有的原子个数。将被改用阿伏伽德罗常数定义。我们钦点&lt;/p&gt;
+
+&lt;p&gt;阿伏伽德罗常数为 $N_{\mathrm{A}}=6.022,140,76\times 10^{23}\mathrm{mol^{–1}}$。&lt;/p&gt;
+
+&lt;p&gt;也就是说，含有阿伏伽德罗常数个粒子的物质的量为一摩尔。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;安培&lt;/strong&gt;($\mathrm{A}$)：现有的原定义是使真空中两根距离一米的横截面积可忽略不计的无限长直导线中处处通过大小相等的电流，当两根导线间的作用力为 $2\times10^{–7}\mathrm{N}$ 每米时，定义导线中的电流大小为一安培。将被改用基本电荷定义。我们钦点&lt;/p&gt;
+
+&lt;p&gt;基本电荷为 $e=1.602,176,634\times 10^{–19}\mathrm{C}$。&lt;/p&gt;
+
+&lt;p&gt;同时，我们有 $\mathrm{C}=\mathrm{A\cdot s^{-1}}$。我们就可以根据秒结合基本电荷得到安培。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;总结&lt;/h3&gt;
+
+&lt;p&gt;用两张图来概括一下内容。（图来源：wikimedia commons，详见源码。）&lt;/p&gt;
+
+&lt;p&gt;这一张是旧的单位之间的关系。箭头代表一个单位依赖另一个单位。&lt;/p&gt;
+
+&lt;p&gt;&lt;a title=&quot;By Dono [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0) or GFDL (http://www.gnu.org/copyleft/fdl.html)], from Wikimedia Commons&quot; href=&quot;https://commons.wikimedia.org/wiki/File:SI_base_unit.svg&quot;&gt;&lt;img width=&quot;512&quot; alt=&quot;SI base unit&quot; src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/SI_base_unit.svg/512px-SI_base_unit.svg.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这一张是新的。可以看到，每个单位现在都依赖于一个常数，单位之间的关系也更密切了。&lt;/p&gt;
+
+&lt;p&gt;&lt;a title=&quot;By Wikipetzi [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], from Wikimedia Commons&quot; href=&quot;https://commons.wikimedia.org/wiki/File:Relations_between_new_SI_units_definitions.png&quot;&gt;&lt;img width=&quot;512&quot; alt=&quot;Relations between new SI units definitions&quot; src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Relations_between_new_SI_units_definitions.png/512px-Relations_between_new_SI_units_definitions.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;总而言之，这一发改的还是挺科学的。千克原器终于退休了，一些类似于普朗克常数、玻尔兹曼常数或者阿伏伽德罗常数之类的重要常数也被定下来，不需要再天天纠结着对着一些实际的物质进行测量，使用更加方便了。&lt;/p&gt;
+
+&lt;p&gt;同时可以看到，很多单位的定义也变得更抽象了，比如使用普朗克常数或是玻尔兹曼常数进行定义的千克和开尔文就难以再用一句简短的话表述它们在现实中的具体含义，而理解这两个单位也需要用到一些更复杂的物理知识。&lt;/p&gt;
+
+&lt;p&gt;就是安培的定义改掉了，导致真空磁导率炸了而不再是常数了，这一点实在是可惜。这样电磁学的好多式子里的原来的常数也就都不再是常数了。啊……还是有点心疼真空磁导率啊……或许他们改这一发有他们的考量吧。毕竟如果心疼常数的话可以选择使用自然单位制，SI还是主要要考虑到实际运用中的精度等问题。&lt;/p&gt;
+
+&lt;p&gt;参考资料：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.bipm.org/en/measurement-units/&quot;&gt;BIMP给出的现有定义（英语）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.bipm.org/en/measurement-units/rev-si/#communication&quot;&gt;BIMP给出的可能的新定义（英语）&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Jun 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/06/23/SI%E5%9F%BA%E6%9C%AC%E5%8D%95%E4%BD%8D%E9%87%8D%E5%AE%9A%E4%B9%89.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/06/23/SI%E5%9F%BA%E6%9C%AC%E5%8D%95%E4%BD%8D%E9%87%8D%E5%AE%9A%E4%B9%89.html</guid>
+        
+        <category>自然科学</category>
+        
+        <category>单位与量纲</category>
+        
+        
+        <category>science</category>
+        
+      </item>
     
       <item>
         <title>神奇的编译器除法优化</title>
