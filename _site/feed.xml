@@ -6,9 +6,126 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 16 Jul 2018 21:57:25 +0800</pubDate>
-    <lastBuildDate>Mon, 16 Jul 2018 21:57:25 +0800</lastBuildDate>
+    <pubDate>Tue, 17 Jul 2018 20:59:44 +0800</pubDate>
+    <lastBuildDate>Tue, 17 Jul 2018 20:59:44 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>NOI2018游记Day0.5</title>
+        <description>&lt;p&gt;NOI2018系列游记Day0.5。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;插曲&lt;/h3&gt;
+
+&lt;p&gt;前一天晚上，刚睡下去，却被一阵喧闹吵醒。&lt;/p&gt;
+
+&lt;p&gt;是舍管要求所有换了房间的人换回去。&lt;/p&gt;
+
+&lt;p&gt;十点熄灯，这么晚熄灯就算了，你们还在十点半吵醒人。&lt;del&gt;是不是想杀了我啊！&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;（不行，要保持良好形象，不能说这种暴力的话。）&lt;/p&gt;
+
+&lt;p&gt;最后当晚大家还是没有换宿舍。&lt;/p&gt;
+
+&lt;p&gt;这一天早上，想要冲咖啡，结果倒完咖啡粉发现按下开水按钮出来的水是冷的……&lt;/p&gt;
+
+&lt;p&gt;凉凉。&lt;/p&gt;
+
+&lt;p&gt;不过好的事情是，早上去阳台的时候看见两栋宿舍间不知道什么树上的花开了，粉色的一团一团给阳光照着，甚是可爱。还有一种树叶呈现紫红色的树，也来这里增添色彩。什么东西到了阳光底下都要变得明亮而鲜活，于是一块逼仄的地方就有了许多种鲜亮的颜色。&lt;/p&gt;
+
+&lt;p&gt;对，出了门，阳光照下来的那一刻，我觉得大概我也变得明亮而鲜活。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;笔试与试机&lt;/h3&gt;
+
+&lt;p&gt;笔试试机的时间被和开幕式对调了。&lt;/p&gt;
+
+&lt;p&gt;笔试简单得很。十分钟穿掉不是什么难事。&lt;/p&gt;
+
+&lt;p&gt;题目示例（可能与原题有所不符，但精神上类似）：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果程序在运行过程中超出内存限制，那么__$1__&lt;/p&gt;
+
+  &lt;p&gt;Selection 1:&lt;/p&gt;
+
+  &lt;p&gt;A. 程序无法正常运行，该测试点得满分。&lt;/p&gt;
+
+  &lt;p&gt;B. 程序无法正常运行，该测试点得零分。&lt;/p&gt;
+
+  &lt;p&gt;C. 程序可以正常运行，该测试点得零分。&lt;/p&gt;
+
+  &lt;p&gt;D. 程序无法正常运行，该测试点得一半分数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;唔。&lt;/p&gt;
+
+&lt;p&gt;接着是试机。试验了一下Gedit的外挂shell功能能不能用，写了个a+b，然后玩了一两个小时的python画图。&lt;/p&gt;
+
+&lt;p&gt;画图的内容主要是根据牛顿迭代的次数和结果对复平面上的点进行上色。迭代到不同的解上不同的颜色，迭代次数越多上的颜色越深。&lt;/p&gt;
+
+&lt;p&gt;一开始画的是很特殊的多项式 $f(x)=x^5-1$ （这是从维基百科上看来的，似乎是条目“吸引子”里的，要么就是什么关系很近的条目）。这只是为了测试一下画图能不能用。接着试了一些平凡的多项式（多项式用它的各个根给出，最前面的系数为1，毕竟这里系数不是很重要），效果并不理想，画出来的图形都很难看。于是测试了一些特殊的东西——比如说，在等边三角形上取三个顶点和三个中点作为根。画出来的图形就漂亮了很多。然而因为配色是随便上的，所以还是有点糟糕。懒得调配色了，于是就回了宿舍。&lt;/p&gt;
+
+&lt;p&gt;结果发现没有WiFi，又要出门。&lt;/p&gt;
+
+&lt;p&gt;呜呼！WiFi与空调不可兼得……&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;开幕式&lt;/h3&gt;
+
+&lt;p&gt;拉德茨基进行曲、红旗颂、Hot Chocolate……&lt;/p&gt;
+
+&lt;p&gt;热。&lt;/p&gt;
+
+&lt;p&gt;毕竟杜子德都说了：“太热了，不讲了。”&lt;/p&gt;
+
+&lt;p&gt;气氛也是很火热的。毕竟大家一起尬就不尬了。&lt;/p&gt;
+
+&lt;p&gt;我怀疑这是广东省队的阴谋，他们只想吃清蒸福建人……&lt;/p&gt;
+
+&lt;p&gt;啊，对，明年NOI，广州，希望不要被吃掉……&lt;/p&gt;
+
+&lt;p&gt;然后大家一起在下面拍了照，就去吃饭。冷饮和瓜真的非常好评。吹爆绿豆冰沙。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;天空的颜色&lt;/h3&gt;
+
+&lt;p&gt;吃完晚饭。&lt;/p&gt;
+
+&lt;p&gt;实在不想去阅览室——太热。&lt;/p&gt;
+
+&lt;p&gt;也不想回宿舍——没网。&lt;/p&gt;
+
+&lt;p&gt;于是在外面到处转悠（真的，外面要比阅览室凉快，尤其是风吹过来的时候），一点一点数着天空的颜色……&lt;/p&gt;
+
+&lt;p&gt;一开始是西方呈现出黄色而东方与天顶呈现出蓝色。中间用很浅的灰绿色过渡过去。然后西方一点一点转成橙色，然后转成朱红。整个天由蓝色慢慢转向蓝灰色。其间在北方靠近地平线的位置是紫色。&lt;/p&gt;
+
+&lt;p&gt;过了一会儿，太阳终于要完全失去它的光亮了。西方的天空从下往上是从红色到青色再到蓝灰（靠近地平线的云有一丝红紫），顺序像彩虹一样排布，但却不如彩虹鲜亮。这时候，月亮和金星已经很明显地挂在西天蓝灰的背景下了，南边的木星和土星也清晰可见。努力看看，可以依稀辨别出大角以及心宿二。&lt;/p&gt;
+
+&lt;p&gt;Heavens-above告诉我八点有一个人造卫星过境，于是就看了看。最大亮度0.7，在天还没有完全暗下来的时候隐约能看见一个光点划过南天。&lt;/p&gt;
+
+&lt;p&gt;然后后面到九点为止还有四个人造卫星。&lt;/p&gt;
+
+&lt;p&gt;于是先回宿舍休息，然而一进空调房就不想出去了orz……&lt;/p&gt;
+
+&lt;p&gt;在空间里面也看到了几张ycy拍的福州的照片：夕阳以一个微妙的角度从地平线下射上来，打在灰色的积云上，把积云的底部染成橙色或者红色，十分炫酷。&lt;/p&gt;
+
+&lt;p&gt;早晨和傍晚总是色彩最丰富的时候。&lt;/p&gt;
+
+&lt;p&gt;然而这么多的色彩放在一起，居然很协调。&lt;/p&gt;
+
+&lt;p&gt;不由得想起今天上午配色失败的例子。&lt;/p&gt;
+
+&lt;p&gt;C’est la nature.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jul 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/07/17/NOI2018%E6%B8%B8%E8%AE%B0Day0.5.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/07/17/NOI2018%E6%B8%B8%E8%AE%B0Day0.5.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>NOI</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
     
       <item>
         <title>NOI2018游记Day0</title>
@@ -32,7 +149,7 @@
 
 &lt;p&gt;我觉得是有的。我回去的时候一定要认真看看。&lt;/p&gt;
 
-&lt;p&gt;看不出不同，大约是在车上背笔试题的缘故。使用了Anki，感觉确实很不错，比起拿着纸质材料盯着看效率要高许多。同时还发现了坐在隔壁的一位同校学长声称自己背好了笔试，然而一考，却是一问三不知，连忙也帮他复习了一下笔试。&lt;/p&gt;
+&lt;p&gt;看不出不同，大约是在车上背笔试题的缘故。使用了Anki，感觉确实很不错，比起拿着纸质材料盯着看效率要高许多。同时还发现了坐在隔壁的E.Space声称自己背好了笔试，然而一考，却是一问三不知，连忙也帮他复习了一下笔试。&lt;/p&gt;
 
 &lt;p&gt;中午在车上睡了一觉，下午便到了长沙。长沙也甚炎热，和福州要不相上下——尤其是蓝天白云，衬得阳光更为耀眼。尤其是我们被闷在车库排队安检上车的时候，好像是两股力量在相抗争，一个要把自己身上的水挤出来，一个要把自己身上的水压回去……到了学校，便好了许多（毕竟有空调）。&lt;/p&gt;
 
