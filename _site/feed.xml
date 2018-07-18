@@ -6,9 +6,121 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Jul 2018 21:06:53 +0800</pubDate>
-    <lastBuildDate>Tue, 17 Jul 2018 21:06:53 +0800</lastBuildDate>
+    <pubDate>Wed, 18 Jul 2018 19:20:52 +0800</pubDate>
+    <lastBuildDate>Wed, 18 Jul 2018 19:20:52 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>NOI2018游记Day1</title>
+        <description>&lt;p&gt;NOI2018系列游记Day1。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;六点&lt;/h3&gt;
+
+&lt;p&gt;哨声。&lt;/p&gt;
+
+&lt;p&gt;以及一声锐利的“起床啦——”&lt;/p&gt;
+
+&lt;p&gt;于是睡眠不足。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;一试&lt;/h3&gt;
+
+&lt;p&gt;第一个题很快想出了可持久化并查集的做法。&lt;/p&gt;
+
+&lt;p&gt;然后码调拍花了两个小时。&lt;/p&gt;
+
+&lt;p&gt;打掉第二题44分暴力。&lt;/p&gt;
+
+&lt;p&gt;回头测第一题极限数据，随机数据4.5s。&lt;/p&gt;
+
+&lt;p&gt;TL=4s。&lt;/p&gt;
+
+&lt;p&gt;把可持久化线段树的递归改成了非递归。&lt;/p&gt;
+
+&lt;p&gt;user time 3.8s。&lt;/p&gt;
+
+&lt;p&gt;把第一次跑Kruskal的时候的并查集从可持久化线段树上卸了下来。&lt;/p&gt;
+
+&lt;p&gt;user time 3.0s。&lt;/p&gt;
+
+&lt;p&gt;来不及写第三个题。&lt;/p&gt;
+
+&lt;p&gt;144滚粗预定。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;回音&lt;/h3&gt;
+
+&lt;p&gt;在群上看到第一个题读入的地方卡int。&lt;/p&gt;
+
+&lt;p&gt;顿时一惊。我好像更惨了。&lt;/p&gt;
+
+&lt;p&gt;好在很快出题人说他没卡……&lt;/p&gt;
+
+&lt;p&gt;第三题是SAM板子题，大家都会。&lt;/p&gt;
+
+&lt;p&gt;真的滚粗了。&lt;/p&gt;
+
+&lt;p&gt;不过既然是D类，其实，在两三个月之前我已经滚粗了。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;圣人&lt;/h3&gt;
+
+&lt;p&gt;在雅洋的食堂北墙上看到了一排的人物和介绍。&lt;/p&gt;
+
+&lt;p&gt;从西向东按顺序分别是：&lt;/p&gt;
+
+&lt;p&gt;马克思/哥伦布/牛顿/爱迪生/孔子/达尔文/耶稣/爱因斯坦。&lt;/p&gt;
+
+&lt;p&gt;我觉得把这些人放在一起，很有意思。&lt;/p&gt;
+
+&lt;p&gt;不由得想起一句话。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我关于科学、信念、以及信仰，还有它们之间的关系，有着似乎是奇怪的看法。&lt;/p&gt;
+
+&lt;p&gt;如果想要深入了解（或者传教，但是一般没有效果），可能可以私聊？&lt;/p&gt;
+
+&lt;p&gt;为了避免冒犯与我意见不同的人，这里还是不说了为好。&lt;/p&gt;
+
+&lt;p&gt;总之还是那句话。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;圣人不死，大盗不止！&lt;/p&gt;
+
+&lt;p&gt;圣人不死，大盗不止！&lt;/p&gt;
+
+&lt;p&gt;需要，&lt;/p&gt;
+
+&lt;p&gt;使民众都，&lt;/p&gt;
+
+&lt;p&gt;足够愚昧，&lt;/p&gt;
+
+&lt;p&gt;或者，&lt;/p&gt;
+
+&lt;p&gt;使民众都，&lt;/p&gt;
+
+&lt;p&gt;足够聪慧！&lt;/p&gt;
+
+&lt;p&gt;当然，我上面说的一切都可能是错的。&lt;/p&gt;
+
+&lt;p&gt;毕竟对于什么观念都要怀疑。包括怀疑自己。包括怀疑怀疑。&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/07/18/NOI2018%E6%B8%B8%E8%AE%B0Day1.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/07/18/NOI2018%E6%B8%B8%E8%AE%B0Day1.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>NOI</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
     
       <item>
         <title>NOI2018游记Day0.5</title>
@@ -98,7 +210,7 @@
 
 &lt;p&gt;过了一会儿，太阳终于要完全失去它的光亮了。西方的天空从下往上是从红色到青色再到蓝灰（靠近地平线的云有一丝红紫），顺序像彩虹一样排布，但不如彩虹鲜亮。这时候，月亮和金星已经很明显地挂在西天蓝灰的背景下了，南边的木星和土星也清晰可见。努力看看，可以依稀辨别出大角以及心宿二。&lt;/p&gt;
 
-&lt;p&gt;Heavens-above告诉我八点有一个人造卫星过境，于是就看了看。最大亮度0.7，在天还没有完全暗下来的时候隐约能看见一个光点划过南天。&lt;/p&gt;
+&lt;p&gt;Heavens-above告诉我八点有一个人造卫星过境，于是就看了看。最大亮度0.7，在天还没有完全暗下来的时候隐约能看见一个光点划过东天。&lt;/p&gt;
 
 &lt;p&gt;然后后面到九点为止还有四个人造卫星。&lt;/p&gt;
 
@@ -1493,87 +1605,6 @@ movl	%edx, %eax
         <category>OI</category>
         
         <category>computer</category>
-        
-      </item>
-    
-      <item>
-        <title>NOIWC2018游记</title>
-        <description>&lt;p&gt;到长沙&lt;del&gt;玩了一发&lt;/del&gt;参加了NOI2018冬眠营，然后因为太弱正解基本都没听懂，但是学了一堆的奇奇怪怪的东西，像什么分析方法乱搞骗分之类的，这里把个人认为比较好的idea不完全列举如下。&lt;del&gt;不过感觉拿出去应该都是烂大街的东西。&lt;/del&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;势能函数分析&lt;/h3&gt;
-
-&lt;p&gt;为了分析算法的时间复杂度/正确性等，我们引入当前状态的势能函数，然后证明每次操作势能函数的变化量一定满足一些条件，来推出算法的时间复杂度/正确性是对的。&lt;/p&gt;
-
-&lt;p&gt;比如说我们现在要证明一个算法跑出的解不会超过最优解的 $k$ 倍，那么我们就引入势能函数 $\phi$ 代表当前我们的状态下我们离最优解差多少（这里 $\phi$ 的设计需要比较合理），然后假设最优解和我们分别操作一轮，最优解使 $\phi$ 增大了 $kd$，而我们的操作使 $\phi$ 减少了 $d$，那么我们就证明出了我们的算法跑出的解确实不会超过最优解的 $k$ 倍。&lt;/p&gt;
-
-&lt;p&gt;这样做便于数学表述。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;判断点在多边形内&lt;/h3&gt;
-
-&lt;p&gt;你不一定要作射线去跟多边形交，可以作折线，这样就可以支持特定情况下点的移动了（比如网格图里面）。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;遗传算法的全过程&lt;/h3&gt;
-
-&lt;p&gt;//预计开一个新坑，然后配一道题来说，后面可能会把链接挂过来。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-3&quot;&gt;蚁群算法的全过程&lt;/h3&gt;
-
-&lt;p&gt;//同上。&lt;/p&gt;
-
-&lt;h3 id=&quot;fft&quot;&gt;FFT的物理意义&lt;/h3&gt;
-
-&lt;p&gt;其实我最早学FFT的时候是这样的：&lt;/p&gt;
-
-&lt;p&gt;-要学FFT肯定要先学FT呀！&lt;/p&gt;
-
-&lt;p&gt;（学了好久好久的FT，爆肝物理）&lt;/p&gt;
-
-&lt;p&gt;-我大概了解FT在干什么了。那么FFT呢？&lt;/p&gt;
-
-&lt;p&gt;（开始看FFT）&lt;/p&gt;
-
-&lt;p&gt;-FFT和FT有什么关系么！你说时域转成频域就可以做乘积，然后就贴了一个板子，这个板子是在做什么呀！&lt;/p&gt;
-
-&lt;p&gt;（滚回去继续理解FT）&lt;/p&gt;
-
-&lt;p&gt;-完全无法理解[托腮]&lt;/p&gt;
-
-&lt;p&gt;（最后还是选择了背板）&lt;/p&gt;
-
-&lt;p&gt;然后大概这次才是基本弄清楚了FT到底是怎么到FFT的。实际上大概就是物理是玩这个世界，然后玩着玩着开始推数学，但是数学是造一个世界自己玩，然后就越玩越远了x&lt;/p&gt;
-
-&lt;p&gt;不过FT还是确实挺有用的（看起来Praat这个软件就是跑了个FT来分析共振峰，共振峰分析在语音学上也还是蛮有用的吧。所以说各个学科还是相互服务的。）&lt;/p&gt;
-
-&lt;p&gt;具体大约要看松松松的课件我在这里可能讲不清楚x&lt;/p&gt;
-
-&lt;h3 id=&quot;section-4&quot;&gt;从现有的算法来看待问题，尤其是交互式题目&lt;/h3&gt;
-
-&lt;p&gt;比如说像营里面课上有一个交互题，题意是这样的：有一张&lt;strong&gt;有向图&lt;/strong&gt;，$n$ 个点，每个点是一个房间，度数为 $m$ ，即从房间有 $m$ 条长得一模一样的通道连出去，房间的正中间有一个石子（后面的石子可能就被移动不在中间了），你每次在一个房间里的时候可以把石子放到一条通道的左边或者右边，然后选择一条通道走出去。这里因为通道长得一样，所以你的参照物是石子，你放置石子或者走通道只能够说”我选择我刚进入这个房间的时候房间里面石子的位置顺时针转过多少个通道的那个通道“。你被随机丢到了一个房间里面，你需要遍历这个图。&lt;/p&gt;
-
-&lt;p&gt;然后就是Tarjan改版，记一下返祖边和横叉边。&lt;/p&gt;
-
-&lt;p&gt;还有后面比赛的题目，有一颗树，一开始只有 $1$ 已知，每一次你需要选择一个已知点 $x$ 和一个点 $y$ ，然后交互库会返回 $x$ 到 $y$ 路径上离 $x$ 最近的点 $z$，并且如果 $z$ 是未知点，它就会被标记成已知点（开地图过程）。然后你需要用 $nlogn$ 级别的操作次数开完整个地图。&lt;/p&gt;
-
-&lt;p&gt;利用替罪羊树的重构思想可以高分甚至 $AC$。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-5&quot;&gt;一些长得像“树上最长链”一样的问题的近似求解&lt;/h3&gt;
-
-&lt;p&gt;可以使用类似于找最长链的方法，找一个基准点，找到离它最远的点，接着以这个点为基准点重复上面的操作，多次迭代，并且多选几次基准点，就有可能跑出优秀的解。&lt;/p&gt;
-
-&lt;h3 id=&quot;etc&quot;&gt;etc…&lt;/h3&gt;
-
-&lt;p&gt;然后学着学着就比赛了，比赛的时候T2看错题意，居然直接过了大样例，出考场完听别人说题面出锅了我才发现自己看错了题意。于是就因为这个看错题意节省了一堆时间，但是最后T1还是有12分暴力没调出来，最后就滚粗了。而且感觉自己预支了省选的RP[害怕.jpg]。&lt;/p&gt;
-</description>
-        <pubDate>Thu, 08 Feb 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/02/08/NOIWC2018%E6%B8%B8%E8%AE%B0.html</guid>
-        
-        <category>信息竞赛</category>
-        
-        <category>NOIWC2018</category>
-        
-        
-        <category>OI</category>
         
       </item>
     
