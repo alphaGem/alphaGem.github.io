@@ -6,9 +6,386 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 18 Jul 2018 19:49:48 +0800</pubDate>
-    <lastBuildDate>Wed, 18 Jul 2018 19:49:48 +0800</lastBuildDate>
+    <pubDate>Mon, 03 Dec 2018 20:53:07 +0800</pubDate>
+    <lastBuildDate>Mon, 03 Dec 2018 20:53:07 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>python画图科技</title>
+        <description>&lt;p&gt;学信息技术如此之久，却始终在与终端打交道。苦于无力图像处理许久了，直到前段时间知道了如何用python操作图片文件。尽管程序的界面仍是终端的，但毕竟还是能打上点彩色的漆……&lt;/p&gt;
+
+&lt;p&gt;又或者，比赛的时候，可以以此画一些较为精准的图片，以此帮助分析。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;基本操作&lt;/h3&gt;
+
+&lt;p&gt;首先，需要有Image库。NOI Linux是自带Image库的。有些时候电脑里会找不到Image库，这时不妨试试PIL.Image，看有没有这个库，毕竟是同出而异名。再没有，就用pip安装好了。&lt;/p&gt;
+
+&lt;p&gt;然后是一些约定：我们管一个有序数对 $(a,b)$ 叫做“坐标”，它代表图片上的一个位置，其中a代表这在图片的从左到右第几列，b代表这在图片的从上到下第几行，从0开始编号。管一个三元组(R,G,B)或者一个形如’#RrGgBb’的字符串叫作“颜色”。&lt;/p&gt;
+
+&lt;p&gt;接着是一些函数——如果没有理解如何使用，可以看这段后面底下的实例运用一节。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;新建图像&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;	&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;这会返回一个图像类型的变量，是最开始的操作。其中，mode代表配色类型，输入一个字符串，一般用’RGB’；size是图片大小，是一个有序数对(x,y)，代表宽为x，高为y。&lt;/p&gt;
+
+&lt;p&gt;举个例子：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;	&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;RGB&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;这样，im就是一张RGB配色，宽2000像素，高1000像素的白底图片。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;更改像素&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;咕咕咕咕此坑待填&lt;/h1&gt;
+</description>
+        <pubDate>Wed, 19 Sep 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/09/19/python%E7%94%BB%E5%9B%BE%E7%A7%91%E6%8A%80.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/09/19/python%E7%94%BB%E5%9B%BE%E7%A7%91%E6%8A%80.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>python</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
+    
+      <item>
+        <title>NOI2018游记Day3</title>
+        <description>&lt;p&gt;NOI2018系列游记Day3。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;归程&lt;/h3&gt;
+
+&lt;p&gt;回家了。&lt;/p&gt;
+
+&lt;p&gt;一开始认真看了一下窗外的景象。&lt;/p&gt;
+
+&lt;p&gt;还是与来时的描述有些许不同的。&lt;/p&gt;
+
+&lt;p&gt;有的房子长得确实可爱！&lt;/p&gt;
+
+&lt;p&gt;回去的路上教练也讲了接下来的安排。&lt;/p&gt;
+
+&lt;p&gt;然后在群上发公告的时候……&lt;/p&gt;
+
+&lt;p&gt;出现了一些问题！&lt;/p&gt;
+
+&lt;p&gt;你们的公告有敏感词，发不出去！&lt;/p&gt;
+
+&lt;p&gt;于是？&lt;/p&gt;
+
+&lt;p&gt;于是我们开始分治。&lt;/p&gt;
+
+&lt;p&gt;最后终于定位出了敏感词：&lt;/p&gt;
+
+&lt;p&gt;……远程视频学习。）组长负责把……&lt;/p&gt;
+
+&lt;p&gt;是“习。）组长”&lt;/p&gt;
+
+&lt;p&gt;对的，估计是把所有标点去掉跑个AC自动机。&lt;/p&gt;
+
+&lt;p&gt;我们甚至还在车上现场以这个为背景造了一个题。&lt;/p&gt;
+
+&lt;p&gt;于是归程，也是启航。&lt;/p&gt;
+
+&lt;p&gt;一切都开始了。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 22 Jul 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/07/22/NOI2018%E6%B8%B8%E8%AE%B0Day3.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/07/22/NOI2018%E6%B8%B8%E8%AE%B0Day3.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>NOI</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
+    
+      <item>
+        <title>NOI2018游记Day2.5</title>
+        <description>&lt;p&gt;NOI2018系列游记Day2.5。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;笙歌散尽&lt;/h3&gt;
+
+&lt;p&gt;早上是文艺汇演。&lt;/p&gt;
+
+&lt;p&gt;然而变成了大型咕咕现场。&lt;/p&gt;
+
+&lt;p&gt;前半个小时，台上空无一人。&lt;/p&gt;
+
+&lt;p&gt;然后就变成了大型拉拉现场。&lt;/p&gt;
+
+&lt;p&gt;突然开始放LL的视频。&lt;/p&gt;
+
+&lt;p&gt;接着就陆续有选手上台唱歌了。&lt;/p&gt;
+
+&lt;p&gt;wzt和chj都上了台。&lt;/p&gt;
+
+&lt;p&gt;然而五音不全的我……&lt;/p&gt;
+
+&lt;p&gt;当时甚至还想上台念诗，但是还是放弃了。&lt;/p&gt;
+
+&lt;p&gt;毕竟一堆唱歌的里面混一个念诗很奇怪。&lt;/p&gt;
+
+&lt;p&gt;而且我可能念得还不是很好。&lt;/p&gt;
+
+&lt;p&gt;也罢。&lt;/p&gt;
+
+&lt;p&gt;我觉得我可以准备一个中古汉语潘悟云拟音的念诗备着救场用。&lt;/p&gt;
+
+&lt;p&gt;可能还要准备一个国际歌来在被钦点唱歌并且只能唱歌的时候救场用。&lt;/p&gt;
+
+&lt;p&gt;最后还有大佬直播拍音游……&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;游人去&lt;/h3&gt;
+
+&lt;p&gt;下午是闭幕式。&lt;/p&gt;
+
+&lt;p&gt;音响效果感人。真是。声音巨大无比。&lt;/p&gt;
+
+&lt;p&gt;然后看着一个个选手上台领取了奖牌。&lt;/p&gt;
+
+&lt;p&gt;于是想起朱自清的荷塘月色里面那句——&lt;/p&gt;
+
+&lt;p&gt;“热闹是他们的，我什么也没有。”&lt;/p&gt;
+
+&lt;p&gt;毕竟是D类Ag线选手。没人权也是正常的。&lt;/p&gt;
+
+&lt;p&gt;于是在这一刻，我意识到我其实是一个旁观者，前几日似乎我很融入其中，但是最后一刻，我还是要被从这一切中剥离出来。&lt;/p&gt;
+
+&lt;p&gt;对，像一把游戏，不是么？&lt;/p&gt;
+
+&lt;p&gt;我也许也可以念MInecraft的终末之诗。&lt;/p&gt;
+
+&lt;p&gt;最后在拍照的时候教练还是让同校一个Ag的同学把他的牌子借给了我拍。&lt;/p&gt;
+
+&lt;p&gt;有一种奇妙的感受。&lt;/p&gt;
+
+&lt;p&gt;特别是当你一算，发现你只需要在半年多一前的那一场NOIP中不要把n和m打反就可以拿到一块一样的牌子的时候？&lt;/p&gt;
+
+&lt;p&gt;或者你只要在省选的Day1把那个计算几何写出来也行？&lt;/p&gt;
+
+&lt;p&gt;或者你只要在省选的Day2把那个线段树合并调出来也行？&lt;/p&gt;
+
+&lt;p&gt;不过我原本也并没有打算在这个时候拿到这样的一块牌子……&lt;/p&gt;
+
+&lt;p&gt;对，对，我想起了这个游戏，叫作史丹利的寓言。&lt;/p&gt;
+
+&lt;p&gt;“当史丹利来到打开的两扇门前，他走进了左边的门。”&lt;/p&gt;
+
+&lt;p&gt;“当史丹利……”&lt;/p&gt;
+
+&lt;p&gt;旁白会在你作出每一次选择的时候告诉你要怎么办。&lt;/p&gt;
+
+&lt;p&gt;而你按照旁白的做就会顺利逃出生天。&lt;/p&gt;
+
+&lt;p&gt;可是这个结局的名字叫做假结局。&lt;/p&gt;
+
+&lt;p&gt;如果你不听从旁白的建议，你会发现一些其他的结局。&lt;/p&gt;
+
+&lt;p&gt;那么我呢？&lt;/p&gt;
+
+&lt;p&gt;简直是史丹利的预言。&lt;/p&gt;
+
+&lt;p&gt;好，好，这个世界就是这样。&lt;/p&gt;
+
+&lt;p&gt;人和人相互影响。&lt;/p&gt;
+
+&lt;p&gt;每个人都在把他身边的人改造成他希望的样子。&lt;/p&gt;
+
+&lt;p&gt;每个人都在被他身边的人改造成那些人希望的样子。&lt;/p&gt;
+
+&lt;p&gt;是，是，的确是，人类的本质是复读机。&lt;/p&gt;
+
+&lt;p&gt;是镜子。&lt;/p&gt;
+
+&lt;p&gt;这边的人摆手，那边的人便也想摆手。&lt;/p&gt;
+
+&lt;p&gt;那边的人点头，这边的人即也欲点头。&lt;/p&gt;
+
+&lt;p&gt;这是看元白那一唱一和的诗时想到的。&lt;/p&gt;
+
+&lt;p&gt;扯远了。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;打隔膜&lt;/h3&gt;
+
+&lt;p&gt;“不能玩游戏。”&lt;/p&gt;
+
+&lt;p&gt;为什么呢？&lt;/p&gt;
+
+&lt;p&gt;要努力。&lt;/p&gt;
+
+&lt;p&gt;我欣然接受了。&lt;/p&gt;
+
+&lt;p&gt;我学习语言与语言学好了，反正同样有趣。&lt;/p&gt;
+
+&lt;p&gt;毕竟一个人如果一直不停做一件事情，那我想大多数情况下不管他多喜欢这件事情都要厌烦。&lt;/p&gt;
+
+&lt;p&gt;“跟信息学竞赛或者文化课有没有关系？没有的话放一放。等到大学的时候再学。”&lt;/p&gt;
+
+&lt;p&gt;那我就刷维基。我就学量子计算。&lt;/p&gt;
+
+&lt;p&gt;“跟信息学竞赛或者文化课有没有直接的联系？没有的话放一放。”&lt;/p&gt;
+
+&lt;p&gt;“你现在的时间是停课换来的，有时间看这些不如念文化课。”&lt;/p&gt;
+
+&lt;p&gt;对，要努力，可是你会发现人生似乎一定要有娱乐项目，不同于职业的。&lt;/p&gt;
+
+&lt;p&gt;没有别的娱乐，剩下的东西就是战争和革命。玩命。&lt;/p&gt;
+
+&lt;p&gt;这是我从历史里看出的，不知道对不对。&lt;/p&gt;
+
+&lt;p&gt;于是开始了效率低下的全日制学习。&lt;/p&gt;
+
+&lt;p&gt;其间如果统计一下刷QQ的时间，我们可能会惊异地发现这花掉的时间跟之前花掉的差不多。&lt;/p&gt;
+
+&lt;p&gt;但是刷QQ学到的知识显然没有干之前那些事情高。&lt;/p&gt;
+
+&lt;p&gt;但是我居然没有再收到建议。&lt;/p&gt;
+
+&lt;p&gt;我现在突然意识到。&lt;/p&gt;
+
+&lt;p&gt;这是旁白。&lt;/p&gt;
+
+&lt;p&gt;不过我承认，游戏获取知识的效率很低下，不比QQ高。&lt;/p&gt;
+
+&lt;p&gt;更多的时候，这是一个像我这样无趣的人试图融入群体的一种方式。&lt;/p&gt;
+
+&lt;p&gt;不管怎么说，我高一下还是接了欧二外的offer。&lt;/p&gt;
+
+&lt;p&gt;这样游戏就完全没有用处了。&lt;/p&gt;
+
+&lt;p&gt;希望高二能够提升一下跟人相处的能力吧。&lt;/p&gt;
+
+&lt;p&gt;扯得更远了。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;夜&lt;/h3&gt;
+
+&lt;p&gt;空调不知道为什么关了。&lt;/p&gt;
+
+&lt;p&gt;热得要命。&lt;/p&gt;
+
+&lt;p&gt;很惨。一直到半夜都睡不着。&lt;/p&gt;
+
+&lt;p&gt;火星就要大冲了。那个红点呵。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Jul 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/07/21/NOI2018%E6%B8%B8%E8%AE%B0Day2.5.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/07/21/NOI2018%E6%B8%B8%E8%AE%B0Day2.5.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>NOI</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
+    
+      <item>
+        <title>NOI2018游记Day2</title>
+        <description>&lt;p&gt;NOI2018系列游记Day2。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;二试&lt;/h3&gt;
+
+&lt;p&gt;第一个题。是个裸的同余方程组题。&lt;/p&gt;
+
+&lt;p&gt;大概这就是出题组说的“比D1T1简单”的题吧。&lt;/p&gt;
+
+&lt;p&gt;可是我不这么觉得。&lt;/p&gt;
+
+&lt;p&gt;考场上现场发明exgcd，现场发明中国剩余定理，对拍各种挂……&lt;/p&gt;
+
+&lt;p&gt;哦对，还要判零。&lt;/p&gt;
+
+&lt;p&gt;好在最后还是A了这道题。&lt;/p&gt;
+
+&lt;p&gt;T2看见“TAC”，就打了个30分暴力。&lt;/p&gt;
+
+&lt;p&gt;T3时间不是很够，也打了个暴力。&lt;/p&gt;
+
+&lt;p&gt;最后就150大众分滚粗了。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;高校宣讲&lt;/h3&gt;
+
+&lt;p&gt;给我印象最深的是北航的老师，讲得真的非常好。信息接收率非常高。听有的学校，就是从头到尾都是“我们是985，我们是211，我们是双一流……”云云，实在可谓是“看起来很有用的废话”。但是北航的宣讲就很亲切，不至于有着高高的架子，讲着令人生厌的套话，而是充分展现了他们学校真正的优势。&lt;/p&gt;
+
+&lt;p&gt;当然，清华的老师讲得也很不错。下面引用一段话（根据记忆还原，可能有疏漏）&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“我15年前也跟你们一样，是一名参加NOI的选手。我当时也有在听高校的宣讲，当时有清华的吴文虎老师在讲，他讲，他参加高考，考到了清华大学的分数线。那个时候还没有计算机科学专业，我们叫自动化专业。他曾经听说列宁讲过，社会主义到了电气化的时代，就离共产主义不远了。于是他就报了这个自动化专业。还有北大的老师在讲，他讲他在大学校园里面玩，溜冰之类的，很有意思。”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;共产vs溜冰&lt;/p&gt;
+
+&lt;p&gt;这一波黑得我给满分。&lt;/p&gt;
+
+&lt;p&gt;最后晚上划了一个晚上的水。&lt;/p&gt;
+</description>
+        <pubDate>Fri, 20 Jul 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/07/20/NOI2018%E6%B8%B8%E8%AE%B0Day2.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/07/20/NOI2018%E6%B8%B8%E8%AE%B0Day2.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>NOI</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
+    
+      <item>
+        <title>NOI2018游记Day1.5</title>
+        <description>&lt;p&gt;NOI2018系列游记Day1.5。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;社会活动&lt;/h3&gt;
+
+&lt;p&gt;去的是韶山。&lt;/p&gt;
+
+&lt;p&gt;想起昨天的话。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;吾不言。&lt;/p&gt;
+
+&lt;p&gt;参观了毛主席纪念馆，本来还要参观故居的，然而太热了，我们就咕掉去了酒店……&lt;/p&gt;
+
+&lt;p&gt;中午的菜比较一般（相对于平时在酒店吃的菜）。&lt;/p&gt;
+
+&lt;p&gt;然后返程。&lt;/p&gt;
+
+&lt;p&gt;下午睡了一整天。&lt;/p&gt;
+
+&lt;p&gt;可以说是很平凡的一天了。&lt;/p&gt;
+
+&lt;p&gt;其实也不平凡……&lt;/p&gt;
+
+&lt;p&gt;吾不言。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 19 Jul 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/07/19/NOI2018%E6%B8%B8%E8%AE%B0Day1.5.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/07/19/NOI2018%E6%B8%B8%E8%AE%B0Day1.5.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>NOI</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
     
       <item>
         <title>NOI2018游记Day1</title>
@@ -76,38 +453,7 @@
   &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;我关于科学、信念、以及信仰，还有它们之间的关系，有着似乎是奇怪的看法。&lt;/p&gt;
-
-&lt;p&gt;如果想要深入了解（或者传教，但是一般没有效果），可能可以私聊？&lt;/p&gt;
-
-&lt;p&gt;为了避免冒犯与我意见不同的人，这里还是不说了为好。&lt;/p&gt;
-
-&lt;p&gt;总之还是那句话。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;圣人不死，大盗不止！&lt;/p&gt;
-
-&lt;p&gt;圣人不死，大盗不止！&lt;/p&gt;
-
-&lt;p&gt;需要，&lt;/p&gt;
-
-&lt;p&gt;使民众都，&lt;/p&gt;
-
-&lt;p&gt;足够愚昧，&lt;/p&gt;
-
-&lt;p&gt;或者，&lt;/p&gt;
-
-&lt;p&gt;使民众都，&lt;/p&gt;
-
-&lt;p&gt;足够聪慧！&lt;/p&gt;
-
-&lt;p&gt;当然，我上面说的一切都可能是错的。&lt;/p&gt;
-
-&lt;p&gt;毕竟对于什么观念都要怀疑。包括怀疑自己。包括怀疑怀疑。&lt;/p&gt;
-
+&lt;p&gt;吾不言。&lt;/p&gt;
 </description>
         <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
         <link>https://alphagem.github.io/2018/07/18/NOI2018%E6%B8%B8%E8%AE%B0Day1.html</link>
@@ -355,7 +701,7 @@
     
       <item>
         <title>SI基本单位重定义</title>
-        <description>&lt;p&gt;今年5月20号的时候看见SI要改基本单位定义的事情，于是跟物理社别的同学一起研究了一下……这次的重定义主题是“常量化”，新钦点了大量常数。然后千克原器这种玄学的东西终于可以从定义里面踢出去了啊哈哈哈哈！&lt;/p&gt;
+        <description>&lt;p&gt;今年5月20号的时候看见SI要改基本单位定义的事情，于是跟物理社别的同学一起研究了一下……这次的重定义主题是“常量化”，新钦点了大量常数。然后千克原器这种玄学的东西终于可以从定义里面踢出去了qwq&lt;/p&gt;
 
 &lt;h3 id=&quot;section&quot;&gt;定义不变的单位&lt;/h3&gt;
 
@@ -375,7 +721,7 @@
 
 &lt;p&gt;其中我们有 $\mathrm{W}=\mathrm{J\cdot s^{-1}}=\mathrm{N\cdot m\cdot s^{-1}}=\mathrm{kg\cdot m^2\cdot s^{-3}}$。&lt;/p&gt;
 
-&lt;p&gt;至于其它的频率？坎德拉是发光强度的单位，发光强度这个量的定义挺玄学的，它的定义采用了视见函数，实际上是跟人眼对不同波长光的敏感程度有关系的。视见函数怎么来？当然是找一堆人做实验测量……而 $540\times 10^{12}$ 是人眼最敏感的波长，所以就拿到定义里来了。&lt;/p&gt;
+&lt;p&gt;至于其它的频率？坎德拉是发光强度的单位，发光强度这个量的定义挺玄学的，它的定义采用了视见函数，实际上是跟人眼对不同波长光的敏感程度有关系的。视见函数怎么来？当然是找一堆人做实验测量……而 $540\times 10^{12} \text{Hz}$ 是人眼最敏感的波长，所以就拿到定义里来了。&lt;/p&gt;
 
 &lt;h3 id=&quot;section-1&quot;&gt;定义改变的单位&lt;/h3&gt;
 
@@ -419,7 +765,7 @@
 
 &lt;p&gt;同时可以看到，很多单位的定义也变得更抽象了，比如使用普朗克常数或是玻尔兹曼常数进行定义的千克和开尔文就难以再用一句简短的话表述它们在现实中的具体含义，而理解这两个单位也需要用到一些更复杂的物理知识。&lt;/p&gt;
 
-&lt;p&gt;就是安培的定义改掉了，导致真空磁导率炸了而不再是常数了，这一点实在是可惜。这样电磁学的好多式子里的原来的常数也就都不再是常数了。啊……还是有点心疼真空磁导率啊……或许他们改这一发有他们的考量吧。毕竟如果心疼常数的话可以选择使用自然单位制，SI还是主要要考虑到实际运用中的精度等问题。&lt;/p&gt;
+&lt;p&gt;就是安培的定义改掉了，导致真空磁导率炸了而不再是常数了，这一点实在是可惜。这样电磁学的好多式子里的原来的常数也就都不再是常数了。啊……或许他们改这一发有他们的考量吧。毕竟如果心疼常数的话可以选择使用自然单位制，SI还是主要要考虑到实际运用中的精度等问题。&lt;/p&gt;
 
 &lt;p&gt;参考资料：&lt;/p&gt;
 
@@ -648,939 +994,6 @@ movl	%edx, %eax
         <category>OI</category>
         
         <category>computer</category>
-        
-      </item>
-    
-      <item>
-        <title>Educational Codeforces Round44爆炸记</title>
-        <description>&lt;p&gt;在rating=2089的接近橙名时候打了一发Edu Round，结果被虐得超惨……好在没有什么FST导致一发回蓝之类的。而且最后开放Hack的时候叉人是真的爽，也算是没有白掉rating？&lt;/p&gt;
-
-&lt;h3 id=&quot;wa-on-pretest&quot;&gt;紧张刺激的WA on pretest&lt;/h3&gt;
-
-&lt;p&gt;以下题目按照AC顺序列出。阅读时建议跳过题面。&lt;/p&gt;
-
-&lt;h4 id=&quot;a---chess-placinghttpcodeforcescomcontest985problema&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/A&quot;&gt;A - Chess Placing&lt;/a&gt;&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;You are given a chessboard of size $1\times n$. It is guaranteed that &lt;em&gt;n&lt;/em&gt; is even. The chessboard is painted like this: “BWBW…BW”.&lt;/p&gt;
-
-  &lt;p&gt;Some cells of the board are occupied by the chess pieces. Each cell contains no more than one chess piece. It is known that the total number of pieces equals to $\frac{n}{2}$.&lt;/p&gt;
-
-  &lt;p&gt;In one step you can move one of the pieces one cell to the left or to the right. You cannot move pieces beyond the borders of the board. You also cannot move pieces to the cells that are already occupied.&lt;/p&gt;
-
-  &lt;p&gt;Your task is to place all the pieces in the cells of the same color using the minimum number of moves (all the pieces must occupy only the black cells or only the white cells after all the moves are made).&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;The first line of the input contains one integer $n$ ($2\le n\le 100$, $n$ is even) — the size of the chessboard.&lt;/p&gt;
-
-  &lt;p&gt;The second line of the input contains $\frac{n}{2}$ integer numbers $p_1,p_2,\ldots,p_{\frac{n}{2}}$ ($1\le p_i\le n$) — initial positions of the pieces. It is guaranteed that all the positions are distinct.&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;Print one integer — the minimum number of moves you have to make to place all the pieces in the cells of the same color.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;一个大水题直接被我想复杂了，用什么贪心模拟……还交了一发FST的假贪心……直接sort以后按顺序把 $a_i$ 与 $2i$(或 $2i-1$)作差的绝对值并求和，然后把与 $2i$ 作的差和与 $2i-1$ 作的差取 $\min$ 就好了。&lt;/p&gt;
-
-&lt;p&gt;罚时++&lt;/p&gt;
-
-&lt;p&gt;接着为了多捞一些分跳过了B题，毕竟后面的题目掉分快。&lt;/p&gt;
-
-&lt;h4 id=&quot;c---liebigs-barrelshttpcodeforcescomcontest985problemc&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/C&quot;&gt;C - Liebig’s Barrels&lt;/a&gt;&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;You have $m=n\cdot k$ wooden staves. The &lt;em&gt;i&lt;/em&gt;-th stave has length $a_i$. You have to assemble $n$ barrels consisting of $k$ staves each, you can use any $k$ staves to construct a barrel. Each stave must belong to exactly one barrel.&lt;/p&gt;
-
-  &lt;p&gt;Let volume $v_j$ of barrel $j$ be equal to the length of the minimal stave in it.&lt;/p&gt;
-
-  &lt;p&gt;&lt;img src=&quot;http://codeforces.com/predownloaded/66/8e/668e3bce94c546efd818de5a228c816594b7cc60.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-  &lt;p&gt;You want to assemble exactly $n$ barrels with the maximal total sum of volumes. But you have to make them equal enough, so a difference between volumes of any pair of the resulting barrels must not exceed $l$, i.e. $| v_x-v_y|\le l$ for any $1\le x\le n$ and $1\le y\le n$.&lt;/p&gt;
-
-  &lt;p&gt;Print maximal total sum of volumes of equal enough barrels or $0$ if it’s impossible to satisfy the condition above.&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;The first line contains three space-separated integers $n$, $k$ and $l$ ($1\le n, k\le 10^5$, $1\le n\cdot k\le 10^5$, $0\le l\le 10^9$).&lt;/p&gt;
-
-  &lt;p&gt;The second line contains $m=n\cdot k$ space-separated integers $a_1, a_2, \ldots, a_m$ ($1\le a_i\le 10^9$) — lengths of staves.&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;Print single integer — maximal total sum of the volumes of barrels or 0 if it’s impossible to construct exactly &lt;em&gt;n&lt;/em&gt; barrels satisfying the condition $|v_x-v_y| ≤ l$ for any $1\le x\le n$ and $1\le y\le n$.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;一个简单的贪心构造题。&lt;/p&gt;
-
-&lt;p&gt;首先判断以下比最短的板子长不超过 $l$ 的板子有多少块，如果少于 $n$ 块直接输出 $0$，否则开始构造：首先拿最小的板子和比最小的板子长不超过 $l$ 的最长的 $n-1$ 块板子初始造 $n$ 个桶，接着从短往长把板子加到短板尽量短的桶里进去，如果一个桶用满了就只好开一个新桶。&lt;/p&gt;
-
-&lt;p&gt;结果想了一堆无脑假贪心，为了弥补第一题浪费的时间各种交上去无法过pretest。&lt;/p&gt;
-
-&lt;p&gt;罚时+=3&lt;/p&gt;
-
-&lt;h4 id=&quot;d---sand-fortresshttpcodeforcescomcontest985problemd&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/D&quot;&gt;D - Sand Fortress&lt;/a&gt;&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;You are going to the beach with the idea to build the greatest sand castle ever in your head! The beach is not as three-dimensional as you could have imagined, it can be decribed as a line of spots to pile up sand pillars. Spots are numbered $1$ through infinity from left to right.&lt;/p&gt;
-
-  &lt;p&gt;Obviously, there is not enough sand on the beach, so you brought $n$ packs of sand with you. Let height $h_i$ of the sand pillar on some spot $i$ be the number of sand packs you spent on it. You can’t split a sand pack to multiple pillars, all the sand from it should go to a single one. There is a fence of height equal to the height of pillar with $H$ sand packs to the left of the first spot and you should prevent sand from going over it.&lt;/p&gt;
-
-  &lt;p&gt;Finally you ended up with the following conditions to building the castle:&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;$h_1\le H$: no sand from the leftmost spot should go over the fence;&lt;/li&gt;
-    &lt;li&gt;For any $i\in [1,\infty)|h_i-h_i+1| \le 1$: large difference in heights of two neighboring pillars can lead sand to fall down from the higher one to the lower, you really don’t want this to happen;&lt;/li&gt;
-    &lt;li&gt;$\sum_{i=1}^{\infty}h_i=n$: you want to spend all the sand you brought with you.&lt;/li&gt;
-  &lt;/ul&gt;
-
-  &lt;p&gt;As you have infinite spots to build, it is always possible to come up with some valid castle structure. Though you want the castle to be as compact as possible.&lt;/p&gt;
-
-  &lt;p&gt;Your task is to calculate the minimum number of spots you can occupy so that all the aforementioned conditions hold.&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;The only line contains two integer numbers $n$ and $H$ ($1\le n, H\le 10^{18}$) — the number of sand packs you have and the height of the fence, respectively.&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;Print the minimum number of spots you can occupy so the all the castle building conditions hold.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;一个简单的二分题。最终的最优解形如左边一个直角梯形，右边一个等边直角三角形的形状去掉最上面的一层的一部分（也可能什么都不去掉）。于是直接二分最高点判断两块面积加起来是否大于或等于 $n$ 。注意分类讨论最高层有一个包和有两个包的情况。&lt;/p&gt;
-
-&lt;p&gt;结果一开始把 $h_1\le H$ 看成 $\forall i\in[1,\infty),h_i\le H$……&lt;/p&gt;
-
-&lt;p&gt;罚时+=3&lt;/p&gt;
-
-&lt;p&gt;然后赶紧急急忙忙交上去，结果最高层有两个包的情况没判……&lt;/p&gt;
-
-&lt;p&gt;罚时++&lt;/p&gt;
-
-&lt;p&gt;剩余时间10min。&lt;/p&gt;
-
-&lt;h4 id=&quot;b---switches-and-lampshttpcodeforcescomcontest985problemb&quot;&gt;&lt;a href=&quot;http://codeforces.com/contest/985/problem/B&quot;&gt;B - Switches and Lamps&lt;/a&gt;&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Statement&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;You are given $n$ switches and $m$ lamps. The $i$-th switch turns on some subset of the lamps. This information is given as the matrix $a$ consisting of $n$ rows and $m$ columns where $a_{i,j}=1$ if the $i$-th switch turns on the $j$-th lamp and $a_{i,j}=0$ if the $i$-th switch is not connected to the $j$-th lamp.&lt;/p&gt;
-
-  &lt;p&gt;Initially all $m$ lamps are turned off.&lt;/p&gt;
-
-  &lt;p&gt;Switches change state only from “off” to “on”. It means that if you press two or more switches connected to the same lamp then the lamp will be turned on after any of this switches is pressed and will remain its state even if any switch connected to this lamp is pressed afterwards.&lt;/p&gt;
-
-  &lt;p&gt;It is guaranteed that if you push all $n$ switches then all $m$ lamps will be turned on.&lt;/p&gt;
-
-  &lt;p&gt;Your think that you have too many switches and you would like to ignore one of them.&lt;/p&gt;
-
-  &lt;p&gt;Your task is to say if there exists such a switch that if you will ignore (not use) it but press all the other $n-1$ switches then all the $m$ lamps will be turned on.&lt;/p&gt;
-
-  &lt;p&gt;Input&lt;/p&gt;
-
-  &lt;p&gt;The first line of the input contains two integers $n$ and $m$ ($1\le n,m\le2000$) — the number of the switches and the number of the lamps.&lt;/p&gt;
-
-  &lt;p&gt;The following $n$ lines contain $m$ characters each. The character $a_{i,j}$ is equal to ‘1’ if the $i$-th switch turns on the $j$-th lamp and ‘0’ otherwise.&lt;/p&gt;
-
-  &lt;p&gt;It is guaranteed that if you press all $n$ switches all $m$ lamps will be turned on.&lt;/p&gt;
-
-  &lt;p&gt;Output&lt;/p&gt;
-
-  &lt;p&gt;Print “YES” if there is a switch that if you will ignore it and press all the other $n-1$ switches then all $m$ lamps will be turned on. Print “NO” if there is no such switch.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;直接开个 $cnt$ 记每个灯被几个开关开，接着枚举每个开关，如果不存在 $cnt=1$ 的灯由它控制，它就是没有用的。&lt;/p&gt;
-
-&lt;p&gt;于是拿到了本场第一个一发过pretest。&lt;/p&gt;
-
-&lt;p&gt;剩余时间5min。&lt;/p&gt;
-
-&lt;p&gt;交上去以后看了一下榜，发现自己居然是交4个题里面罚时最多的之一，感觉很不对劲。即使是我有8个罚时，但是前面还有很多人比我罚时多啊……&lt;/p&gt;
-
-&lt;p&gt;然后突然意识到这是Edu Round，罚时算的是所有题目的提交时间和，而不是每个题分别掉分，也就是说我如果先开B题在1.5h前直接A掉我可能也不会这么惨……&lt;/p&gt;
-
-&lt;p&gt;然后前面还有一整版的切掉5题的人，两个穿场的，感觉自己凉透了……&lt;/p&gt;
-
-&lt;p&gt;然后又看了看Friends Standings，发现同机房里一堆切掉ABCE然后rank比我高的，问了下听说E是个大水题……&lt;/p&gt;
-
-&lt;p&gt;比赛结束的那一刻，凌晨时分，整个机房，除了我，都像在聚众吸毒一样兴奋呢。&lt;/p&gt;
-
-&lt;h3 id=&quot;opening-hack&quot;&gt;更紧张刺激的深夜Opening Hack&lt;/h3&gt;
-
-&lt;p&gt;本来对Opening Hack不抱什么希望的。结果我们机房里有个人的E被叉掉了——&lt;/p&gt;
-
-&lt;p&gt;整个机房炸锅啦！&lt;/p&gt;
-
-&lt;p&gt;原本比赛结束时机房中声浪已是起伏不定，层起迭出，这下却是一浪高过一浪，大有海涌江横之势，完全不像一个凌晨的校园该有的样子。&lt;/p&gt;
-
-&lt;p&gt;紧接着过不久又一个人的E也被叉掉了，问了下发现三个人的E的做法是一样的……&lt;/p&gt;
-
-&lt;p&gt;于是大家都开始构数据叉最后一个人，要被叉的同学构数据构得最积极。（肥水不流外人田？）&lt;/p&gt;
-
-&lt;p&gt;然后我成功地第一个构出了一组数据，并且把它念给了另一个同学让他帮我check，结果一个口滑数据念错，刚发现自己念错的时候机房中传来了清脆的鼠标声——&lt;/p&gt;
-
-&lt;p&gt;“啪！”&lt;/p&gt;
-
-&lt;p&gt;然后那位要被叉的同学获得了一个Unsuccessful Hack。&lt;/p&gt;
-
-&lt;p&gt;在这里对自己念错数据的行为表示道歉并强烈谴责这种听得风是得雨拿别人想出的数据来叉自己的行为。（？）&lt;/p&gt;
-
-&lt;p&gt;另：亲手叉掉比自己排名高的队友感觉真好。&lt;/p&gt;
-
-&lt;p&gt;于是聚众赌博开始了！&lt;/p&gt;
-
-&lt;p&gt;所有人都抱着同一组数据到处叉人，其中有甚欧者，开出不少假代码而叉之，像我这种非酋……&lt;/p&gt;
-
-&lt;p&gt;综上所述，Codeforces是一种具有与毒品、赌博性质类似的危害巨大的东西。它具有成瘾性（例如一个人打完一把如果涨了rating就会想再打一把，如果掉了rating就会想再打一把）、致幻性（我今天这把稳了！）、心理伤害性（WA on test 97）、生理伤害性（大半夜不睡觉做什么呢）等诸多特点……&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;余波&lt;/h3&gt;
-
-&lt;p&gt;第二天再开榜，发现自己的排名涨了一点。抱着对E题的怨念，我坚持着点开一个又一个人的代码，结果点开一份代码以后，一个函数名称赫然刻在屏幕上……&lt;/p&gt;
-
-&lt;p&gt;DFS！&lt;/p&gt;
-
-&lt;p&gt;什么东西？&lt;/p&gt;
-
-&lt;p&gt;DFS！&lt;/p&gt;
-
-&lt;p&gt;认真看了一下，似乎是记忆化搜索，但是枚举转移的方式似乎很不优秀，大概算是加了剪枝的记忆化搜索……&lt;/p&gt;
-
-&lt;p&gt;于是构了一个极限数据把它卡成平方卡掉了。&lt;/p&gt;
-
-&lt;p&gt;接着开始开别人的代码，这么写的居然还不在少数……&lt;/p&gt;
-
-&lt;p&gt;于是最后成功拿到了+9。其实还可以叉更多的，只不过叉排名在自己后面的人没啥意义，而且我也累了……&lt;/p&gt;
-
-&lt;p&gt;然后看了一下hack记录，居然有一个200+的，几秒能hack一个人，怕不是写了脚本……&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;尾声&lt;/h3&gt;
-
-&lt;p&gt;rating-=42。&lt;/p&gt;
-
-&lt;p&gt;惨。&lt;/p&gt;
-
-&lt;p&gt;要是我B题先写应该还不至于这么惨……&lt;/p&gt;
-</description>
-        <pubDate>Sun, 27 May 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/05/27/Educational_Codeforces_Round44%E7%88%86%E7%82%B8%E8%AE%B0.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/05/27/Educational_Codeforces_Round44%E7%88%86%E7%82%B8%E8%AE%B0.html</guid>
-        
-        <category>信息竞赛</category>
-        
-        <category>Codeforces</category>
-        
-        
-        <category>OI</category>
-        
-      </item>
-    
-      <item>
-        <title>國語羅馬字學習筆記</title>
-        <description>&lt;p&gt;成功浪費了大量時間學習這個奇怪的叫做國語羅馬字的東西。&lt;/p&gt;
-
-&lt;p&gt;變調規則真是多得要命，超麻煩。然而這個方案確實有字符全部限定在ASCII字符集的優點，寫起來看着也比較舒服。&lt;/p&gt;
-
-&lt;p&gt;本文大部分內容參照了維基百科“國語羅馬字”條目&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;聲母表&lt;/h3&gt;
-
-&lt;p&gt;其中形如A/B的東西中A是清音，B是濁音，不存在的東西用-表示&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;雙脣&lt;/td&gt;
-      &lt;td&gt;脣齒&lt;/td&gt;
-      &lt;td&gt;齒齦&lt;/td&gt;
-      &lt;td&gt;齦齶&lt;/td&gt;
-      &lt;td&gt;捲舌&lt;/td&gt;
-      &lt;td&gt;硬齶&lt;/td&gt;
-      &lt;td&gt;軟齶&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;鼻音&lt;/td&gt;
-      &lt;td&gt;-/m&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/n&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/gn&lt;/td&gt;
-      &lt;td&gt;-/ng&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;不送氣塞音&lt;/td&gt;
-      &lt;td&gt;b/-&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;d/-&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;送氣塞音&lt;/td&gt;
-      &lt;td&gt;p/-&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;t/-&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;不送氣塞擦音&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;tz/-&lt;/td&gt;
-      &lt;td&gt;j/-&lt;/td&gt;
-      &lt;td&gt;ji/-&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;g/-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;送氣塞擦音&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;ts/-&lt;/td&gt;
-      &lt;td&gt;ch/-&lt;/td&gt;
-      &lt;td&gt;chi/-&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;k/-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;擦音&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;f/-&lt;/td&gt;
-      &lt;td&gt;s/-&lt;/td&gt;
-      &lt;td&gt;sh/r&lt;/td&gt;
-      &lt;td&gt;shi/-&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;h/-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;邊音&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/-&lt;/td&gt;
-      &lt;td&gt;-/l&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;韻母表&lt;/h3&gt;
-
-&lt;h4 id=&quot;a&quot;&gt;主元音爲低元音/a/及其變體的&lt;/h4&gt;
-
-&lt;p&gt;其中各行分別爲開合齊撮四個呼，各列是不同韻尾，主元音是/a/及其變體。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;-∅&lt;/td&gt;
-      &lt;td&gt;-/i/&lt;/td&gt;
-      &lt;td&gt;-/u/&lt;/td&gt;
-      &lt;td&gt;-/n/&lt;/td&gt;
-      &lt;td&gt;-/ŋ/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;∅-&lt;/td&gt;
-      &lt;td&gt;a&lt;/td&gt;
-      &lt;td&gt;ai&lt;/td&gt;
-      &lt;td&gt;au&lt;/td&gt;
-      &lt;td&gt;an&lt;/td&gt;
-      &lt;td&gt;ang&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/j/-&lt;/td&gt;
-      &lt;td&gt;ia&lt;/td&gt;
-      &lt;td&gt;iai&lt;/td&gt;
-      &lt;td&gt;iau&lt;/td&gt;
-      &lt;td&gt;ian&lt;/td&gt;
-      &lt;td&gt;iang&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/w/-&lt;/td&gt;
-      &lt;td&gt;ua&lt;/td&gt;
-      &lt;td&gt;uai&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;uan&lt;/td&gt;
-      &lt;td&gt;uang&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/ɥ/-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;iuan&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h4 id=&quot;section-2&quot;&gt;主元音爲中元音/ə/及其變體的&lt;/h4&gt;
-
-&lt;p&gt;其中各行分別爲開合齊撮四個呼，各列是不同韻尾，主元音是/ə/及其變體。&lt;/p&gt;
-
-&lt;p&gt;兒化音是el。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;-∅&lt;/td&gt;
-      &lt;td&gt;-/i/&lt;/td&gt;
-      &lt;td&gt;-/u/&lt;/td&gt;
-      &lt;td&gt;-/n/&lt;/td&gt;
-      &lt;td&gt;-/ŋ/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;∅-&lt;/td&gt;
-      &lt;td&gt;e/o *&lt;/td&gt;
-      &lt;td&gt;ei&lt;/td&gt;
-      &lt;td&gt;ou&lt;/td&gt;
-      &lt;td&gt;en&lt;/td&gt;
-      &lt;td&gt;eng&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/j/-&lt;/td&gt;
-      &lt;td&gt;ie&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;iou&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/w/-&lt;/td&gt;
-      &lt;td&gt;uo&lt;/td&gt;
-      &lt;td&gt;uei&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;uen **&lt;/td&gt;
-      &lt;td&gt;ueng&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/ɥ/-&lt;/td&gt;
-      &lt;td&gt;iue&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;*: 在b,p,m,f後寫作o，在其它聲母後寫作e&lt;/p&gt;
-
-&lt;p&gt;**: 這是“溫”的韻母，關於它的描述似乎有兩種版本，一種是/uən/，另一種是/un/，也不好說哪個是對的。&lt;/p&gt;
-
-&lt;h4 id=&quot;section-3&quot;&gt;主元音爲高元音各音的&lt;/h4&gt;
-
-&lt;p&gt;（也有說法認爲這其中一部分是沒有主元音只有介音，另一部分主元音是/ə/，然而總覺得很彆扭……）&lt;/p&gt;
-
-&lt;p&gt;其中各行分別爲介音+主元音，各列分別爲不同韻尾&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;-∅&lt;/td&gt;
-      &lt;td&gt;-/n/&lt;/td&gt;
-      &lt;td&gt;-/ŋ/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/i/-&lt;/td&gt;
-      &lt;td&gt;i&lt;/td&gt;
-      &lt;td&gt;in&lt;/td&gt;
-      &lt;td&gt;ing&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/u/-&lt;/td&gt;
-      &lt;td&gt;u&lt;/td&gt;
-      &lt;td&gt;uen&lt;/td&gt;
-      &lt;td&gt;ong&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/y/-&lt;/td&gt;
-      &lt;td&gt;iu&lt;/td&gt;
-      &lt;td&gt;iun&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;/ju/&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;iong&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;section-4&quot;&gt;聲調規則&lt;/h3&gt;
-
-&lt;p&gt;最麻煩的一部分……&lt;/p&gt;
-
-&lt;p&gt;先貼一個原文。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;阴平声&lt;/td&gt;
-      &lt;td&gt;同无声调之拼法；例如：花 hua、乌 u。但浊音声母（m、n、l、r）则在声母后加 h；例如：猫 mhau、拉 lha、妞 nhiu、扔 rheng。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;阳平声&lt;/td&gt;
-      &lt;td&gt;(1) 在韵母（包含ong）的母音后面加 r；例如：茶 char、同 torng、神 shern。(2) 韵母为 i、u 开头者改为 y、w；例如：羊 yang、黄 hwang。(3) 韵母仅有单一母音 i、u 时则改为 yi、wu；例如：宜 yi、胡 hwu。iu 改为 yu；例如：徐 shyu。(4) 浊音声母（m、n、l、r）则同无声调之拼法；例如：民 min、泥 ni、连 lian、人 ren。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;上声&lt;/td&gt;
-      &lt;td&gt;(1) 韵母中仅有一个母音，则将其双写；例如：起 chii、古 guu、反 faan。(2) 将复合韵母中之 i、u 改为 e、o；例如：假 jea、管 goan、许 sheu、海 hae、好 hao。(3) 韵头韵尾都有 i、u 者，改韵头不改韵尾；例如：鸟 neau、拐 goai。(4) ei, ie, ou, uo 四韵则不改 i、u而是把 e、o 双写；例如：美 meei、口 koou、解 jiee、果 guoo。(5) 如音节为 i、u 开头时，则变音后在前加 y、w；例如：雅 yea、五 wuu。但 ie、uo两韵则改韵头为 y、w；例如：也 yee、我 woo。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;去声&lt;/td&gt;
-      &lt;td&gt;(1) 韵尾为 -i、-u、-n、-ng、-l 者改为 -y、-w、-nn、-nq、-ll；例如：在 tzay、到 daw、半 bann、正 jenq、二 ell。(2) 其他各韵（包含iu）在韵尾之后加 h；例如：世 shyh、地 dih。(3) 如音节为 i、u 开头时，应改为 y、w；例如：要 yaw、遇 yuh。但若 i、u 为唯一母音时则前加 y、w；例如：意 yih、映 yinq。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;轻声&lt;/td&gt;
-      &lt;td&gt;同无声调之拼法，在音节前方加上一点；例如：的 .de。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;然後是我閱讀了無數遍之後的仍然很麻煩的理解……&lt;/p&gt;
-
-&lt;p&gt;首先根據聲母韻母湊出一個“無聲調拼法”，接着：&lt;/p&gt;
-
-&lt;p&gt;陰平什麼都不變。否則進行兩步操作：&lt;/p&gt;
-
-&lt;p&gt;作基礎變化：&lt;/p&gt;
-
-&lt;p&gt;陽平改介音或高主元音（ong除外，因爲這裏的u寫作o）。介音中的i, u, iu改成y, w, yu；主元音中的i, u, iu改成yi, wu, yu。如果找不到可以改的介音或高主元音，那麼在主元音後加r。&lt;/p&gt;
-
-&lt;p&gt;上聲改出現的&lt;strong&gt;第一個非主元音&lt;/strong&gt;i或u，改成e或o。但是如果出現ie/ei-&amp;gt;ee或者uo/ou-&amp;gt;oo的情況會混淆，不作任何處理，這時也認爲沒有找到可更改的東西。接着如果找不到可更改的東西就雙寫主元音。&lt;/p&gt;
-
-&lt;p&gt;去聲改韻尾，-i, -u, -n, -ng, -l改爲-y, -w, -nn, -nq, -ll。如果找不到可更改的韻尾就在末尾加h。&lt;/p&gt;
-
-&lt;p&gt;接着進行修正：&lt;/p&gt;
-
-&lt;p&gt;否則，&lt;/p&gt;
-
-&lt;p&gt;如果開頭是寫作i, u的介音/j/, /w/，把它們變成y或w。&lt;/p&gt;
-
-&lt;p&gt;如果開頭是寫作e, o的介音/j/, /w/，在它們前面加上一個y或w。&lt;/p&gt;
-
-&lt;p&gt;如果開頭是主元音的i或u（上聲雙寫也在此例），在它們前面加上一個y或w。&lt;/p&gt;
-
-&lt;p&gt;另外的特殊規則：&lt;/p&gt;
-
-&lt;p&gt;考慮到平聲是根據清濁分陰陽的，濁聲母遇到陽平同無聲調之默認拼法，遇到陰平只需在聲母後加h而不需做任何其它變化。&lt;/p&gt;
-
-&lt;p&gt;輕聲同無聲調之拼法，但在前面加一個點’.’。&lt;/p&gt;
-</description>
-        <pubDate>Sun, 06 May 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/05/06/%E5%9C%8B%E8%AA%9E%E7%BE%85%E9%A6%AC%E5%AD%97%E7%AD%86%E8%A8%98.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/05/06/%E5%9C%8B%E8%AA%9E%E7%BE%85%E9%A6%AC%E5%AD%97%E7%AD%86%E8%A8%98.html</guid>
-        
-        <category>語言音韻</category>
-        
-        <category>國語羅馬字</category>
-        
-        
-        <category>linguistics</category>
-        
-      </item>
-    
-      <item>
-        <title>输出语句调试科技系列</title>
-        <description>&lt;p&gt;GDB都是邪教，printf系列调试大法好。（其实是我不会用GDB……）于是这里就是一些printf调试科技的总结。&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;基础操作&lt;/h3&gt;
-
-&lt;p&gt;如&lt;a href=&quot;/2018/03/11/Linux中Gedit的脚本设置&quot;&gt;Linux中Gedit的脚本设置&lt;/a&gt;一文所述，我们有如下的基础操作方法：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;cp&quot;&gt;#ifdef DEBUG
-&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#define debug(a...) fprintf(stderr,a),fflush(stderr)
-&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#else
-&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#define debug(a...) 1
-&lt;/span&gt;	&lt;span class=&quot;cp&quot;&gt;#endif&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;接着我们就只需要像调用printf函数一样地调用debug就可以实现当且仅当预定义了宏“DEBUG”才把错误信息输出到stderr。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;进阶操作&lt;/h3&gt;
-
-&lt;p&gt;最近淆了个变长参数函数的用法，所以……&lt;/p&gt;
-
-&lt;p&gt;首先引用头文件cstdarg，然后打出如下代码：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,...)&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;cp&quot;&gt;#ifdef DEBUG
-&lt;/span&gt;		&lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;va_list&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;va_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;va_arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;fflush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;va_end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;cp&quot;&gt;#endif
-&lt;/span&gt;	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;接着就可以以如下方式进行调试：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;i,f[i]: &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;变长参数这里以-1结尾，实际运用的时候可以以你需要的数字结尾，只要把db函数里面的循环终止条件改成等于你所设定的数字就好了。然后当且仅当预定义了宏DEBUG，程序会输出一行形如”i,f[i]: 2 10”这样的信息，就省去了每次调试打%d并且还要算好有几个%d之类的麻烦。比较适合那种要输出几百次调试的题目。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 18 Apr 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/04/18/%E8%BE%93%E5%87%BA%E8%AF%AD%E5%8F%A5%E8%B0%83%E8%AF%95%E7%A7%91%E6%8A%80%E7%B3%BB%E5%88%97.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/04/18/%E8%BE%93%E5%87%BA%E8%AF%AD%E5%8F%A5%E8%B0%83%E8%AF%95%E7%A7%91%E6%8A%80%E7%B3%BB%E5%88%97.html</guid>
-        
-        <category>信息竞赛</category>
-        
-        <category>调试</category>
-        
-        
-        <category>信息竞赛</category>
-        
-      </item>
-    
-      <item>
-        <title>現學現賣音韻學隨記一・從普通話福州話進行簡單中古漢語聲調推導</title>
-        <description>&lt;p&gt;這裏主要介紹一些簡單的從普通話與福州話的發音推導出中古漢語聲調的方法。&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;一些廢話&lt;/h3&gt;
-
-&lt;p&gt;中古漢語的聲調分平上去入四聲，而根據聲母的清濁又分成陰陽，所以總共就是四聲八調。然而在語言的流變中有些聲調就被吃掉了。之前學習了一些從普通話上推中古漢語聲調的基本操作，然後突然意識到也可以用福州話上推，甚至兩者結合起來上推……&lt;/p&gt;
-
-&lt;p&gt;這裏討論的都是比較一般的情況（因爲特殊字實在好多啊，有的還不好解釋）。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;從普通話上推&lt;/h3&gt;
-
-&lt;p&gt;首先不考慮麻煩的要死的入聲字。&lt;/p&gt;
-
-&lt;p&gt;普通話有陰平、陽平、上聲、去聲四個聲調，對應到中古漢語的平上去大概是這樣的&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;中古漢語&lt;/td&gt;
-      &lt;td&gt;清平&lt;/td&gt;
-      &lt;td&gt;濁平&lt;/td&gt;
-      &lt;td&gt;清上&lt;/td&gt;
-      &lt;td&gt;次濁上&lt;/td&gt;
-      &lt;td&gt;全濁上&lt;/td&gt;
-      &lt;td&gt;清去&lt;/td&gt;
-      &lt;td&gt;濁去&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;普通話&lt;/td&gt;
-      &lt;td&gt;陰平&lt;/td&gt;
-      &lt;td&gt;陽平&lt;/td&gt;
-      &lt;td&gt;上聲&lt;/td&gt;
-      &lt;td&gt;上聲&lt;/td&gt;
-      &lt;td&gt;去聲&lt;/td&gt;
-      &lt;td&gt;去聲&lt;/td&gt;
-      &lt;td&gt;去聲&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;平聲方面是比較清楚的，按清濁分陰陽。&lt;/p&gt;
-
-&lt;p&gt;上聲中聲母是全清次清次濁的對應到普通話的上聲，聲母是全濁的對應到普通話的去聲。&lt;/p&gt;
-
-&lt;p&gt;去聲字就對應到普通話的去聲。&lt;/p&gt;
-
-&lt;p&gt;也就是說，對於一個陰平字，它上推到中古漢語會是清平字；&lt;/p&gt;
-
-&lt;p&gt;對於一個陽平字，它上推到中古漢語會是濁平字；&lt;/p&gt;
-
-&lt;p&gt;對於一個上聲字，它上推到中古漢語會是清上或者次濁上聲字，而清與次濁是很好分辨的，於是就可以判定一個上聲字聲母的清濁；&lt;/p&gt;
-
-&lt;p&gt;對於一個去聲字，它可能是全濁來源或者去聲來源，但是注意到濁母清化“平送仄不送”的規則，如果普通話裏這個字的聲母是送氣的，那麼就說明這個字是清去（因爲全濁上聲字和濁去字不送氣），否則就是全濁上聲字或者濁去字。全濁上聲字和濁去字混得厲害，所以難以區分。&lt;/p&gt;
-
-&lt;p&gt;接下來我們開始考慮入聲字。&lt;/p&gt;
-
-&lt;p&gt;普通話裏，入聲字混到了平上去三聲裏面，而對應關係大概是這樣的&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;中古漢語&lt;/td&gt;
-      &lt;td&gt;全清入聲字&lt;/td&gt;
-      &lt;td&gt;次清入聲字&lt;/td&gt;
-      &lt;td&gt;全濁入聲字&lt;/td&gt;
-      &lt;td&gt;次濁入聲字&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;普通話&lt;/td&gt;
-      &lt;td&gt;四聲&lt;/td&gt;
-      &lt;td&gt;四聲&lt;/td&gt;
-      &lt;td&gt;陽平&lt;/td&gt;
-      &lt;td&gt;去聲&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;但這種混亂中還是有一些規律的：對於一個陽平字，如果它是次清的，那麼它只能是平聲字，對於一個去聲字，如果它不是次濁的，那麼就不會是入聲字。&lt;/p&gt;
-
-&lt;p&gt;所以入聲好混亂啊……怎麼辦呢？&lt;/p&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;從福州話上推&lt;/h3&gt;
-
-&lt;p&gt;喜聞樂見的事情發生了。保留入聲字的福州話就不存在入派三聲的混亂狀況。&lt;/p&gt;
-
-&lt;p&gt;所以我們就可以先列個表：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;中古漢語&lt;/td&gt;
-      &lt;td&gt;清平&lt;/td&gt;
-      &lt;td&gt;濁平&lt;/td&gt;
-      &lt;td&gt;清上與次濁上&lt;/td&gt;
-      &lt;td&gt;清去&lt;/td&gt;
-      &lt;td&gt;全濁上與濁去&lt;/td&gt;
-      &lt;td&gt;清入&lt;/td&gt;
-      &lt;td&gt;濁入&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;福州話&lt;/td&gt;
-      &lt;td&gt;陰平&lt;/td&gt;
-      &lt;td&gt;陽平&lt;/td&gt;
-      &lt;td&gt;上聲&lt;/td&gt;
-      &lt;td&gt;陰去&lt;/td&gt;
-      &lt;td&gt;陽去&lt;/td&gt;
-      &lt;td&gt;陰入&lt;/td&gt;
-      &lt;td&gt;陽入&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;看起來就比較規整了。全濁上這個……這就實在是沒救了啦……&lt;/p&gt;
-
-&lt;p&gt;於是如果會講福州話的話就可以比較方便地判定聲調了。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-3&quot;&gt;什麼……你福州話和我一樣講得很差，然後很多單字不會念只有組詞了纔會？&lt;/h3&gt;
-
-&lt;p&gt;那就組詞啊。&lt;/p&gt;
-
-&lt;p&gt;但是問題又來了：對於一個雙音節詞語，前面的字會發生變調的情況，例如「食飯」，食的聲調是陽入，五度標音記作4或5，但是放在飯前面就要變成21了。&lt;/p&gt;
-
-&lt;p&gt;所以我們就上一張變調表吧……(來源：&lt;a href=&quot;https://en.wikipedia.org/wiki/Fuzhou_dialect#Tonal_sandhi&quot;&gt;https://en.wikipedia.org/wiki/Fuzhou_dialect#Tonal_sandhi&lt;/a&gt;)&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt; &lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;下字$\rightarrow$&lt;br /&gt;上字$\downarrow$&lt;/td&gt;
-      &lt;td&gt;陰平˥&lt;/td&gt;
-      &lt;td&gt;陽平˥˧&lt;br /&gt;陽入˥&lt;/td&gt;
-      &lt;td&gt;上聲˧&lt;/td&gt;
-      &lt;td&gt;陰去˨˩˧&lt;br /&gt;陽去˨˦˨&lt;br /&gt;陰入˨˦&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;陰平˥&lt;br /&gt;陰去˨˩˧&lt;br /&gt;陽去˨˦˨&lt;br /&gt;陰入乙˨˦&lt;/td&gt;
-      &lt;td&gt;˥&lt;/td&gt;
-      &lt;td&gt;˥&lt;/td&gt;
-      &lt;td&gt;˥˧&lt;/td&gt;
-      &lt;td&gt;˥˧&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;陽平˥˧&lt;br /&gt; 陽入˥&lt;/td&gt;
-      &lt;td&gt;˥&lt;/td&gt;
-      &lt;td&gt;˧&lt;/td&gt;
-      &lt;td&gt;˧&lt;/td&gt;
-      &lt;td&gt;˨˩&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;上聲˧&lt;br /&gt; 陰入甲˨˦&lt;/td&gt;
-      &lt;td&gt;˨˩&lt;/td&gt;
-      &lt;td&gt;˨˩&lt;/td&gt;
-      &lt;td&gt;˧˥&lt;/td&gt;
-      &lt;td&gt;˥&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;其中，陰入甲是舊時以-k收尾的字而陰入乙是以喉塞收尾的字。現在都以喉塞收尾了。&lt;/p&gt;
-
-&lt;p&gt;其中入聲字有些的韻尾在連讀的時候被吃掉了，這部分字主要是陽入和陰入乙。&lt;/p&gt;
-
-&lt;p&gt;那麼也就是說：&lt;/p&gt;
-
-&lt;p&gt;對於下字是陰平的詞：&lt;/p&gt;
-
-&lt;p&gt;若上字讀若陰平，則只能排除上聲和陰入甲。需要結合普通話判定平聲還是去聲，入聲就也不能分離出了。&lt;/p&gt;
-
-&lt;p&gt;若上字讀若變降，則可以知道會是上聲或者陰入甲。陰入甲較多的有保留喉塞，例如「國家」，可以區分清楚。&lt;/p&gt;
-
-&lt;p&gt;對於下字是陽平或者陽入的詞：&lt;/p&gt;
-
-&lt;p&gt;若上字讀若陰平，則可以知道是陰平，陰去，陽去或者陰入乙。其中若有保留喉塞音或者普通話是上聲字則這個字會是陰入乙，否則也比較難區分開。&lt;/p&gt;
-
-&lt;p&gt;若上字讀若上聲，則可以知道會是陽平或者陽入，而如果這個字是次濁字則可以確定這是陽平字，否則就混起來了……&lt;/p&gt;
-
-&lt;p&gt;若上字讀若變降，則知道是上聲或者陰入甲，同理。&lt;/p&gt;
-
-&lt;p&gt;下字聲調的其餘情況也與上面一類同理可以推得到。&lt;/p&gt;
-
-&lt;p&gt;所以基本上除了陰入甲也都還不是很容易解決。（因爲上字的混同與普通話有些類似。）&lt;/p&gt;
-
-&lt;p&gt;所以區分入聲字還有一個方法……&lt;/p&gt;
-
-&lt;h3 id=&quot;section-4&quot;&gt;郭沫若沒出息！[滑稽]&lt;/h3&gt;
-
-&lt;p&gt;然而郭沫若能寫出這種東西還真的是很強啊……&lt;/p&gt;
-
-&lt;p&gt;要是能有人把全濁上聲字也寫成一篇東西就好啦……&lt;/p&gt;
-</description>
-        <pubDate>Tue, 27 Mar 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/03/27/%E7%8F%BE%E5%AD%B8%E7%8F%BE%E8%B3%A3%E9%9F%B3%E9%9F%BB%E5%AD%B8%E9%9A%A8%E8%A8%98%E4%B8%80-%E5%BE%9E%E6%99%AE%E9%80%9A%E8%A9%B1%E7%A6%8F%E5%B7%9E%E8%A9%B1%E9%80%B2%E8%A1%8C%E7%B0%A1%E5%96%AE%E4%B8%AD%E5%8F%A4%E6%BC%A2%E8%AA%9E%E8%81%B2%E8%AA%BF%E6%8E%A8%E5%B0%8E.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/03/27/%E7%8F%BE%E5%AD%B8%E7%8F%BE%E8%B3%A3%E9%9F%B3%E9%9F%BB%E5%AD%B8%E9%9A%A8%E8%A8%98%E4%B8%80-%E5%BE%9E%E6%99%AE%E9%80%9A%E8%A9%B1%E7%A6%8F%E5%B7%9E%E8%A9%B1%E9%80%B2%E8%A1%8C%E7%B0%A1%E5%96%AE%E4%B8%AD%E5%8F%A4%E6%BC%A2%E8%AA%9E%E8%81%B2%E8%AA%BF%E6%8E%A8%E5%B0%8E.html</guid>
-        
-        <category>語言音韻</category>
-        
-        <category>中古漢語</category>
-        
-        <category>福州話</category>
-        
-        
-        <category>linguistics</category>
-        
-      </item>
-    
-      <item>
-        <title>分治最小割与其证明</title>
-        <description>&lt;p&gt;校内互测的时候搬了个分治最小割板子题(CQOI2016)，然后结果讲题的时候被要求证明分治最小割的结论，结果就尬住了……&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;什么是分治最小割？&lt;/h3&gt;
-
-&lt;p&gt;看一个例题，这个题就是上面提到的CQOI2016的分治最小割板子题“不同的最小割”。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;学过图论的同学都知道最小割的概念：对于一个图，某个对图中结点的划分将图中所有结点分成两个部分，如果结点 $s,t$ 不在同一个部分中，则称这个划分是关于 $s,t$ 的割。对于带权图来说，将所有顶点处在不同部分的边的权值相加所得到的值定义为这个割的容量，而 $s,t$ 的最小割指的是在关于 $s,t$ 的割中容量最小的割。&lt;/p&gt;
-
-  &lt;p&gt;对冲刺 NOI 竞赛的选手而言，求带权图中两点的最小割已经不是什么难事了。我们可以把视野放宽，考虑有 $N$ 个点的无向连通图中所有点对的最小割的容量，共能得到 $\frac{N(N−1)}{2}$ 个数值。这些数值中互不相同的有多少个呢？这似乎是个有趣的问题。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;于是我们就强行套用结论解决了这个问题：&lt;/p&gt;
-
-&lt;p&gt;首先，一个图中不同的最小割最多有 $n-1$ 个，并且采用分治最小割模板我们可以求出这 $n-1$ 个不同的最小割。对于这道题，我们把这些最小割sort一下unique一下就完事了。&lt;/p&gt;
-
-&lt;p&gt;而分治最小割的模板是这样的：&lt;/p&gt;
-
-&lt;p&gt;对于一个图 $G=(V,E)$，假设我们现在当前工作中的点的集合是 $S$，其中 $S\subseteq V$ ；&lt;/p&gt;
-
-&lt;p&gt;我们就从 $S$ 中选出一个点 $s$ 和一个点 $t$，在原图 $G$ 上以 $s$ 为源，$t$ 为汇跑一遍最小割；&lt;/p&gt;
-
-&lt;p&gt;假设割出来两个集合分别叫做 $A$ 和 $B$，则最小割的代价为 $w$，且 $s$ 在集合 $A$ 中，$t$ 在集合 $B$ 中，那么我们就知道 $A$ 到 $B$ 的任意点对最小割都会是 $w$。我们就可以暴力更新 $A,B$ 间的点对的最小割。&lt;/p&gt;
-
-&lt;p&gt;然后递归处理 $S=A\cap S$ 和 $S=B\cap S$ 的情况。&lt;/p&gt;
-
-&lt;p&gt;最后我们就求出了任意点对的最小割。&lt;/p&gt;
-
-&lt;p&gt;为什么这是对的？&lt;/p&gt;
-
-&lt;p&gt;于是开始搜索相关的证明/说明，结果要么是“我不会”，要么是随便口糊了一下，要么是机翻风格……反正看着不是很舒服。&lt;/p&gt;
-
-&lt;p&gt;所以就记个板子到此结束了？&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;你改悔罢！&lt;/h3&gt;
-
-&lt;p&gt;接下来开始一段乱七八糟的说明。这段说明的目标是在大致保证严谨性的前提下尽可能让人读懂，但是由于语文和OI水平均有限，所以……&lt;/p&gt;
-
-&lt;p&gt;对于图 $G=(V,E)$，考虑其中不同的两个点 $A_0,D_0$，假设在图上对于 $A_0,D_0$ 跑了一遍最小割以后把图分成了 $S,T$ 两个集合，然后再取不同的两个点 $B_0,C_0$，假设 $B_0,C_0$ 在图 $G$ 上跑一遍最小割以后图被分成了 $X,Y$ 两个集合。&lt;/p&gt;
-
-&lt;p&gt;同时我们不妨设 $A_0\in S,D_0\in T;C_0\in X, B_0\in Y$。&lt;/p&gt;
-
-&lt;p&gt;我们首先需要说明对于一对 $S,T$ &lt;strong&gt;存在&lt;/strong&gt;一对 $X$ 与 $Y$ 使得 $S\subseteq X$ 或 $X\subseteq S$，即 $S\cap X,T\cap X,S\cap Y,T\cap Y$ 这四个把图恰好分成了四份的集合中有一份为空，通俗地来讲就是“最小割不跨立”。如果这个结论是对的，我们就可以从这个结论推出上面的递归处理部分是正确的。&lt;/p&gt;
-
-&lt;p&gt;直接做不好下手，于是考虑使用反证法。&lt;/p&gt;
-
-&lt;p&gt;不妨设 $S\cap X,S\cap Y,T\cap X,T\cap Y$ 分别为 $A,B,C,D$，且这四个集合都不为空。&lt;/p&gt;
-
-&lt;p&gt;那么实际上就是 $A\cup B=S,C\cup D=T,A\cup C=X,B\cup D=Y$。&lt;/p&gt;
-
-&lt;p&gt;各个集合缩点以后连边情况如图所示。图中 $S,T,X,Y$ 分别是上二个、下二个、左二个、右二个。&lt;/p&gt;
-
-&lt;p&gt;也就是说 $A_0$ 在上半边，$B_0$ 在右半边，$C_0$ 在左半边，$D_0$ 在下半边。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/2018-03-21-s1.png&quot; alt=&quot;[pic1]&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中，$A_0$ 与 $D_0$ 不会在一个缩完的点中，$B_0$ 与 $C_0$ 不会在一个缩完的点中，否则就没有割开。&lt;/p&gt;
-
-&lt;p&gt;分几种情况讨论：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;$A_0,B_0,C_0,D_0$ 中有某两个点在 $A,B,C,D$ 中的同一个集合内（可能重合）。&lt;/p&gt;
-
-    &lt;p&gt;此时如果另外两个点在同一个集合内，那么显然我们只要令 $X=S,Y=T$ 就完事了。&lt;/p&gt;
-
-    &lt;p&gt;于是这里不妨假设是 $A_0$ 与 $C_0$ 都在集合 $A$ 中，而 $B_0$ 在 $B$ 中，$D_0$ 在 $D$ 中。&lt;/p&gt;
-
-    &lt;p&gt;首先考虑 $C_0$ 与 $B_0$ 的所有可能成为最小割的割。它们分别是&lt;/p&gt;
-
-    &lt;p&gt;$a+b+e,a+c+e+f,a+f+d$&lt;/p&gt;
-
-    &lt;p&gt;由于 $C_0$ 与 $B_0$ 的实际上的最小割是分隔了 $S,T$ 的 $a+c+e+f$，那么我们有&lt;/p&gt;
-
-    &lt;p&gt;$a+c+e+f\le a+b+e$ 即 $c+f\le b$&lt;/p&gt;
-
-    &lt;p&gt;$a+c+e+f\le a+f+d$ 即 $c+e\le d$&lt;/p&gt;
-
-    &lt;p&gt;同样地，考虑 $A_0$ 与 $D_0$ 的最小割，我们可以得到&lt;/p&gt;
-
-    &lt;p&gt;$f+d\le a$&lt;/p&gt;
-
-    &lt;p&gt;$b+e\le c$&lt;/p&gt;
-
-    &lt;p&gt;$b+d\le a+c$&lt;/p&gt;
-
-    &lt;p&gt;解不等式可以得到 $e=0,f=0,b=c$。于是实际上 $X-Y$ 的割可以被从 $a+c$（这里 $e,f$ 已经是 $0$ 了所以舍去）被等效为 $a+b$ ，也就是相当于我们把 $C$ 集合从 $X$ 集合里面挖了出来丢到了 $Y$ 里面。这个时候 $T\cap X’=T\cap A$ 就为空集啦！&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;$A_0,B_0,C_0,D_0$ 在四个不同的集合内。&lt;/p&gt;
-
-    &lt;p&gt;则不妨设 $A_0\in A,B_0\in B,C_0\in C,D_0\in D$。&lt;/p&gt;
-
-    &lt;p&gt;这时候令 $X=S,Y=T$ 也是可以的。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;于是我们就证明完了上面的这个结论：&lt;strong&gt;存在&lt;/strong&gt;一种方案使得四个集合有一个为空。也就是只会分出三个非空集合。&lt;/p&gt;
-
-&lt;p&gt;好的。考虑递归处理部分。现在还是设当前在处理 $S$ ，它被割成了 $A,B$ 两个子集。对于一个集合 $A$ 中取出的两个点，它们的最小割一定会把这个集合 $A$ 分成两个非空集合。根据上面的结论，存在一种方案只分出三个非空集合，所以说存在方案 $A$ 中的点不会把 $B$ 集合割开，就影响不到 $B$ 集合内部某两个点的割，分治是对的。&lt;/p&gt;
-
-&lt;p&gt;做完啦！&lt;/p&gt;
-</description>
-        <pubDate>Wed, 21 Mar 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/03/21/%E5%88%86%E6%B2%BB%E6%9C%80%E5%B0%8F%E5%89%B2%E4%B8%8E%E5%85%B6%E8%AF%81%E6%98%8E.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/03/21/%E5%88%86%E6%B2%BB%E6%9C%80%E5%B0%8F%E5%89%B2%E4%B8%8E%E5%85%B6%E8%AF%81%E6%98%8E.html</guid>
-        
-        <category>信息竞赛</category>
-        
-        <category>网络流</category>
-        
-        
-        <category>OI</category>
         
       </item>
     
