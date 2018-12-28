@@ -18,7 +18,8 @@
     background-color: #F9F9F9;
     border: 1px solid #AAAAAA;
     font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
-    padding: 3px;
+    padding: 10px;
+    padding-left: 30px;
 }
 #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
     text-align: center;

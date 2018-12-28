@@ -1,0 +1,15 @@
+---
+layout: post
+---
+
+{% assign paras = content | split: "ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ" %}
+
+{{ paras.first }}
+
+{% assign maincontent = {{content}} | remove_first: {{paras.first}} | remove_first: "ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ" %}
+
+{% assign mc = maincontent | markdownify %}
+
+{% include toc.html html=mc ordered=true class="toc" %}
+
+{{ maincontent }}

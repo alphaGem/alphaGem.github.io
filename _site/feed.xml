@@ -6,9 +6,456 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 25 Dec 2018 11:33:45 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Dec 2018 11:33:45 +0800</lastBuildDate>
+    <pubDate>Fri, 28 Dec 2018 22:08:41 +0800</pubDate>
+    <lastBuildDate>Fri, 28 Dec 2018 22:08:41 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>计算几何×数学分析：从复数运算看点的变换</title>
+        <description>&lt;p&gt;开个坑，主要探讨点的变换以及这些变换过程与复数运算的内在联系。&lt;/p&gt;
+
+&lt;p&gt;ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;复数&lt;/h2&gt;
+
+&lt;p&gt;我们（很不严谨地）大致引入一下复数和一些与复数相关的运算，并介绍一些相关历史。&lt;/p&gt;
+
+&lt;p&gt;需要的比较高级的前置技能大概是泰勒展开。如果您不会，您仍然可以记一些结论，同时看看故事。&lt;/p&gt;
+
+&lt;p&gt;假设我们已经做完了如下事情：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;定义实数。&lt;/li&gt;
+  &lt;li&gt;定义了定义域与值域都在 $\mathbb R$ 上的各种运算与函数。（包括但不限于加减乘除、乘方开方与对数、三角函数与反三角函数。）&lt;/li&gt;
+  &lt;li&gt;证明了这些运算所具有的各种性质（包括但不限于加法结合律、乘法分配率等等等等。）&lt;/li&gt;
+  &lt;li&gt;拥有了求导、积分与泰勒展开这些工具。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;当然，实分析的大部分东西也许都在这里了。一切显得如此美妙。好像一座大厦落成，而每一块砖与瓦都是精心制出的，找不出一点瑕疵。从十分难以描述的自然数定义到直观但难以立刻证明的实数乘法交换律，在数学家一刀一刀的雕琢下都显得如此融洽与和谐，简直挑不出什么毛病。除了一些类似除以零的东西没有定义而令人难受——但是这是可以谅解的：一块无限的板上有一个小小的奇点不算什么，几乎可以忽略，更何况这是如此特殊的 $0$。&lt;/p&gt;
+
+&lt;p&gt;等等，可以谅解？&lt;/p&gt;
+
+&lt;p&gt;那么负数开非奇次根呢。还有负数取对数。这可是半壁江山。&lt;/p&gt;
+
+&lt;p&gt;于是一条湍急的河流横跨过 $0$，分隔开了正数与负数。在正数的这一半，一切的定义与运算都井然有序，在 $0$ 处，河流挥舞着波浪四处击打，打碎了不知多少它看见的东西，事情显得紊乱起来。而河的对面呢？不知道。上千年来，人们用“无意义”来宽慰自己。有的时候，把自己不知道的东西称为“无意义”不是什么坏事。这总比强行解释要好。&lt;/p&gt;
+
+&lt;p&gt;可是总有人要渡过这条河。&lt;/p&gt;
+
+&lt;p&gt;事情一开始发生在十六世纪。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;故事开始了&lt;/h3&gt;
+
+&lt;p&gt;当人们掌握了一次方程与二次方程的解法的时候，很自然地就要向三次方程迈进了。&lt;/p&gt;
+
+&lt;p&gt;意大利的 &lt;a href=&quot;https://en.wikipedia.org/wiki/Niccol%C3%B2_Fontana_Tartaglia&quot;&gt;塔尔塔利亚(Niccolò Tartaglia)&lt;/a&gt; 与 &lt;a href=&quot;https://en.wikipedia.org/wiki/Gerolamo_Cardano&quot;&gt;卡尔达诺(Girolamo Cardano)&lt;/a&gt; 就致力于三次方程解法的研究。当然，他们只希望知道有几个实数解并且解出它们，这就够了。当时的风气是，做数学研究的人凡有了新发现都要自己藏着，然后只传给自己的少数几个学生。&lt;/p&gt;
+
+&lt;p&gt;塔尔塔利亚独立发现了三次方程的解法。卡尔达诺十分渴望知道解法，于是私下询问塔尔塔利亚，并且发誓保密。塔尔塔利亚给了卡尔达诺暗语般的二十五行诗，但又立即后悔了，于是拒绝向卡尔达诺解释诗的内容。后来卡尔达诺研究这首诗歌，发现需要对于负数开方进行操作，于是询问塔尔塔利亚。塔尔塔利亚意识到卡尔达诺啥都会了，因而选择在回信中声称卡尔达诺的想法全是错的。&lt;/p&gt;
+
+&lt;p&gt;次年，卡尔达诺终于解出了三次方程。而他的学生，&lt;a href=&quot;https://en.wikipedia.org/wiki/Lodovico_Ferrari&quot;&gt;费拉里(Lodovico Ferrari)&lt;/a&gt;，发展这个解法解出了四次方程。当然，碍于保密的誓言，卡尔达诺不能在他的书中写出这些。但他后来发现，已故好一段时间的 &lt;a href=&quot;https://en.wikipedia.org/wiki/Scipione_del_Ferro&quot;&gt;费罗(Scipione del Ferro)&lt;/a&gt; 才是第一个解出三次方程的人。（因为当时人们都把成果藏着，费罗也藏着。不过费罗的解法只能部分地解决三次方程问题，不能完全解决。）&lt;/p&gt;
+
+&lt;p&gt;卡尔达诺于是把他研究出的方程的解法公开了，并声称这是从费罗的解法发展来的。一并发布的还有费拉里的四次方程解法。而这引发了后期他与塔尔塔利亚的一系列纠纷。当然，这似乎扯得有点远了。重点在于，他们不约而同地发现，解三次方程需要对负数开方。也就是说，拿着一堆无意义的东西，最后却能得到有意义的式子——这能说这些东西是无意义的么？&lt;/p&gt;
+
+&lt;p&gt;当时，塔尔塔利亚对负数开方的时候，甚至自称对负数开方这件事情是“昧着良心”做的。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;故事讲完了&lt;/h3&gt;
+
+&lt;p&gt;不过既然它有用，那就得纳入我们的体系。&lt;/p&gt;
+
+&lt;p&gt;我们不妨构造一个东西，设为 $i$。它满足 $i^2=-1$。我们管它叫&lt;strong&gt;虚数单位&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;只要我们能保证和这东西有关的运算基本都和实数的运算兼容，以至于它带来的方便大于带来的不便，我们就赢了。&lt;/p&gt;
+
+&lt;p&gt;我们不妨把这东西看成一个变量一样的存在，而每当它的平方出现，我们就把它替换成 $-1$。这看起来是个好主意。而这样的话，一个数就应该写成 $a+bi(a,b\in\mathbb R)$ 的形式——就像一个一次多项式一样。设 $z=a+bi(a,b\in\mathbb R)$，我们把 $a$ 称为 $z$ 的&lt;strong&gt;实部&lt;/strong&gt;，记作 $\mathfrak{R}(z)$，而 $b$ 称为&lt;strong&gt;虚部&lt;/strong&gt;（注意虚部是实数 $b$，而非 $bi$），记作 $\mathfrak{I}(z)$；而这样的一个复合起来的数称为&lt;strong&gt;复数&lt;/strong&gt;。所有的复数构成的集合称为 $\mathbb C$。&lt;/p&gt;
+
+&lt;p&gt;我们称两个复数数&lt;strong&gt;相等&lt;/strong&gt;，当且仅当它们的实部和虚部分别相等。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;加减&lt;/h3&gt;
+
+&lt;p&gt;这样的话，直观上来看，&lt;strong&gt;加法&lt;/strong&gt;就会满足&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;(a+bi)+(c+di)=(a+c)+(b+d)i&lt;/script&gt;
+
+&lt;p&gt;&lt;strong&gt;减法&lt;/strong&gt;同理。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;乘&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;乘法&lt;/strong&gt;稍微复杂一点，像多项式乘法那样做似乎是&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;(a+bi)\times (c+di)=ac+(bc+ad)i+(bd)i^2&lt;/script&gt;
+
+&lt;p&gt;但是且慢，出现了 $i^2$。我们把它替换成 $-1$。于是结果变成了&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;(ac-bd)+(bc+ad)i&lt;/script&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;除&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;除法&lt;/strong&gt;的话，相当于乘法的逆运算。我们如果先会求&lt;strong&gt;倒数&lt;/strong&gt;，那除法就是乘上倒数。&lt;/p&gt;
+
+&lt;p&gt;求 $a+bi$ 的倒数相当于列个方程：$(a+bi)(c+di)=1$。&lt;/p&gt;
+
+&lt;p&gt;一个方程，两个未知数？&lt;/p&gt;
+
+&lt;p&gt;不，两个方程，两个未知数。&lt;/p&gt;
+
+&lt;p&gt;我们要求的相等是实部和虚部相等，所以需要分别满足结果的实部为 $1$ 和结果的虚部为 $0$。也就是 $ac-bd=1$ 且 $bd+ad=0$。&lt;/p&gt;
+
+&lt;p&gt;好了，这就能求倒数了。&lt;/p&gt;
+
+&lt;p&gt;紧接着，我们可以证明，这东西在加减乘除上的&lt;strong&gt;运算性质&lt;/strong&gt;都和普通的实数运算一样。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;一点练习题&lt;/h3&gt;
+
+&lt;p&gt;基本的复数知识就介绍到这里了。如果你想做点练习的话，我们来做几个练习，然后继续。如果你不想做练习，就可以跳过了。&lt;/p&gt;
+
+&lt;p&gt;(1) 卡尔达诺向谁询问三次方程解法，而被询问的那个人给了卡尔达诺二十五行诗又随即后悔？&lt;/p&gt;
+
+&lt;p&gt;(2) 计算 $\mathfrak R(\frac{5+7i}{3+4i}-(6+i))$。&lt;/p&gt;
+
+&lt;p&gt;(3) 计算 $\mathfrak I(\frac{a+bi}{c+di})$。&lt;/p&gt;
+
+&lt;p&gt;(4) 请评价“把自己的研究成果保密”这种做法。&lt;/p&gt;
+
+&lt;p&gt;参考答案（真的仅供参考）：&lt;/p&gt;
+
+&lt;p&gt;(1) 参见故事。&lt;/p&gt;
+
+&lt;p&gt;(2) $-4.28$&lt;/p&gt;
+
+&lt;p&gt;(3) $\frac{bc-ad}{c^2+d^2}$，注意虚部是一个实数。&lt;/p&gt;
+
+&lt;p&gt;(4) 言之有理即可。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-7&quot;&gt;乘方？&lt;/h3&gt;
+
+&lt;p&gt;然后，我们来试着定义一下指数运算。&lt;/p&gt;
+
+&lt;p&gt;首先是底数位置是复数，而指数位置是自然数。这就可以直接按照连续做乘法的方式解决了。可以证明，它的大部分运算规则和实数的相关规则没啥两样。&lt;/p&gt;
+
+&lt;p&gt;可是其它情况呢……&lt;/p&gt;
+
+&lt;p&gt;先卖个关子，我们来谈一谈计算几何，等会儿再从计算几何的角度看看这些东西。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;点&lt;/h2&gt;
+
+&lt;p&gt;Tips: 在计算几何中，我们通常不区分点和向量。一个点等价于从原点出发的指向这个点的向量。所以下文可能混用这两个概念。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-9&quot;&gt;一些或许可以直接跳过的前置技能&lt;/h3&gt;
+
+&lt;p&gt;平面上的坐标系主要有两种：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cartesian_coordinate_system&quot;&gt;平面直角坐标系 (Cartesian coordinate system)&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Polar_coordinate_system&quot;&gt;极座标系 (Polar coordinate system)&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;感性地，我们如此理解这两个坐标系：&lt;/p&gt;
+
+&lt;p&gt;首先，这两个坐标系都有一个“原点”，作用类似物理的“参照物”，同时我们再指定一个方向作为“右”，这两者作为一切的基准，所有东西的位置关系就与原点和这个指定的方向作比较。&lt;/p&gt;
+
+&lt;p&gt;下文提到的平面直角坐标系都是通过 $(x,y)$ 表示从原点出发，往右走 $x$ 个单位，往上走 $y$ 个单位。也可能会是向右走再向下走，但本文不会用到。 $x$ 称为横坐标，$y$ 称为纵坐标。&lt;/p&gt;
+
+&lt;p&gt;下文提到的的极座标系则都是通过 $(r,\varphi)$ 表示，你一开始面朝右方，然后逆时针转了角度 $\varphi$，然后往前走了 $r$。也有顺时针转的，但本文不会用到。$\varphi$ 称为极角，$r$ 称为极径。&lt;/p&gt;
+
+&lt;p&gt;其中，平面直角坐标系转极坐标系的方式是这样的：&lt;/p&gt;
+
+&lt;p&gt;假设我们要做转换 $(x,y)\rightarrow (r,\varphi)$:&lt;/p&gt;
+
+&lt;p&gt;根据三角函数的几何意义，我们可以先求 $\phi$：其中如果 $(x,y)$ 在第一象限或第二象限，那么 $\varphi=\arctan\left(\frac{y}{x}\right)$，否则如果在三、四象限，$\varphi=\arctan\left(\frac{y}{x}\right)+\pi$，否则坐标轴上是特殊的情况。不过在 C++ 中，你可以写 &lt;code class=&quot;highlighter-rouge&quot;&gt;phi=atan2(y,x)&lt;/code&gt;，这会返回一个 $-\pi$ 到 $\pi$ 之间的值——它已经帮你判断好了象限之类的事情。我们下面也会用 $\text{atan2(y,x)}$ 表示类似 C++ 的这个函数干的事情（写着方便）。&lt;/p&gt;
+
+&lt;p&gt;而对于 $r$，我们由勾股定理可以得到 $r=\sqrt{x^2+y^2}$。&lt;/p&gt;
+
+&lt;p&gt;反过来，极坐标系转平面直角坐标系就是：&lt;/p&gt;
+
+&lt;p&gt;假设我们要做转换 $(r,\varphi)\rightarrow (x,y)$。&lt;/p&gt;
+
+&lt;p&gt;那么根据三角函数的几何意义，我们有 $x=r\cos\varphi, y=r\sin\varphi$。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-10&quot;&gt;平面直角坐标系下&lt;/h3&gt;
+
+&lt;p&gt;如果我们希望给平面上的每个点都分配一个复数，那我们不如这样分配：我们认为平面直角坐标系的表示方法中的横坐标和纵坐标表示了点所对应的复数的实部和虚部。即，平面直角坐标系下 $(a,b)$ 对应着复数 $a+bi$。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-11&quot;&gt;平移（也即向量加法）&lt;/h4&gt;
+
+&lt;p&gt;把 $(x,y)$ 沿着向量 $(a,b)$ 平移：&lt;/p&gt;
+
+&lt;p&gt;$(x,y)\rightarrow(x+a,y+b)$&lt;/p&gt;
+
+&lt;p&gt;实际上相当于把向量 $(x,y)$ 和向量 $(a,b)$ 加起来。&lt;/p&gt;
+
+&lt;p&gt;从复数的角度看，就是 $(x+yi)+(a+bi)\rightarrow(x+a)+(y+b)i$&lt;/p&gt;
+
+&lt;p&gt;啊，这不是对应到复数的加法么……&lt;/p&gt;
+
+&lt;h4 id=&quot;section-12&quot;&gt;旋转&lt;/h4&gt;
+
+&lt;p&gt;我们首先考虑一下纯几何做法。假设我们有点 $(x,y)$，我们希望把它绕着原点逆时针旋转 $\theta$ 这个角度。&lt;/p&gt;
+
+&lt;p&gt;既然我们有点 $(x,y)$，那么我们不妨把它给先转到极坐标去：在极坐标下它是 $(\sqrt{x^2+y^2},\text{atan2}(y,x))$。&lt;/p&gt;
+
+&lt;p&gt;设 $\varphi=\text{atan2}(y,x),r=\sqrt{x^2+y^2}$，坐标就是 $(r,\varphi)$。&lt;/p&gt;
+
+&lt;p&gt;然后我们旋转一下：它变为了 $(r,\varphi+\theta)$。&lt;/p&gt;
+
+&lt;p&gt;再转平面直角坐标系的表示方法。这需要一点三角恒等变换的东西了：&lt;/p&gt;
+
+&lt;p&gt;首先我们有&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x&#39;=r\cos(\varphi+\theta)&lt;/script&gt;
+
+&lt;p&gt;然后我们把 $\cos$ 里的东西拆开：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x&#39;=r\cos\varphi\cos\theta-r\sin\varphi\sin\theta&lt;/script&gt;
+
+&lt;p&gt;考虑到 $\cos\varphi=\frac{x}{r}$，$\sin\varphi=\frac{y}{r}$，我们代入可得&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x&#39;=x\cos\theta-y\sin\theta&lt;/script&gt;
+
+&lt;p&gt;同理，&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y&#39;=x\sin\theta+y\cos\theta&lt;/script&gt;
+
+&lt;p&gt;于是结果就是&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;(x,y)\rightarrow (x\cos\theta-y\sin\theta,x\sin\theta+y\cos\theta)&lt;/script&gt;
+
+&lt;p&gt;不妨设 $\cos\theta=c,\sin\theta=s$&lt;/p&gt;
+
+&lt;p&gt;那也就是 $(x,y)\rightarrow(xc-ys,xs+yc)$。&lt;/p&gt;
+
+&lt;p&gt;这种乘积相减与相加的形式我们似乎似曾相识。&lt;/p&gt;
+
+&lt;p&gt;复习一下复数乘法：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;(a+bi)\times (c+di)=(ac-bd)+(bc+ad)i&lt;/script&gt;
+
+&lt;p&gt;首先，我们原来的点是 $x+yi$。而终点是 $(xc-ys)+(xs+yc)i$。&lt;/p&gt;
+
+&lt;p&gt;如果我们把 $(\cos\theta,\sin\theta)$ 用复数表示出来，结果就是 $c+si$。&lt;/p&gt;
+
+&lt;p&gt;发生了什么？&lt;/p&gt;
+
+&lt;p&gt;$(x+yi)(c+si)=(xc-ys)+(xs+yc)i$。&lt;/p&gt;
+
+&lt;p&gt;惊为天人的巧合？绝不是巧合。&lt;/p&gt;
+
+&lt;p&gt;我们探讨完了平面直角坐标系下的平移与旋转，再来看看极坐标系下的平移与旋转。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-13&quot;&gt;极坐标系下&lt;/h3&gt;
+
+&lt;p&gt;如果我们希望把给平面上的每个点都分配一个复数，我们可以这样干：我们令复数的实部为它的极径，虚部为它的极角，即，设点为 $(r,\varphi)$，那它对应着 $r+\varphi i$。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-14&quot;&gt;旋转&lt;/h4&gt;
+
+&lt;p&gt;旋转比较简单。假设我们要把这个点绕原点逆时针旋转 $\theta$，它就直接变成了 $(r,\varphi+\theta)$。写成复数，就是 $r+(\varphi+\theta)i$。这相当于加上了 $\theta i$。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-15&quot;&gt;平移&lt;/h4&gt;
+
+&lt;p&gt;够呛。假设我们打算沿着向量 $(\rho,\theta)$ 平移。我们把它转回平面直角坐标系吧。&lt;/p&gt;
+
+&lt;p&gt;平移向量变成了 $(\rho\cos\theta,\rho\sin\theta)$，而原向量变成了 $(r\cos\varphi,r\sin\varphi)$。&lt;/p&gt;
+
+&lt;p&gt;加起来，可以得到 $(\rho\cos\theta+r\cos\varphi,\rho\sin\theta+r\sin\varphi)$。&lt;/p&gt;
+
+&lt;p&gt;转回去。&lt;/p&gt;
+
+&lt;p&gt;首先是极径，它应该是&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sqrt{(\rho\cos\theta+r\cos\varphi)^2+(\rho\sin\theta+r\sin\varphi)^2}&lt;/script&gt;
+
+&lt;p&gt;经过一番推导，可以得到&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sqrt{r^2+\rho^2+2\rho r\cos(\varphi-\theta)}&lt;/script&gt;
+
+&lt;p&gt;实际上，不难发现，这是余弦定理的变形。&lt;/p&gt;
+
+&lt;p&gt;角度会变成 $\text{atan2}(\rho\sin\theta+r\sin\varphi,\rho\cos\theta+r\cos\varphi)$，我不想继续推了。&lt;/p&gt;
+
+&lt;p&gt;所以说，极坐标下平移目前看来或许只能转直角坐标移动再转回来。&lt;/p&gt;
+
+&lt;p&gt;好了，现在来看看复数运算相关吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-16&quot;&gt;回到复数运算：我们需要更深入些&lt;/h2&gt;
+
+&lt;p&gt;记得么，我们还没有定义指数为复数的乘方运算。&lt;/p&gt;
+
+&lt;p&gt;不妨先从最简单的 $e^x$ 入手。这里主要的思路是，把 $e^x$ 泰勒展开，转化为一些我们能处理得了的式子。&lt;/p&gt;
+
+&lt;h3 id=&quot;e-&quot;&gt;底数为 $e$ 的指数函数&lt;/h3&gt;
+
+&lt;p&gt;先从一个特例出发：我们该如何定义 $e^i$ 呢……&lt;/p&gt;
+
+&lt;p&gt;直观的解释已经找不见了。于是我们考虑从 $e^x$ 的泰勒展开入手。&lt;/p&gt;
+
+&lt;p&gt;首先复习一下&lt;strong&gt;泰勒展开&lt;/strong&gt;的公式。$f(x)$ 在 $x=x_0$ 处泰勒展开为：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x)=\sum_{n=0}^{+\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n&lt;/script&gt;
+
+&lt;p&gt;在 $x=0$ 处&lt;strong&gt;对指数函数泰勒展开&lt;/strong&gt;是最方便的，因为 $e^x$ 的任意阶导都是 $e^x$，而在 $x=0$ 处 $e^x=1$，也即 $\forall n\in \mathbb N,f^{(n)}(0)=1$；同时我们也省去了减去 $x_0$ 带来的困扰。于是我们有：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^x=\sum_{n=0}^{+\infty}\frac{x^n}{n!}&lt;/script&gt;
+
+&lt;p&gt;为了避免循环论证，我们先引入一个叫做 $\exp$ 的函数，并规定&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\exp(x)=\sum_{n=0}^{+\infty}\frac{x^n}{n!}&lt;/script&gt;
+
+&lt;p&gt;巧合的是（巧合个鬼，你把式子就复制了一遍），它在定义域是 $\mathbb R$ 的时候跟我们的 $e^x$ 完全一样。但是我们这个函数的定义域是 $\mathbb C$。&lt;/p&gt;
+
+&lt;p&gt;于是我们闭着眼睛代入 $x=i$，得到&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\exp(i)=\sum_{n=0}^{+\infty}\frac{i^n}{n!}&lt;/script&gt;
+
+&lt;p&gt;也就是&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\exp(i)=\frac{1}{0!}+\frac{i}{1!}+\frac{-1}{2!}+\frac{-i}{3!}+\frac{1}{4!}+\ldots&lt;/script&gt;
+
+&lt;p&gt;于是我们不妨把这东西给姑且当作 $e^i$ 的值。它约等于 $0.54+0.84i$。 更一般地，我们可以用这个级数定义 $e^x=\exp(x)(x\in\mathbb C)$。可以通过这个级数的各种运算证明，$e^x(x\in\mathbb C)$ 的运算仍然满足实数下满足的 $e^ae^b=e^{a+b}$ 等性质。&lt;/p&gt;
+
+&lt;p&gt;所以我们在计算一个 $e^z(z\in\mathbb C)$ 的时候，可以把 $z$ 的实部和虚部提取出来分别计算：若 $z=a+bi$，则 $e^z=e^ae^{bi}$。$e^a$ 我们已经会计算了，现在我们来研究一下 $e^{bi}$，也就是形如 $e^{xi} 的东西$。其中 $x\in\mathbb R$。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-17&quot;&gt;剥离实部与虚部&lt;/h3&gt;
+
+&lt;p&gt;把 $e^{xi}$ 仍然在 $x=0$ 处做泰勒展开，得到&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^{xi}=\frac{1}{0!}x^0+\frac{i}{1!}x^1+\frac{-1}{2!}x^2+\frac{-i}{3!}x^3+\frac{1}{4!}x^4+\ldots&lt;/script&gt;
+
+&lt;p&gt;上面的式子里面，实部和虚部混杂在一起。我们来分别提取出实部和虚部。显然地，$n$ 为偶数的时候是剥离到实部的部分，$n$ 为奇数的时候是剥离到虚部的部分。&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathfrak{R}(e^{xi})=\frac{1}{0!}x^0-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\ldots&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathfrak{I}(e^{xi})=\frac{1}{1!}x^1-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\ldots&lt;/script&gt;
+
+&lt;p&gt;我们再来看一下&lt;strong&gt;三角函数的泰勒展开&lt;/strong&gt;。我们仍然选择在 $x=0$ 处展开（因为好算）。$\cos(x)$ 从零阶导开始的导函数分别为&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\cos(x),-\sin(x),-\cos(x),\sin(x),\cos(x),\ldots&lt;/script&gt;
+
+&lt;p&gt;代入 $x=0$ 可以得到 $1,0,-1,0,1,0,-1,0,\ldots$&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\cos(x)=\frac{1}{0!}x^0-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\ldots&lt;/script&gt;
+
+&lt;p&gt;这东西不就等于 $\mathfrak R(e^{xi})$ 么……&lt;/p&gt;
+
+&lt;p&gt;同理，$\sin(x)=\mathfrak I(e^{xi})$。你可以拿出笔和草稿纸自己玩一玩看。（或者这种不麻烦的东西心算能算出来也行）&lt;/p&gt;
+
+&lt;p&gt;所以我们有 $e^{ix}=\cos(x)+i\sin(x)(x\in\mathbb R)$。&lt;/p&gt;
+
+&lt;p&gt;这就是著名的 &lt;a href=&quot;https://en.wikipedia.org/wiki/Euler%27s_formula&quot;&gt;欧拉公式(Euler’s formula)&lt;/a&gt;。或许更广为流传的版本是 $e^{i\pi}+1=0$，也就是代入了 $x=\pi$ 的时候的式子。&lt;/p&gt;
+
+&lt;p&gt;值得注意的是，这里出现了三角函数。我们知道，指数和乘法有很大的联系，可以化乘为加（记得么，角相加与复数相乘！），而这里指数被和三角函数沟通了起来……&lt;/p&gt;
+
+&lt;h3 id=&quot;section-18&quot;&gt;联系&lt;/h3&gt;
+
+&lt;p&gt;几乎是独立发展的两条线要开始交织了。如果你对数学的感觉良好，或许已经发现这些东西了。&lt;/p&gt;
+
+&lt;p&gt;$\ \ \ \cos(\alpha+\beta)$&lt;/p&gt;
+
+&lt;p&gt;$=\mathfrak R(e^{\alpha+\beta})$&lt;/p&gt;
+
+&lt;p&gt;$=\mathfrak R(e^\alpha e^\beta)$&lt;/p&gt;
+
+&lt;p&gt;$=\mathfrak R((\cos\alpha+i\sin\alpha)(\cos\beta+i\sin\beta))$&lt;/p&gt;
+
+&lt;p&gt;$=\mathfrak R((\cos\alpha\cos\beta-\sin\alpha\sin\beta)+i(\cos\alpha\sin\beta+\sin\alpha\cos\beta))$&lt;/p&gt;
+
+&lt;p&gt;$=\cos\alpha\cos\beta-\sin\alpha\sin\beta$&lt;/p&gt;
+
+&lt;p&gt;于是我们立刻得到了&lt;strong&gt;余弦函数的和角公式&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;你现在可以拿出笔和草稿纸，玩一玩&lt;strong&gt;正弦函数的和角公式&lt;/strong&gt;。东西是类似的，就不再叙述了。&lt;/p&gt;
+
+&lt;p&gt;再来看看&lt;strong&gt;极坐标转换成直角坐标&lt;/strong&gt;的式子：&lt;/p&gt;
+
+&lt;p&gt;假设我们有一个点 $A$,它在直角坐标系下的坐标是 $(x,y)$，并且设 $z=x+yi$。设它在极坐标系下的坐标是 $(r,\varphi)$。&lt;/p&gt;
+
+&lt;p&gt;那么们首先把极坐标代入式子转化为直角坐标，有：&lt;/p&gt;
+
+&lt;p&gt;$r+\varphi i\rightarrow r\cos\varphi+r\sin\varphi i$&lt;/p&gt;
+
+&lt;p&gt;如果 $r=1$，那么相当于 $\varphi i\rightarrow \cos\varphi+\sin\varphi i$。&lt;/p&gt;
+
+&lt;p&gt;注意到这和 $e^x$ 这个函数做的事情几乎一样。也就是说，若 $r=1$，那么 $e^{\varphi i}=x+yi$。&lt;/p&gt;
+
+&lt;p&gt;若 $r\ne 1$，会发生什么呢？仍然代入 $e^x$，我们有 $e^{r+\varphi i}=e^r\cos\varphi+e^r\sin\varphi i$&lt;/p&gt;
+
+&lt;p&gt;也就是说，在 $r\ne 0$ 的情况下，我们不妨令 $\rho=\ln(r)$，我们就有 $e^{\rho+\varphi i}=x+yi$。&lt;/p&gt;
+
+&lt;p&gt;我们设 $w=\rho+\varphi i$，则&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^w=z&lt;/script&gt;
+
+&lt;p&gt;很漂亮的式子。&lt;/p&gt;
+
+&lt;p&gt;然后，我们把 $\varphi=\text{atan2}(y,x)$ 称作复数 $x+yi$ 的&lt;strong&gt;幅角&lt;/strong&gt;（因为和极角类似），把 $r$ 称作复数 $x+yi$ 的&lt;strong&gt;模长&lt;/strong&gt;（和向量的模长，或者极径的概念类似）。&lt;/p&gt;
+
+&lt;h4 id=&quot;tournent-tournent&quot;&gt;Tournent Tournent&lt;/h4&gt;
+
+&lt;p&gt;接着我们来考虑一下刚刚提到的&lt;strong&gt;点的旋转&lt;/strong&gt;。假设我们要旋转点 $A$，它在直角坐标系下的坐标是 $(x,y)$，并且设 $z=x+yi$。设它在极坐标系下的坐标是 $(r,\varphi)$，并且设 $\rho=\ln(r)$，设 $w=\rho+\varphi i$。假设我们要逆时针把 $A$ 旋转 $\theta$ 角。&lt;/p&gt;
+
+&lt;p&gt;在极坐标中，显然有&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;r+\varphi i\rightarrow r+(\varphi+\theta)i&lt;/script&gt;
+
+&lt;p&gt;如果我们有一个叫做 $\theta i$ 的变量，那么这就相当于把极坐标下对应的复数加上了这个。也就是，&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;w\rightarrow w+\theta i&lt;/script&gt;
+
+&lt;p&gt;再来看看复数方面。首先我们有：&lt;/p&gt;
+
+&lt;p&gt;$e^w=z$&lt;/p&gt;
+
+&lt;p&gt;$e^{\theta i}=\cos\theta+i\sin\theta$&lt;/p&gt;
+
+&lt;p&gt;为了构造出 $w+\theta i$，两式相乘，有&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^we^{\theta i}=z(\cos\theta+i\sin\theta)&lt;/script&gt;
+
+&lt;p&gt;也就是&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^{w+\theta i}=z(\cos\theta+i\sin\theta)&lt;/script&gt;
+
+&lt;p&gt;根据刚刚那套转坐标系的理论，极坐标 $w+\theta i$ 对应的直角坐标就是 $z(\cos\theta+i\sin\theta)$。&lt;/p&gt;
+
+&lt;p&gt;也就是说，直角坐标下发生的变换是 $z\rightarrow z(\cos\theta+i\sin\theta)$&lt;/p&gt;
+
+&lt;p&gt;所以说，在极坐标下的旋转 $\theta$ 角等价于乘上一个 $\cos\theta+i\sin\theta$。&lt;/p&gt;
+
+&lt;h4 id=&quot;whats-more&quot;&gt;What’s more?&lt;/h4&gt;
+
+&lt;p&gt;更一般地，假设我们有四个复数 $\omega,w,\zeta,z$，并且 $e^\omega=w,e^\zeta=z$，那么&lt;/p&gt;
+
+&lt;p&gt;$wz=e^{\omega+\zeta}$&lt;/p&gt;
+
+&lt;p&gt;这里，$\mathfrak R(\omega)$ 相当于 $w$ 的模长的对数，而 $\mathfrak I(\omega)$ 相当于 $w$ 的幅角。&lt;/p&gt;
+
+&lt;p&gt;而 $\zeta$ 类似。那么 $e^{\omega+\zeta}$ 的模长就是 $w$ 和 $z$ 的模长的对数相加，$e^{\omega+\zeta}$ 的幅角就是 $w$ 和 $z$ 的幅角相加。&lt;/p&gt;
+
+&lt;p&gt;我们于是知道，两个复数相乘，相当于它们的模长的对数和幅角分别进行了相加。而模长对数相加相当于模长相乘，再特殊讨论一下模长为 $0$ 的特殊情况，于是我们就有了这样一个结论：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;复数相乘，相当于幅角相加，模长相乘。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;通过这一结论，你可以方便地推出旋转公式、三角函数的和角公式等。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 26 Dec 2018 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2018/12/26/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95-%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%BB%8E%E5%A4%8D%E6%95%B0%E8%BF%90%E7%AE%97%E7%9C%8B%E7%82%B9-%E7%BA%BF%E4%B8%8E%E5%9C%86.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/12/26/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95-%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%BB%8E%E5%A4%8D%E6%95%B0%E8%BF%90%E7%AE%97%E7%9C%8B%E7%82%B9-%E7%BA%BF%E4%B8%8E%E5%9C%86.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>自然科学</category>
+        
+        <category>计算几何</category>
+        
+        <category>数学分析</category>
+        
+        
+        <category>OI,</category>
+        
+        <category>science</category>
+        
+      </item>
     
       <item>
         <title>python画图科技</title>
@@ -884,217 +1331,6 @@
         
         
         <category>science</category>
-        
-      </item>
-    
-      <item>
-        <title>神奇的编译器除法优化</title>
-        <description>&lt;p&gt;写了个题（有-O2），然后为了刷常数开始读汇编，发现int的取模操作需要判断符号位，会多好几个汇编语句，于是改成了unsigned，果然快了一些。但是我又瞟了一眼代码，突然看见一个奇怪的magic number。我突然意识到，编译时真正的玄妙之处不在这里……我看了半天，才从字缝里看出字来，原来满屏幕写的是两个字“优化”！&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;化除为乘&lt;/h3&gt;
-
-&lt;p&gt;众所周知，除法是一个很慢的东西。要是能规避除法，就太好啦。&lt;/p&gt;
-
-&lt;p&gt;如果没有特殊说明，以下的变量类型都会是unsigned int，这样不用考虑符号位会比较方便。实际上，如果是int，编译器也会做类似的优化，只不过它会多判断一下符号位。&lt;/p&gt;
-
-&lt;p&gt;考虑以下代码&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;	&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;bits/stdc++.h&amp;gt;
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100007&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%u&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;可以看到，这里需要计算许多的模运算。来看看模运算在汇编里会是怎么实现的——&lt;/p&gt;
-
-&lt;p&gt;假设我们求的是 $a\ \text{mod}\ b$,其中a已经被挪到寄存器%eax里，b已经被挪到寄存器%ebx里了。最终我们的目的是把商放进寄存器%eax里。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;divl	%ebx
-movl	%edx, %eax
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;这里调用了div指令。div指令是除法指令，它会同时计算除法的商和余数，并把除法得到的余数放在寄存器%edx里，接着只要搬到%eax里就好。&lt;/p&gt;
-
-&lt;p&gt;所以说如果使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;g++ a.cpp -S -o a.s &lt;/code&gt; 你会得到如下汇编（这里仅贴出main函数到print以前的部分）&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;main:
-.LFB3609:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movl	$0, -12(%rbp)
-	movl	$3, -8(%rbp)
-	movl	$100007, -4(%rbp)
-.L3:
-	cmpl	$300000000, -8(%rbp)
-	ja	.L2
-	movl	-8(%rbp), %eax
-	movl	$0, %edx
-	divl	-4(%rbp)
-	movl	%edx, %eax
-	xorl	%eax, -12(%rbp)
-	addl	$3, -8(%rbp)
-	jmp	.L3
-.L2:
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;也就是说，它忠实地逐字逐句地翻译了一切你写的代码，翻译成人话大概是这样：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;在栈里申请三个变量：
-	第一个初值设为0，相对栈顶位移为-12；
-	第二个初值设为3，相对栈顶位移为-8；
-	第三个初值设为100007，相对栈顶位移为-4。
-设定标签L3。
-	如果第二个变量比300000000大了，跳转到标签2，也就是退出循环。
-	把第二个变量挪到寄存器%eax里面。
-	把寄存器%edx清零。
-	把第三个变量执行“除”操作。
-	把“除”操作放在%edx里面的余数搬到%eax里面。
-	让第一个变量xor上%eax里面的东西。
-	让第二个变量+3。
-	跳转到标签L3。
-设定标签L2。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;但是当你开了-O2，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;g++ a.cpp -O2 -S -o a.s &lt;/code&gt; ，情况就大有不同。&lt;/p&gt;
-
-&lt;p&gt;汇编代码会长成这样：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;main:
-.LFB3712:
-	.cfi_startproc
-	movl	$3, %ecx
-	xorl	%esi, %esi
-	movl	$-1480414547, %edi
-	.p2align 4,,10
-	.p2align 3
-.L2:
-	movl	%ecx, %eax
-	mull	%edi
-	movl	%ecx, %eax
-	addl	$3, %ecx
-	shrl	$16, %edx
-	imull	$100007, %edx, %edx
-	subl	%edx, %eax
-	xorl	%eax, %esi
-	cmpl	$300000003, %ecx
-	jne	.L2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;于是你惊奇地发现居然div操作不见了。它用了一些右移、乘法和减法实现了模运算。&lt;/p&gt;
-
-&lt;p&gt;让我们把它翻译成人话。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;把寄存器%ecx赋值为3。
-	实际上，这里的%ecx是一个寄存器变量，它相当于源代码中的i。
-	以下我们会用i称呼它。
-把寄存器%esi清零。（自己xor上自己当然是清零啦）
-	实际上，这里的%esi是一个寄存器变量，它相当于源代码中的s。
-	以下我们会用s称呼它。
-把寄存器%edi赋值为-1480414547。
-	也就是二进制的0b10100111110000101010101010101101。
-	这是编译器算出的一个magic number。
-	以下我们会用m称呼它。
-定义标签L2。
-	把i挪到%eax里。
-	把%eax乘上m。
-		注意：像这样的32位乘法的运算中：
-			低32位会被放到%eax里；
-			高32位不会被立即丢弃，而会被放到%edx里。
-	把i挪到%eax里。（因为%eax刚被乘法洗了）
-	i+=3。
-	把%edx的东西右移16位，再乘上100007。
-	把%eax减去%edx。
-	把s给xor上%eax。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;尽管翻译成了人话。但是还是看不懂系列……尤其是那个奇怪的数字是什么东西啊喂！&lt;/p&gt;
-
-&lt;p&gt;它在干什么呢？&lt;/p&gt;
-
-&lt;p&gt;显然，%edi中的神奇数字是一个非常关键的突破口。&lt;/p&gt;
-
-&lt;p&gt;我们把它化为unsigned类型，则有 $m=2814552749$。&lt;/p&gt;
-
-&lt;p&gt;我们尝试把它乘上 $100007$。&lt;/p&gt;
-
-&lt;p&gt;得到了 $281474976769243$。&lt;/p&gt;
-
-&lt;p&gt;得到的数化为二进制，有：&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0b1000000000000000000000000000000001110010011011011&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;它的从右往左第 $49$ 位是一个 $1$，接着是一堆的 $0$，接着是一些杂数。&lt;/p&gt;
-
-&lt;p&gt;也就是说，它等于 $2^{48}+58587$。&lt;/p&gt;
-
-&lt;p&gt;于是我们可以解释原理：&lt;/p&gt;
-
-&lt;p&gt;那么一个数 $x$ 乘上 $m$ 的时候，记 $a=\left\lfloor\frac{x}{100007}\right\rfloor,b=x\ \text{mod}\ 100007$ 我们有&lt;/p&gt;
-
-&lt;p&gt;$xm=(100007a+b)m=100007a\times m+b\times m$&lt;/p&gt;
-
-&lt;p&gt;其中 $b\times m\le 100006\times 2814552749=281472162216494$。&lt;/p&gt;
-
-&lt;p&gt;且 $100007a\times m=a\times (100007\times m)=a\times(2^{48}+58587)=a\times 2^{48}+58587a$。&lt;/p&gt;
-
-&lt;p&gt;并且有 $58587a\le58587\times\left\lfloor\frac{2^{32}}{100007}\right\rfloor=2516077302$&lt;/p&gt;
-
-&lt;p&gt;所以说最后我们有&lt;/p&gt;
-
-&lt;p&gt;$ xm\le2^{48}a+2516077302+281472162216494=2^{48}a+281474678293796&amp;lt;2^{48}a+2^{48} $。&lt;/p&gt;
-
-&lt;p&gt;所以 $\left\lfloor\frac{xm}{2^{48}}\right\rfloor\le \left\lfloor\frac{2^{48}a+281474678293796}{2^{48}}\right\rfloor=a$&lt;/p&gt;
-
-&lt;p&gt;于是我们就用一个乘法和一个位移运算手动规避了除法……&lt;/p&gt;
-
-&lt;p&gt;对于其它的模数，我们也可以做同样的事情。只要构造出一个满足上面的性质的数字就好了。随手敲了几个数字，事实证明编译器都能帮你算出这么个数字。&lt;/p&gt;
-
-&lt;p&gt;也太可怕了吧！&lt;/p&gt;
-
-&lt;p&gt;然后我们就得到了 $\left\lfloor\frac{x}{100007}\right\rfloor$。&lt;/p&gt;
-
-&lt;p&gt;接着把它乘上 $100007$，再拿 $x$ 去减它，就是 $x-100007\left\lfloor\frac{x}{100007}\right\rfloor=x\ \text{mod}\ 100007$。&lt;/p&gt;
-
-&lt;p&gt;于是我们就成功规避了除法操作！&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;那我能不能拿这个出卡常题？&lt;/h3&gt;
-
-&lt;p&gt;醒醒，您要先能在代码里访问得了储存溢出的高位的那个寄存器%edx再说……&lt;/p&gt;
-
-&lt;p&gt;什么你拿unsigned long long来存？&lt;/p&gt;
-
-&lt;p&gt;亲测变慢……六十四位乘法可不是算着玩的。&lt;/p&gt;
-
-&lt;p&gt;也许内嵌汇编可以，但是比赛又不允许，反正现在大部分编译器有-O2，也许我们应该做的，就是尽量关心一些编译器，多配合编译器，能讲清楚的尽量讲清楚，例如把能开成常量的东西开成常量，让编译器充分优化……&lt;/p&gt;
-</description>
-        <pubDate>Mon, 11 Jun 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/06/11/%E7%A5%9E%E5%A5%87%E7%9A%84%E7%BC%96%E8%AF%91%E5%99%A8%E9%99%A4%E6%B3%95%E4%BC%98%E5%8C%96.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/06/11/%E7%A5%9E%E5%A5%87%E7%9A%84%E7%BC%96%E8%AF%91%E5%99%A8%E9%99%A4%E6%B3%95%E4%BC%98%E5%8C%96.html</guid>
-        
-        <category>信息竞赛</category>
-        
-        <category>电脑操作</category>
-        
-        <category>编译原理</category>
-        
-        
-        <category>OI</category>
-        
-        <category>computer</category>
         
       </item>
     
