@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /2018/
+Allow: /2019/
+Allow: /endless/
+Disallow: /
+
