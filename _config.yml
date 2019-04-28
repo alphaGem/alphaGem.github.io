@@ -19,4 +19,4 @@ twitter_username: leono0.618
 github_username: alphaGem
 permalink: /:year/:month/:day/:title:output_ext
 # Build settings
-markdown: kramdown
+markdown: redcarpet

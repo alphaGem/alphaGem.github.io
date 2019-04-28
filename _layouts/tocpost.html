@@ -8,8 +8,12 @@ layout: post
 
 {% assign maincontent = {{content}} | remove_first: {{paras.first}} | remove_first: "ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ" %}
 
+{% comment %}
+
 {% assign mc = maincontent | markdownify %}
 
 {% include toc.html html=mc ordered=true class="toc" %}
+
+{% endcomment %}
 
 {{ maincontent }}

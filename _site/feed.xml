@@ -6,9 +6,288 @@
 </description>
     <link>https://alphagem.github.io/</link>
     <atom:link href="https://alphagem.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 28 Dec 2018 22:08:41 +0800</pubDate>
-    <lastBuildDate>Fri, 28 Dec 2018 22:08:41 +0800</lastBuildDate>
+    <pubDate>Sun, 28 Apr 2019 20:47:16 +0800</pubDate>
+    <lastBuildDate>Sun, 28 Apr 2019 20:47:16 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>风信子日的杂题</title>
+        <description>&lt;p&gt;风信子日是法国共和历的花月第九日。&lt;/p&gt;
+
+&lt;p&gt;风信子（学名：Hyacinthus orientalis）是天门冬科风信子属的植物。&lt;/p&gt;
+
+&lt;p&gt;ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ&lt;/p&gt;
+
+&lt;h3&gt;Acrs on a circle&lt;/h3&gt;
+
+&lt;p&gt;题目链接：&lt;a href=&quot;https://atcoder.jp/contests/agc020/tasks/agc020_f&quot;&gt;AGC020F&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;一开始试图直接用数学的方法来做，然而满脸不可做。这题精度要求又十分高，所以近似方法似乎也不很可靠。&lt;/p&gt;
+
+&lt;p&gt;不过近似方法确实是一个好的思路的起点。&lt;/p&gt;
+
+&lt;p&gt;考虑把圆切成很多很多份，越来越多份。随着我们切出的份数越来越多，我们就会越来越接近答案。&lt;/p&gt;
+
+&lt;p&gt;具体地，假设我们在圆上均匀取出了 $kC$ 个点，那么我们把问题转化成这样：每个弧的逆时针向端点会是这 $kC$ 个点中的随机一个，而这段弧能覆盖 $kL$ 个点。我们要求所有的点都被覆盖。求覆盖所有点的概率。这个概率记作 $f(kC)$，可以使用一个简单的计数 DP 求出。&lt;/p&gt;
+
+&lt;p&gt;我们要求的答案就是 $\lim\limits_{k\rightarrow+\infty}​f(kC)$。&lt;/p&gt;
+
+&lt;p&gt;考虑 $f(kC)$ 是一个概率，我们把它转写成合法方案数除以总方案的形式，总方案显然是 $(kC)^n$。设合法方案数为 $g(kC)$。&lt;/p&gt;
+
+&lt;p&gt;则我们要求的答案就是 $\lim\limits_{k\rightarrow+\infty}​\frac{g(kC)}{(kC)^n}$。&lt;/p&gt;
+
+&lt;p&gt;下面是个关于 $kC$ 的 $n$ 次多项式。&lt;/p&gt;
+
+&lt;p&gt;那么根据极限的那套理论，结合我们计算过程中都是进行多项式的运算的特性，上面会是个多项式，而且是不超过 $n$ 次的多项式。&lt;/p&gt;
+
+&lt;p&gt;于是上面的 $n$ 次项系数就是我们要的答案。&lt;/p&gt;
+
+&lt;p&gt;我们就枚举一下 $k$，搞出 $n+1$ 个值，算出系数即可。&lt;/p&gt;
+
+&lt;p&gt;时间复杂度 $O(n^3C^2\cdot 3^n)$。因为要进行 $O(n)$ 次 DP，每次 DP 的复杂度是 $O(n^2C^2\cdot 3^n)$ 的。&lt;/p&gt;
+
+&lt;p&gt;这种把答案写成极限形式，找出函数，然后通过计算前几项来得到的还是挺有意思的……&lt;/p&gt;
+
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c++&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;functional&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+#include&amp;lt;iterator&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;cstdlib&amp;gt;
+#include&amp;lt;cstdio&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;555&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;66&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;555&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;la&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;66&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;la&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;la&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;la&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;la&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;memset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%.16lf&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;当然，题解中还有另一种做法。&lt;/p&gt;
+
+&lt;p&gt;其基本想法是枚举线段起始位置小数部分的大小关系，然后DP。&lt;/p&gt;
+
+&lt;h3&gt;矩形&lt;/h3&gt;
+
+&lt;p&gt;Source: 北大集训2018。uoj和loj上都没找到题目链接orz。&lt;/p&gt;
+
+&lt;h4&gt;题意&lt;/h4&gt;
+
+&lt;p&gt;输入 $C$ 和 $S$。&lt;/p&gt;
+
+&lt;p&gt;首先画一些长和宽都是整数的矩形，然后计算一下这些矩形的周长之和 $c$ 以及面积之和 $s$。&lt;/p&gt;
+
+&lt;p&gt;求有多少种可能的数对 $(c,s)$ 满足 $1\le c\le C$ 且 $1\le s\le S$。输出有多少种可能。&lt;/p&gt;
+
+&lt;p&gt;例如输入 $4$ 和 $10$ 时应输出 $7$。&lt;/p&gt;
+
+&lt;p&gt;有七档子任务，每档子任务的 $C$ 和 $2S$ 分别不超过 $100, 200, 6000, 30000, 100000, 400000, 1000000$。&lt;/p&gt;
+
+&lt;p&gt;考虑到周长都是偶数，我们分别令下文 $c$ 和 $C$ 表示的东西为题目给定的 $c$ 和 $C$ 的一半，也就是说，我们对半周长进行限定。&lt;/p&gt;
+
+&lt;h4&gt;暴力&lt;/h4&gt;
+
+&lt;p&gt;首先，有用的矩形只有面积不超过 $S$ 的。&lt;/p&gt;
+
+&lt;p&gt;我们把这些矩形全部拿出来，数量不会超过 $S\log S$ 个。&lt;/p&gt;
+
+&lt;p&gt;接着我们直接跑一个完全背包。记 $f(c,s)$ 为是否存在方案使得半周长和为 $c$，面积和为 $s$。&lt;/p&gt;
+
+&lt;p&gt;其中存在记作 $f(c,s)=1$。不存在则是 $f(c,s)=0$。&lt;/p&gt;
+
+&lt;p&gt;那么我们从小到大枚举 $c$ 和 $s$，再枚举一个矩形转移就好了。&lt;/p&gt;
+
+&lt;p&gt;时间复杂度 $O(CS^2\log S)$。&lt;/p&gt;
+
+&lt;p&gt;能过第一档子任务。&lt;/p&gt;
+
+&lt;p&gt;使用 bitset 优化可以再过掉第二档子任务。&lt;/p&gt;
+
+&lt;h4&gt;打表找规律&lt;/h4&gt;
+
+&lt;p&gt;我们打个表，来观察一下哪些方案合法，哪些不合法。&lt;/p&gt;
+
+&lt;p&gt;如下图所示。位于从上往下第 $c$ 行而从左往右第 $s$ 列的像素的颜色表示了 $f(c,s)$，为浅色表示 $f(c,s)=1$，为深色表示 $f(c,s)=0$。这张表格的大小是 $100\times 100$。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/rec1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，可以注意到最左边有一条笔直的直线。&lt;/p&gt;
+
+&lt;p&gt;注意到，对于每个 $s$，在直线上方的不合法的最大的 $c$ 似乎远小于 $s$，并且大致落在某个连续函数附近。&lt;/p&gt;
+
+&lt;p&gt;我们显然有 $s\le \frac{c^2}{4}$。而我们可以发现上边界确实离曲线 $s=\frac{c^2}{4}$ 确实不远。&lt;/p&gt;
+
+&lt;p&gt;我们跑个暴力，发现 $\forall s\le3000$，最小的 $c$ 不超过 $125$。&lt;/p&gt;
+
+&lt;p&gt;于是我们把我们枚举的 $c$ 的界卡成125，下面部分是规则的，暴力计算即可。&lt;/p&gt;
+
+&lt;p&gt;结合 bitset，可以过掉第三档子任务。&lt;/p&gt;
+
+&lt;p&gt;再来点性质
+观察到上边界有许多的刺状物体。&lt;/p&gt;
+
+&lt;p&gt;但仔细观察图像，似乎发现这些刺都指向同一个方向。&lt;/p&gt;
+
+&lt;p&gt;我们把 $s\le 1000, c\le 100$ 的表打出来。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/rec2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;刺似乎确实都指向同一个方向。这大概是与 $c=2s$ 平行的方向。&lt;/p&gt;
+
+&lt;p&gt;考虑最小的 $1\times1$ 矩形。它的半周长是 $2$，面积是 $1$。这意味着，如果 $f(c,s)=1$，那么 $f(c+2,s+1)=1$。&lt;/p&gt;
+
+&lt;p&gt;这也就解释了为什么毛刺指向是大致与 $c=2s$ 平行的：这张图实际上是由大量的平行于 $c=2s$ 的射线构成的。&lt;/p&gt;
+
+&lt;p&gt;我们如果对于每条范围内的射线都求出它的端点，我们就能知道答案。&lt;/p&gt;
+
+&lt;p&gt;记 $g(b)$ 为射线 $c=2s-b$ 上满足 $f(c,s)=1$ 的最小的 $c$。我们只要知道 $g(1), g(2), \cdots, g(2s)$，就可以算出答案。&lt;/p&gt;
+
+&lt;p&gt;而为了迎合这样的状态设计，我们回过头来把一个矩形的表示要素由它的半周长 $\Delta c$ 和它的面积 $\Delta s$ 改为它使得 $b$ 变化的量 $\Delta b=2\Delta s-\Delta c$ 和它使得 $g(b)$ 变化的量，也就是半周长 $\Delta c$。&lt;/p&gt;
+
+&lt;p&gt;显然，对于每个 $\Delta b$，有用的 $\Delta c$ 只有最小的那个。这样有用的矩形是 $O(s)$ 的。&lt;/p&gt;
+
+&lt;p&gt;然后我们直接从小到大枚举一个 $b$ 再枚举一个矩形转移就好了。&lt;/p&gt;
+
+&lt;p&gt;时间复杂度 $O(S^2)$。能过前三档子任务，常数小能再过一档。&lt;/p&gt;
+
+&lt;p&gt;性质！更多的性质！
+利用画出转移路径的方式，我们可以发现，如果构成一个边界上的点的方案不止包含一个矩形，那么该地方所包含的半周长最小的矩形的半周长不会很大。&lt;/p&gt;
+
+&lt;p&gt;考虑反证法：假设 $f(c,s)=1$，且 $(c,s)$ 处包含的最小的矩形的 $\Delta s$ 是 $k$，$\Delta c$ 是 $t$，那么我们有 $f(c-t,s-k)=1$，$f(t,k)=1$。&lt;/p&gt;
+
+&lt;p&gt;同时我们还有 $t\le c-t​$：因为我们的这个矩形是半周长最小的矩形，而且 $c-t&amp;gt;0$（因为不止包含一个矩形），那么如果 $t&amp;gt;c-t$，则构成 $f(c-t,s-k)$ 的方案里的那些矩形一定有半周长比 $t$ 小的。&lt;/p&gt;
+
+&lt;p&gt;考虑到 $s-k\approx \frac{(c-t)^2}{4}$ 且 $s-k\le \frac{(c-t)^2}{4}$，那么我们设 $s-k+d=\frac{(c-t)^2}{4}$。&lt;/p&gt;
+
+&lt;p&gt;同理我们设 $s+e=\frac{c^2}{4}$。&lt;/p&gt;
+
+&lt;p&gt;那么两式相减，并结合 $k\le \frac{t^2}{4}$，有&lt;/p&gt;
+
+&lt;p&gt;$t^2-ct+2e-2d\ge 0$。&lt;/p&gt;
+
+&lt;p&gt;结合 $t\le c-t$ 解之可得 $t\le \frac{c-\sqrt{c^2+8(d-e)}}{2}$。&lt;/p&gt;
+
+&lt;p&gt;考虑到 $d-e$ 不大，那么 $t$，即 $\Delta c$ 也不会很大。$\Delta c$ 不大也就意味着 $\Delta s$ 不大，也就意味着 $\Delta b$ 不大。&lt;/p&gt;
+
+&lt;p&gt;于是我们可以在 $g$ 的计算过程中算出最小的对它进行贡献的 $\Delta b$。&lt;/p&gt;
+
+&lt;p&gt;在 $b\le 1000000$ 的范围内，这东西不超过 $200$。&lt;/p&gt;
+
+&lt;p&gt;于是我们枚举 $b$，再枚举 $\Delta b$ 即可。&lt;/p&gt;
+
+&lt;p&gt;时间复杂度 $O(Sk)$，其中当 $S=500000$ 时 $k=200$。实际上，我们可以证明，$O(k)=O(\sqrt S)$，证明留给读者自行思考。（检测到鸽语，翻译成中文：这不太重要，我懒得写了。）&lt;/p&gt;
+
+&lt;p&gt;应该能过掉除了最后一档子任务以外的其它子任务。&lt;/p&gt;
+
+&lt;p&gt;常数正常的话可以过最后一档子任务。&lt;/p&gt;
+
+&lt;p&gt;刷常数。&lt;/p&gt;
+
+&lt;p&gt;考虑到大部分东西的 $\Delta b$ 都远不及200，我们弄个界，比如说，140，然后把那些 $\Delta b\ge 140$ 的 $b$ 特判一下就好了。界如果取在 $140$ 的话，那么需要特判的东西一只手掰着指头都能数过来。界如果取在 $100$ 的话，用你灵巧的双手以二进制表示数字表示应该能数过来。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c++&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;functional&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+#include&amp;lt;iterator&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;bitset&amp;gt;
+#include&amp;lt;cstdio&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;short&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1111111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;special&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;485252&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1004&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;526477&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1045&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;664832&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1172&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;669458&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1176&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;671776&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1178&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;821885&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1301&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;821886&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1302&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;824451&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1303&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;827029&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1305&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;968951&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1411&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;992839&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1431&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;memset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x3f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;special&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;130&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qwq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qwq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qwq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qwq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qwq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%lld&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        <pubDate>Sun, 28 Apr 2019 00:00:00 +0800</pubDate>
+        <link>https://alphagem.github.io/2019/04/28/%E9%A3%8E%E4%BF%A1%E5%AD%90%E6%97%A5%E7%9A%84%E6%9D%82%E9%A2%98.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2019/04/28/%E9%A3%8E%E4%BF%A1%E5%AD%90%E6%97%A5%E7%9A%84%E6%9D%82%E9%A2%98.html</guid>
+        
+        <category>信息竞赛</category>
+        
+        <category>杂题题解</category>
+        
+        
+        <category>OI</category>
+        
+      </item>
     
       <item>
         <title>计算几何×数学分析：从复数运算看点的变换</title>
@@ -16,7 +295,7 @@
 
 &lt;p&gt;ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;复数&lt;/h2&gt;
+&lt;h2&gt;复数&lt;/h2&gt;
 
 &lt;p&gt;我们（很不严谨地）大致引入一下复数和一些与复数相关的运算，并介绍一些相关历史。&lt;/p&gt;
 
@@ -25,10 +304,10 @@
 &lt;p&gt;假设我们已经做完了如下事情：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;定义实数。&lt;/li&gt;
-  &lt;li&gt;定义了定义域与值域都在 $\mathbb R$ 上的各种运算与函数。（包括但不限于加减乘除、乘方开方与对数、三角函数与反三角函数。）&lt;/li&gt;
-  &lt;li&gt;证明了这些运算所具有的各种性质（包括但不限于加法结合律、乘法分配率等等等等。）&lt;/li&gt;
-  &lt;li&gt;拥有了求导、积分与泰勒展开这些工具。&lt;/li&gt;
+&lt;li&gt;定义实数。&lt;/li&gt;
+&lt;li&gt;定义了定义域与值域都在 $\mathbb R$ 上的各种运算与函数。（包括但不限于加减乘除、乘方开方与对数、三角函数与反三角函数。）&lt;/li&gt;
+&lt;li&gt;证明了这些运算所具有的各种性质（包括但不限于加法结合律、乘法分配率等等等等。）&lt;/li&gt;
+&lt;li&gt;拥有了求导、积分与泰勒展开这些工具。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;当然，实分析的大部分东西也许都在这里了。一切显得如此美妙。好像一座大厦落成，而每一块砖与瓦都是精心制出的，找不出一点瑕疵。从十分难以描述的自然数定义到直观但难以立刻证明的实数乘法交换律，在数学家一刀一刀的雕琢下都显得如此融洽与和谐，简直挑不出什么毛病。除了一些类似除以零的东西没有定义而令人难受——但是这是可以谅解的：一块无限的板上有一个小小的奇点不算什么，几乎可以忽略，更何况这是如此特殊的 $0$。&lt;/p&gt;
@@ -43,7 +322,7 @@
 
 &lt;p&gt;事情一开始发生在十六世纪。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;故事开始了&lt;/h3&gt;
+&lt;h3&gt;故事开始了&lt;/h3&gt;
 
 &lt;p&gt;当人们掌握了一次方程与二次方程的解法的时候，很自然地就要向三次方程迈进了。&lt;/p&gt;
 
@@ -57,7 +336,7 @@
 
 &lt;p&gt;当时，塔尔塔利亚对负数开方的时候，甚至自称对负数开方这件事情是“昧着良心”做的。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;故事讲完了&lt;/h3&gt;
+&lt;h3&gt;故事讲完了&lt;/h3&gt;
 
 &lt;p&gt;不过既然它有用，那就得纳入我们的体系。&lt;/p&gt;
 
@@ -69,25 +348,25 @@
 
 &lt;p&gt;我们称两个复数数&lt;strong&gt;相等&lt;/strong&gt;，当且仅当它们的实部和虚部分别相等。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;加减&lt;/h3&gt;
+&lt;h3&gt;加减&lt;/h3&gt;
 
 &lt;p&gt;这样的话，直观上来看，&lt;strong&gt;加法&lt;/strong&gt;就会满足&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;(a+bi)+(c+di)=(a+c)+(b+d)i&lt;/script&gt;
+&lt;p&gt;$$(a+bi)+(c+di)=(a+c)+(b+d)i$$&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;减法&lt;/strong&gt;同理。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-4&quot;&gt;乘&lt;/h3&gt;
+&lt;h3&gt;乘&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;乘法&lt;/strong&gt;稍微复杂一点，像多项式乘法那样做似乎是&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;(a+bi)\times (c+di)=ac+(bc+ad)i+(bd)i^2&lt;/script&gt;
+&lt;p&gt;$$(a+bi)\times (c+di)=ac+(bc+ad)i+(bd)i^2$$&lt;/p&gt;
 
 &lt;p&gt;但是且慢，出现了 $i^2$。我们把它替换成 $-1$。于是结果变成了&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;(ac-bd)+(bc+ad)i&lt;/script&gt;
+&lt;p&gt;$$(ac-bd)+(bc+ad)i$$&lt;/p&gt;
 
-&lt;h3 id=&quot;section-5&quot;&gt;除&lt;/h3&gt;
+&lt;h3&gt;除&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;除法&lt;/strong&gt;的话，相当于乘法的逆运算。我们如果先会求&lt;strong&gt;倒数&lt;/strong&gt;，那除法就是乘上倒数。&lt;/p&gt;
 
@@ -103,7 +382,7 @@
 
 &lt;p&gt;紧接着，我们可以证明，这东西在加减乘除上的&lt;strong&gt;运算性质&lt;/strong&gt;都和普通的实数运算一样。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-6&quot;&gt;一点练习题&lt;/h3&gt;
+&lt;h3&gt;一点练习题&lt;/h3&gt;
 
 &lt;p&gt;基本的复数知识就介绍到这里了。如果你想做点练习的话，我们来做几个练习，然后继续。如果你不想做练习，就可以跳过了。&lt;/p&gt;
 
@@ -125,7 +404,7 @@
 
 &lt;p&gt;(4) 言之有理即可。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-7&quot;&gt;乘方？&lt;/h3&gt;
+&lt;h3&gt;乘方？&lt;/h3&gt;
 
 &lt;p&gt;然后，我们来试着定义一下指数运算。&lt;/p&gt;
 
@@ -135,21 +414,17 @@
 
 &lt;p&gt;先卖个关子，我们来谈一谈计算几何，等会儿再从计算几何的角度看看这些东西。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-8&quot;&gt;点&lt;/h2&gt;
+&lt;h2&gt;点&lt;/h2&gt;
 
 &lt;p&gt;Tips: 在计算几何中，我们通常不区分点和向量。一个点等价于从原点出发的指向这个点的向量。所以下文可能混用这两个概念。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-9&quot;&gt;一些或许可以直接跳过的前置技能&lt;/h3&gt;
+&lt;h3&gt;一些或许可以直接跳过的前置技能&lt;/h3&gt;
 
 &lt;p&gt;平面上的坐标系主要有两种：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cartesian_coordinate_system&quot;&gt;平面直角坐标系 (Cartesian coordinate system)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Polar_coordinate_system&quot;&gt;极座标系 (Polar coordinate system)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cartesian_coordinate_system&quot;&gt;平面直角坐标系 (Cartesian coordinate system)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Polar_coordinate_system&quot;&gt;极座标系 (Polar coordinate system)&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;感性地，我们如此理解这两个坐标系：&lt;/p&gt;
@@ -164,7 +439,7 @@
 
 &lt;p&gt;假设我们要做转换 $(x,y)\rightarrow (r,\varphi)$:&lt;/p&gt;
 
-&lt;p&gt;根据三角函数的几何意义，我们可以先求 $\phi$：其中如果 $(x,y)$ 在第一象限或第二象限，那么 $\varphi=\arctan\left(\frac{y}{x}\right)$，否则如果在三、四象限，$\varphi=\arctan\left(\frac{y}{x}\right)+\pi$，否则坐标轴上是特殊的情况。不过在 C++ 中，你可以写 &lt;code class=&quot;highlighter-rouge&quot;&gt;phi=atan2(y,x)&lt;/code&gt;，这会返回一个 $-\pi$ 到 $\pi$ 之间的值——它已经帮你判断好了象限之类的事情。我们下面也会用 $\text{atan2(y,x)}$ 表示类似 C++ 的这个函数干的事情（写着方便）。&lt;/p&gt;
+&lt;p&gt;根据三角函数的几何意义，我们可以先求 $\phi$：其中如果 $(x,y)$ 在第一象限或第二象限，那么 $\varphi=\arctan\left(\frac{y}{x}\right)$，否则如果在三、四象限，$\varphi=\arctan\left(\frac{y}{x}\right)+\pi$，否则坐标轴上是特殊的情况。不过在 C++ 中，你可以写 &lt;code&gt;phi=atan2(y,x)&lt;/code&gt;，这会返回一个 $-\pi$ 到 $\pi$ 之间的值——它已经帮你判断好了象限之类的事情。我们下面也会用 $\text{atan2(y,x)}$ 表示类似 C++ 的这个函数干的事情（写着方便）。&lt;/p&gt;
 
 &lt;p&gt;而对于 $r$，我们由勾股定理可以得到 $r=\sqrt{x^2+y^2}$。&lt;/p&gt;
 
@@ -174,11 +449,11 @@
 
 &lt;p&gt;那么根据三角函数的几何意义，我们有 $x=r\cos\varphi, y=r\sin\varphi$。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-10&quot;&gt;平面直角坐标系下&lt;/h3&gt;
+&lt;h3&gt;平面直角坐标系下&lt;/h3&gt;
 
 &lt;p&gt;如果我们希望给平面上的每个点都分配一个复数，那我们不如这样分配：我们认为平面直角坐标系的表示方法中的横坐标和纵坐标表示了点所对应的复数的实部和虚部。即，平面直角坐标系下 $(a,b)$ 对应着复数 $a+bi$。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-11&quot;&gt;平移（也即向量加法）&lt;/h4&gt;
+&lt;h4&gt;平移（也即向量加法）&lt;/h4&gt;
 
 &lt;p&gt;把 $(x,y)$ 沿着向量 $(a,b)$ 平移：&lt;/p&gt;
 
@@ -190,7 +465,7 @@
 
 &lt;p&gt;啊，这不是对应到复数的加法么……&lt;/p&gt;
 
-&lt;h4 id=&quot;section-12&quot;&gt;旋转&lt;/h4&gt;
+&lt;h4&gt;旋转&lt;/h4&gt;
 
 &lt;p&gt;我们首先考虑一下纯几何做法。假设我们有点 $(x,y)$，我们希望把它绕着原点逆时针旋转 $\theta$ 这个角度。&lt;/p&gt;
 
@@ -204,23 +479,23 @@
 
 &lt;p&gt;首先我们有&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x&#39;=r\cos(\varphi+\theta)&lt;/script&gt;
+&lt;p&gt;$$x&amp;#39;=r\cos(\varphi+\theta)$$&lt;/p&gt;
 
 &lt;p&gt;然后我们把 $\cos$ 里的东西拆开：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x&#39;=r\cos\varphi\cos\theta-r\sin\varphi\sin\theta&lt;/script&gt;
+&lt;p&gt;$$x&amp;#39;=r\cos\varphi\cos\theta-r\sin\varphi\sin\theta$$&lt;/p&gt;
 
 &lt;p&gt;考虑到 $\cos\varphi=\frac{x}{r}$，$\sin\varphi=\frac{y}{r}$，我们代入可得&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x&#39;=x\cos\theta-y\sin\theta&lt;/script&gt;
+&lt;p&gt;$$x&amp;#39;=x\cos\theta-y\sin\theta$$&lt;/p&gt;
 
 &lt;p&gt;同理，&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y&#39;=x\sin\theta+y\cos\theta&lt;/script&gt;
+&lt;p&gt;$$y&amp;#39;=x\sin\theta+y\cos\theta$$&lt;/p&gt;
 
 &lt;p&gt;于是结果就是&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;(x,y)\rightarrow (x\cos\theta-y\sin\theta,x\sin\theta+y\cos\theta)&lt;/script&gt;
+&lt;p&gt;$$(x,y)\rightarrow (x\cos\theta-y\sin\theta,x\sin\theta+y\cos\theta)$$&lt;/p&gt;
 
 &lt;p&gt;不妨设 $\cos\theta=c,\sin\theta=s$&lt;/p&gt;
 
@@ -230,7 +505,7 @@
 
 &lt;p&gt;复习一下复数乘法：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;(a+bi)\times (c+di)=(ac-bd)+(bc+ad)i&lt;/script&gt;
+&lt;p&gt;$$(a+bi)\times (c+di)=(ac-bd)+(bc+ad)i$$&lt;/p&gt;
 
 &lt;p&gt;首先，我们原来的点是 $x+yi$。而终点是 $(xc-ys)+(xs+yc)i$。&lt;/p&gt;
 
@@ -244,15 +519,15 @@
 
 &lt;p&gt;我们探讨完了平面直角坐标系下的平移与旋转，再来看看极坐标系下的平移与旋转。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-13&quot;&gt;极坐标系下&lt;/h3&gt;
+&lt;h3&gt;极坐标系下&lt;/h3&gt;
 
 &lt;p&gt;如果我们希望把给平面上的每个点都分配一个复数，我们可以这样干：我们令复数的实部为它的极径，虚部为它的极角，即，设点为 $(r,\varphi)$，那它对应着 $r+\varphi i$。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-14&quot;&gt;旋转&lt;/h4&gt;
+&lt;h4&gt;旋转&lt;/h4&gt;
 
 &lt;p&gt;旋转比较简单。假设我们要把这个点绕原点逆时针旋转 $\theta$，它就直接变成了 $(r,\varphi+\theta)$。写成复数，就是 $r+(\varphi+\theta)i$。这相当于加上了 $\theta i$。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-15&quot;&gt;平移&lt;/h4&gt;
+&lt;h4&gt;平移&lt;/h4&gt;
 
 &lt;p&gt;够呛。假设我们打算沿着向量 $(\rho,\theta)$ 平移。我们把它转回平面直角坐标系吧。&lt;/p&gt;
 
@@ -264,11 +539,11 @@
 
 &lt;p&gt;首先是极径，它应该是&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sqrt{(\rho\cos\theta+r\cos\varphi)^2+(\rho\sin\theta+r\sin\varphi)^2}&lt;/script&gt;
+&lt;p&gt;$$\sqrt{(\rho\cos\theta+r\cos\varphi)^2+(\rho\sin\theta+r\sin\varphi)^2}$$&lt;/p&gt;
 
 &lt;p&gt;经过一番推导，可以得到&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sqrt{r^2+\rho^2+2\rho r\cos(\varphi-\theta)}&lt;/script&gt;
+&lt;p&gt;$$\sqrt{r^2+\rho^2+2\rho r\cos(\varphi-\theta)}$$&lt;/p&gt;
 
 &lt;p&gt;实际上，不难发现，这是余弦定理的变形。&lt;/p&gt;
 
@@ -278,13 +553,13 @@
 
 &lt;p&gt;好了，现在来看看复数运算相关吧。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-16&quot;&gt;回到复数运算：我们需要更深入些&lt;/h2&gt;
+&lt;h2&gt;回到复数运算：我们需要更深入些&lt;/h2&gt;
 
 &lt;p&gt;记得么，我们还没有定义指数为复数的乘方运算。&lt;/p&gt;
 
 &lt;p&gt;不妨先从最简单的 $e^x$ 入手。这里主要的思路是，把 $e^x$ 泰勒展开，转化为一些我们能处理得了的式子。&lt;/p&gt;
 
-&lt;h3 id=&quot;e-&quot;&gt;底数为 $e$ 的指数函数&lt;/h3&gt;
+&lt;h3&gt;底数为 $e$ 的指数函数&lt;/h3&gt;
 
 &lt;p&gt;先从一个特例出发：我们该如何定义 $e^i$ 呢……&lt;/p&gt;
 
@@ -292,49 +567,49 @@
 
 &lt;p&gt;首先复习一下&lt;strong&gt;泰勒展开&lt;/strong&gt;的公式。$f(x)$ 在 $x=x_0$ 处泰勒展开为：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x)=\sum_{n=0}^{+\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n&lt;/script&gt;
+&lt;p&gt;$$f(x)=\sum&lt;em&gt;{n=0}^{+\infty}\frac{f^{(n)}(x&lt;/em&gt;0)}{n!}(x-x_0)^n$$&lt;/p&gt;
 
 &lt;p&gt;在 $x=0$ 处&lt;strong&gt;对指数函数泰勒展开&lt;/strong&gt;是最方便的，因为 $e^x$ 的任意阶导都是 $e^x$，而在 $x=0$ 处 $e^x=1$，也即 $\forall n\in \mathbb N,f^{(n)}(0)=1$；同时我们也省去了减去 $x_0$ 带来的困扰。于是我们有：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^x=\sum_{n=0}^{+\infty}\frac{x^n}{n!}&lt;/script&gt;
+&lt;p&gt;$$e^x=\sum_{n=0}^{+\infty}\frac{x^n}{n!}$$&lt;/p&gt;
 
 &lt;p&gt;为了避免循环论证，我们先引入一个叫做 $\exp$ 的函数，并规定&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\exp(x)=\sum_{n=0}^{+\infty}\frac{x^n}{n!}&lt;/script&gt;
+&lt;p&gt;$$\exp(x)=\sum_{n=0}^{+\infty}\frac{x^n}{n!}$$&lt;/p&gt;
 
 &lt;p&gt;巧合的是（巧合个鬼，你把式子就复制了一遍），它在定义域是 $\mathbb R$ 的时候跟我们的 $e^x$ 完全一样。但是我们这个函数的定义域是 $\mathbb C$。&lt;/p&gt;
 
 &lt;p&gt;于是我们闭着眼睛代入 $x=i$，得到&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\exp(i)=\sum_{n=0}^{+\infty}\frac{i^n}{n!}&lt;/script&gt;
+&lt;p&gt;$$\exp(i)=\sum_{n=0}^{+\infty}\frac{i^n}{n!}$$&lt;/p&gt;
 
 &lt;p&gt;也就是&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\exp(i)=\frac{1}{0!}+\frac{i}{1!}+\frac{-1}{2!}+\frac{-i}{3!}+\frac{1}{4!}+\ldots&lt;/script&gt;
+&lt;p&gt;$$\exp(i)=\frac{1}{0!}+\frac{i}{1!}+\frac{-1}{2!}+\frac{-i}{3!}+\frac{1}{4!}+\ldots$$&lt;/p&gt;
 
 &lt;p&gt;于是我们不妨把这东西给姑且当作 $e^i$ 的值。它约等于 $0.54+0.84i$。 更一般地，我们可以用这个级数定义 $e^x=\exp(x)(x\in\mathbb C)$。可以通过这个级数的各种运算证明，$e^x(x\in\mathbb C)$ 的运算仍然满足实数下满足的 $e^ae^b=e^{a+b}$ 等性质。&lt;/p&gt;
 
 &lt;p&gt;所以我们在计算一个 $e^z(z\in\mathbb C)$ 的时候，可以把 $z$ 的实部和虚部提取出来分别计算：若 $z=a+bi$，则 $e^z=e^ae^{bi}$。$e^a$ 我们已经会计算了，现在我们来研究一下 $e^{bi}$，也就是形如 $e^{xi} 的东西$。其中 $x\in\mathbb R$。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-17&quot;&gt;剥离实部与虚部&lt;/h3&gt;
+&lt;h3&gt;剥离实部与虚部&lt;/h3&gt;
 
 &lt;p&gt;把 $e^{xi}$ 仍然在 $x=0$ 处做泰勒展开，得到&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^{xi}=\frac{1}{0!}x^0+\frac{i}{1!}x^1+\frac{-1}{2!}x^2+\frac{-i}{3!}x^3+\frac{1}{4!}x^4+\ldots&lt;/script&gt;
+&lt;p&gt;$$e^{xi}=\frac{1}{0!}x^0+\frac{i}{1!}x^1+\frac{-1}{2!}x^2+\frac{-i}{3!}x^3+\frac{1}{4!}x^4+\ldots$$&lt;/p&gt;
 
 &lt;p&gt;上面的式子里面，实部和虚部混杂在一起。我们来分别提取出实部和虚部。显然地，$n$ 为偶数的时候是剥离到实部的部分，$n$ 为奇数的时候是剥离到虚部的部分。&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathfrak{R}(e^{xi})=\frac{1}{0!}x^0-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\ldots&lt;/script&gt;
+&lt;p&gt;$$\mathfrak{R}(e^{xi})=\frac{1}{0!}x^0-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\ldots$$&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathfrak{I}(e^{xi})=\frac{1}{1!}x^1-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\ldots&lt;/script&gt;
+&lt;p&gt;$$\mathfrak{I}(e^{xi})=\frac{1}{1!}x^1-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\ldots$$&lt;/p&gt;
 
 &lt;p&gt;我们再来看一下&lt;strong&gt;三角函数的泰勒展开&lt;/strong&gt;。我们仍然选择在 $x=0$ 处展开（因为好算）。$\cos(x)$ 从零阶导开始的导函数分别为&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\cos(x),-\sin(x),-\cos(x),\sin(x),\cos(x),\ldots&lt;/script&gt;
+&lt;p&gt;$$\cos(x),-\sin(x),-\cos(x),\sin(x),\cos(x),\ldots$$&lt;/p&gt;
 
 &lt;p&gt;代入 $x=0$ 可以得到 $1,0,-1,0,1,0,-1,0,\ldots$&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\cos(x)=\frac{1}{0!}x^0-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\ldots&lt;/script&gt;
+&lt;p&gt;$$\cos(x)=\frac{1}{0!}x^0-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\ldots$$&lt;/p&gt;
 
 &lt;p&gt;这东西不就等于 $\mathfrak R(e^{xi})$ 么……&lt;/p&gt;
 
@@ -342,11 +617,11 @@
 
 &lt;p&gt;所以我们有 $e^{ix}=\cos(x)+i\sin(x)(x\in\mathbb R)$。&lt;/p&gt;
 
-&lt;p&gt;这就是著名的 &lt;a href=&quot;https://en.wikipedia.org/wiki/Euler%27s_formula&quot;&gt;欧拉公式(Euler’s formula)&lt;/a&gt;。或许更广为流传的版本是 $e^{i\pi}+1=0$，也就是代入了 $x=\pi$ 的时候的式子。&lt;/p&gt;
+&lt;p&gt;这就是著名的 &lt;a href=&quot;https://en.wikipedia.org/wiki/Euler%27s_formula&quot;&gt;欧拉公式(Euler&amp;#39;s formula)&lt;/a&gt;。或许更广为流传的版本是 $e^{i\pi}+1=0$，也就是代入了 $x=\pi$ 的时候的式子。&lt;/p&gt;
 
 &lt;p&gt;值得注意的是，这里出现了三角函数。我们知道，指数和乘法有很大的联系，可以化乘为加（记得么，角相加与复数相乘！），而这里指数被和三角函数沟通了起来……&lt;/p&gt;
 
-&lt;h3 id=&quot;section-18&quot;&gt;联系&lt;/h3&gt;
+&lt;h3&gt;联系&lt;/h3&gt;
 
 &lt;p&gt;几乎是独立发展的两条线要开始交织了。如果你对数学的感觉良好，或许已经发现这些东西了。&lt;/p&gt;
 
@@ -384,23 +659,23 @@
 
 &lt;p&gt;我们设 $w=\rho+\varphi i$，则&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^w=z&lt;/script&gt;
+&lt;p&gt;$$e^w=z$$&lt;/p&gt;
 
 &lt;p&gt;很漂亮的式子。&lt;/p&gt;
 
 &lt;p&gt;然后，我们把 $\varphi=\text{atan2}(y,x)$ 称作复数 $x+yi$ 的&lt;strong&gt;幅角&lt;/strong&gt;（因为和极角类似），把 $r$ 称作复数 $x+yi$ 的&lt;strong&gt;模长&lt;/strong&gt;（和向量的模长，或者极径的概念类似）。&lt;/p&gt;
 
-&lt;h4 id=&quot;tournent-tournent&quot;&gt;Tournent Tournent&lt;/h4&gt;
+&lt;h4&gt;Tournent Tournent&lt;/h4&gt;
 
 &lt;p&gt;接着我们来考虑一下刚刚提到的&lt;strong&gt;点的旋转&lt;/strong&gt;。假设我们要旋转点 $A$，它在直角坐标系下的坐标是 $(x,y)$，并且设 $z=x+yi$。设它在极坐标系下的坐标是 $(r,\varphi)$，并且设 $\rho=\ln(r)$，设 $w=\rho+\varphi i$。假设我们要逆时针把 $A$ 旋转 $\theta$ 角。&lt;/p&gt;
 
 &lt;p&gt;在极坐标中，显然有&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;r+\varphi i\rightarrow r+(\varphi+\theta)i&lt;/script&gt;
+&lt;p&gt;$$r+\varphi i\rightarrow r+(\varphi+\theta)i$$&lt;/p&gt;
 
 &lt;p&gt;如果我们有一个叫做 $\theta i$ 的变量，那么这就相当于把极坐标下对应的复数加上了这个。也就是，&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;w\rightarrow w+\theta i&lt;/script&gt;
+&lt;p&gt;$$w\rightarrow w+\theta i$$&lt;/p&gt;
 
 &lt;p&gt;再来看看复数方面。首先我们有：&lt;/p&gt;
 
@@ -410,11 +685,11 @@
 
 &lt;p&gt;为了构造出 $w+\theta i$，两式相乘，有&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^we^{\theta i}=z(\cos\theta+i\sin\theta)&lt;/script&gt;
+&lt;p&gt;$$e^we^{\theta i}=z(\cos\theta+i\sin\theta)$$&lt;/p&gt;
 
 &lt;p&gt;也就是&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^{w+\theta i}=z(\cos\theta+i\sin\theta)&lt;/script&gt;
+&lt;p&gt;$$e^{w+\theta i}=z(\cos\theta+i\sin\theta)$$&lt;/p&gt;
 
 &lt;p&gt;根据刚刚那套转坐标系的理论，极坐标 $w+\theta i$ 对应的直角坐标就是 $z(\cos\theta+i\sin\theta)$。&lt;/p&gt;
 
@@ -422,7 +697,7 @@
 
 &lt;p&gt;所以说，在极坐标下的旋转 $\theta$ 角等价于乘上一个 $\cos\theta+i\sin\theta$。&lt;/p&gt;
 
-&lt;h4 id=&quot;whats-more&quot;&gt;What’s more?&lt;/h4&gt;
+&lt;h4&gt;What&amp;#39;s more?&lt;/h4&gt;
 
 &lt;p&gt;更一般地，假设我们有四个复数 $\omega,w,\zeta,z$，并且 $e^\omega=w,e^\zeta=z$，那么&lt;/p&gt;
 
@@ -439,8 +714,8 @@
 &lt;p&gt;通过这一结论，你可以方便地推出旋转公式、三角函数的和角公式等。&lt;/p&gt;
 </description>
         <pubDate>Wed, 26 Dec 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/12/26/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95-%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%BB%8E%E5%A4%8D%E6%95%B0%E8%BF%90%E7%AE%97%E7%9C%8B%E7%82%B9-%E7%BA%BF%E4%B8%8E%E5%9C%86.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/12/26/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95-%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%BB%8E%E5%A4%8D%E6%95%B0%E8%BF%90%E7%AE%97%E7%9C%8B%E7%82%B9-%E7%BA%BF%E4%B8%8E%E5%9C%86.html</guid>
+        <link>https://alphagem.github.io/2018/12/26/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95-%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%BB%8E%E5%A4%8D%E6%95%B0%E8%BF%90%E7%AE%97%E7%9C%8B%E7%82%B9%E7%9A%84%E5%8F%98%E6%8D%A2.html</link>
+        <guid isPermaLink="true">https://alphagem.github.io/2018/12/26/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95-%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%BB%8E%E5%A4%8D%E6%95%B0%E8%BF%90%E7%AE%97%E7%9C%8B%E7%82%B9%E7%9A%84%E5%8F%98%E6%8D%A2.html</guid>
         
         <category>信息竞赛</category>
         
@@ -463,30 +738,30 @@
 
 &lt;p&gt;又或者，比赛的时候，可以以此画一些较为精准的图片，以此帮助分析。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;基本操作&lt;/h3&gt;
+&lt;h3&gt;基本操作&lt;/h3&gt;
 
-&lt;p&gt;首先，需要有 &lt;code class=&quot;highlighter-rouge&quot;&gt;Image&lt;/code&gt; 库。NOI Linux是自带 &lt;code class=&quot;highlighter-rouge&quot;&gt;Image&lt;/code&gt; 库的。有些时候电脑里会找不到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Image&lt;/code&gt; 库，这时不妨试试 &lt;code class=&quot;highlighter-rouge&quot;&gt;PIL.Image&lt;/code&gt;，看有没有这个库，毕竟是同出而异名。再没有，就用 &lt;code class=&quot;highlighter-rouge&quot;&gt;pip&lt;/code&gt; 安装好了。&lt;/p&gt;
+&lt;p&gt;首先，需要有 &lt;code&gt;Image&lt;/code&gt; 库。NOI Linux是自带 &lt;code&gt;Image&lt;/code&gt; 库的。有些时候电脑里会找不到 &lt;code&gt;Image&lt;/code&gt; 库，这时不妨试试 &lt;code&gt;PIL.Image&lt;/code&gt;，看有没有这个库，毕竟是同出而异名。再没有，就用 &lt;code&gt;pip&lt;/code&gt; 安装好了。&lt;/p&gt;
 
 &lt;p&gt;然后是一些约定：我们管一个有序数对 $(a,b)$ 叫做“坐标”，它代表图片上的一个位置，其中 $a$ 代表这在图片的从左到右第几列，$b$ 代表这在图片的从上到下第几行，从 $0$ 开始编号。管一个整数三元组 $(R,G,B)$ 叫作“颜色”。&lt;/p&gt;
 
 &lt;p&gt;接着是一些函数——如果没有理解如何使用，可以看这段后面底下的实例运用一节。&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;新建图像&lt;/li&gt;
+&lt;li&gt;新建图像&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;这会返回一个类型为 &lt;code class=&quot;highlighter-rouge&quot;&gt;Image.Image&lt;/code&gt; 的变量，是最开始的操作。其中，&lt;code class=&quot;highlighter-rouge&quot;&gt;mode&lt;/code&gt;代表配色类型，输入一个字符串，一般用&lt;code class=&quot;highlighter-rouge&quot;&gt;&#39;RGB&#39;&lt;/code&gt;；&lt;code class=&quot;highlighter-rouge&quot;&gt;size&lt;/code&gt;是图片大小，是一个有序数对 $(x,y)$，代表宽为 $x$，高为 $y$。&lt;/p&gt;
+&lt;p&gt;这会返回一个类型为 &lt;code&gt;Image.Image&lt;/code&gt; 的变量，是最开始的操作。其中，&lt;code&gt;mode&lt;/code&gt;代表配色类型，输入一个字符串，一般用&lt;code&gt;&amp;#39;RGB&amp;#39;&lt;/code&gt;；&lt;code&gt;size&lt;/code&gt;是图片大小，是一个有序数对 $(x,y)$，代表宽为 $x$，高为 $y$。&lt;/p&gt;
 
 &lt;p&gt;举个例子：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;RGB&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;这样，&lt;code class=&quot;highlighter-rouge&quot;&gt;im&lt;/code&gt; 就是一张RGB配色，宽2000像素，高1000像素的白底图片。&lt;/p&gt;
+&lt;p&gt;这样，&lt;code&gt;im&lt;/code&gt; 就是一张RGB配色，宽2000像素，高1000像素的白底图片。&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;更改像素&lt;/li&gt;
+&lt;li&gt;更改像素&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putpixel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -498,7 +773,7 @@
 &lt;p&gt;这样相当于把坐标为 $(500,300)$ 的像素涂成红色。&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;保存图片&lt;/li&gt;
+&lt;li&gt;保存图片&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -507,16 +782,16 @@
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;qwq.png&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;这样，&lt;code class=&quot;highlighter-rouge&quot;&gt;im&lt;/code&gt; 就会被保存为一个名字叫做qwq的png文件啦！&lt;/p&gt;
+&lt;p&gt;这样，&lt;code&gt;im&lt;/code&gt; 就会被保存为一个名字叫做qwq的png文件啦！&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;实例运用&lt;/h3&gt;
+&lt;h3&gt;实例运用&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Attractor#Nonlinear_equation_or_system&quot;&gt;吸引子-英文维基百科&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;在这个条目的 Basins of attraction 一章的 Nonlinear equation or system 一节，我们可以看到一张图，下面附有这样一段文字：&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Basins of attraction in the complex plane for using Newton’s method to solve $x^5 − 1 = 0$. Points in like-colored regions map to the same root; darker means more iterations are needed to converge.&lt;/p&gt;
+&lt;p&gt;Basins of attraction in the complex plane for using Newton&amp;#39;s method to solve $x^5 − 1 = 0$. Points in like-colored regions map to the same root; darker means more iterations are needed to converge.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;也就是说，我们对一个复平面进行着色。着色的方式如下：&lt;/p&gt;
@@ -530,41 +805,41 @@
 &lt;span class=&quot;n&quot;&gt;omeg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.8&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.6&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0000002&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0000002&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;La&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;real&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;40.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;40.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;newt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;omeg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))),&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;omeg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))),&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
 &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
@@ -576,19 +851,19 @@
 &lt;span class=&quot;n&quot;&gt;dr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ImageDraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Draw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;now at&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;200.0&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;200.0&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;complex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;dr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;now at&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;200.0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;200.0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;complex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;qwq.png&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;这段代码会绘制一张 $2000\times 2000$ 大小的图。运行这段代码，耐心等待屏幕上的数字从 $-1000$ 变为 $1000$，代码所在的目录下就会多出一张 qwq.png，长这样：（懒得调颜色，直接用了五种比较纯的颜色……）&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/2018-09-19-qwq.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2018-09-19-qwq.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;因为所有内容都是 python 写的，所以跑得格外的慢……如果嫌慢的话其实可以先用 C/C++ 处理好所有的数据，把每个像素的值写进一个文件，然后让 python 直接把这个文件转成图片。或者用 Cython 之类的科技应该也是可行的（可惜考场没有）。同时值得注意的是，图像处理的时候有可能会有一些可以并行的操作，如果你的 CPU 是多核的，可以在 C/C++ 预处理的时候把这些操作分开写成多个可执行文件一起跑，压榨电脑性能。&lt;/p&gt;
 </description>
@@ -609,7 +884,7 @@
         <title>NOI2018游记Day3</title>
         <description>&lt;p&gt;NOI2018系列游记Day3。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;归程&lt;/h3&gt;
+&lt;h3&gt;归程&lt;/h3&gt;
 
 &lt;p&gt;回家了。&lt;/p&gt;
 
@@ -662,7 +937,7 @@
         <title>NOI2018游记Day2.5</title>
         <description>&lt;p&gt;NOI2018系列游记Day2.5。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;笙歌散尽&lt;/h3&gt;
+&lt;h3&gt;笙歌散尽&lt;/h3&gt;
 
 &lt;p&gt;早上是文艺汇演。&lt;/p&gt;
 
@@ -694,7 +969,7 @@
 
 &lt;p&gt;最后还有大佬直播拍音游……&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;游人去&lt;/h3&gt;
+&lt;h3&gt;游人去&lt;/h3&gt;
 
 &lt;p&gt;下午是闭幕式。&lt;/p&gt;
 
@@ -764,7 +1039,7 @@
 
 &lt;p&gt;扯远了。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;打隔膜&lt;/h3&gt;
+&lt;h3&gt;打隔膜&lt;/h3&gt;
 
 &lt;p&gt;“不能玩游戏。”&lt;/p&gt;
 
@@ -816,7 +1091,7 @@
 
 &lt;p&gt;扯得更远了。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;夜&lt;/h3&gt;
+&lt;h3&gt;夜&lt;/h3&gt;
 
 &lt;p&gt;空调不知道为什么关了。&lt;/p&gt;
 
@@ -843,7 +1118,7 @@
         <title>NOI2018游记Day2</title>
         <description>&lt;p&gt;NOI2018系列游记Day2。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;二试&lt;/h3&gt;
+&lt;h3&gt;二试&lt;/h3&gt;
 
 &lt;p&gt;第一个题。是个裸的同余方程组题。&lt;/p&gt;
 
@@ -863,14 +1138,14 @@
 
 &lt;p&gt;最后就150大众分滚粗了。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;高校宣讲&lt;/h3&gt;
+&lt;h3&gt;高校宣讲&lt;/h3&gt;
 
 &lt;p&gt;给我印象最深的是北航的老师，讲得真的非常好。信息接收率非常高。听有的学校，就是从头到尾都是“我们是985，我们是211，我们是双一流……”云云，实在可谓是“看起来很有用的废话”。但是北航的宣讲就很亲切，不至于有着高高的架子，讲着令人生厌的套话，而是充分展现了他们学校真正的优势。&lt;/p&gt;
 
 &lt;p&gt;当然，清华的老师讲得也很不错。下面引用一段话（根据记忆还原，可能有疏漏）&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;“我15年前也跟你们一样，是一名参加NOI的选手。我当时也有在听高校的宣讲，当时有清华的吴文虎老师在讲，他讲，他参加高考，考到了清华大学的分数线。那个时候还没有计算机科学专业，我们叫自动化专业。他曾经听说列宁讲过，社会主义到了电气化的时代，就离共产主义不远了。于是他就报了这个自动化专业。还有北大的老师在讲，他讲他在大学校园里面玩，溜冰之类的，很有意思。”&lt;/p&gt;
+&lt;p&gt;“我15年前也跟你们一样，是一名参加NOI的选手。我当时也有在听高校的宣讲，当时有清华的吴文虎老师在讲，他讲，他参加高考，考到了清华大学的分数线。那个时候还没有计算机科学专业，我们叫自动化专业。他曾经听说列宁讲过，社会主义到了电气化的时代，就离共产主义不远了。于是他就报了这个自动化专业。还有北大的老师在讲，他讲他在大学校园里面玩，溜冰之类的，很有意思。”&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;共产vs溜冰&lt;/p&gt;
@@ -896,14 +1171,14 @@
         <title>NOI2018游记Day1.5</title>
         <description>&lt;p&gt;NOI2018系列游记Day1.5。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;社会活动&lt;/h3&gt;
+&lt;h3&gt;社会活动&lt;/h3&gt;
 
 &lt;p&gt;去的是韶山。&lt;/p&gt;
 
 &lt;p&gt;想起昨天的话。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
+&lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;吾不言。&lt;/p&gt;
@@ -939,7 +1214,7 @@
         <title>NOI2018游记Day1</title>
         <description>&lt;p&gt;NOI2018系列游记Day1。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;六点&lt;/h3&gt;
+&lt;h3&gt;六点&lt;/h3&gt;
 
 &lt;p&gt;哨声。&lt;/p&gt;
 
@@ -947,7 +1222,7 @@
 
 &lt;p&gt;于是睡眠不足。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;一试&lt;/h3&gt;
+&lt;h3&gt;一试&lt;/h3&gt;
 
 &lt;p&gt;第一个题很快想出了可持久化并查集的做法。&lt;/p&gt;
 
@@ -971,7 +1246,7 @@
 
 &lt;p&gt;144滚粗预定。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;回音&lt;/h3&gt;
+&lt;h3&gt;回音&lt;/h3&gt;
 
 &lt;p&gt;在群上看到第一个题读入的地方卡int。&lt;/p&gt;
 
@@ -985,7 +1260,7 @@
 
 &lt;p&gt;不过既然是D类，其实，在两三个月之前我已经滚粗了。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;圣人&lt;/h3&gt;
+&lt;h3&gt;圣人&lt;/h3&gt;
 
 &lt;p&gt;在雅洋的食堂北墙上看到了一排的人物和介绍。&lt;/p&gt;
 
@@ -998,7 +1273,7 @@
 &lt;p&gt;不由得想起一句话。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
+&lt;p&gt;圣人不死，大盗不止。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;吾不言。&lt;/p&gt;
@@ -1020,7 +1295,7 @@
         <title>NOI2018游记Day0.5</title>
         <description>&lt;p&gt;NOI2018系列游记Day0.5。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;插曲&lt;/h3&gt;
+&lt;h3&gt;插曲&lt;/h3&gt;
 
 &lt;p&gt;前一天晚上，刚睡下去，却被一阵喧闹吵醒。&lt;/p&gt;
 
@@ -1040,7 +1315,7 @@
 
 &lt;p&gt;对，出了门，阳光照下来的那一刻，我觉得大概我也变得明亮而鲜活。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;笔试与试机&lt;/h3&gt;
+&lt;h3&gt;笔试与试机&lt;/h3&gt;
 
 &lt;p&gt;笔试试机的时间被和开幕式对调了。&lt;/p&gt;
 
@@ -1049,20 +1324,20 @@
 &lt;p&gt;题目示例（可能与原题有所不符，但精神上类似）：&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;如果程序在运行过程中超出内存限制，那么__$1__&lt;/p&gt;
+&lt;p&gt;如果程序在运行过程中超出内存限制，那么__$1__&lt;/p&gt;
 
-  &lt;p&gt;Selection 1:&lt;/p&gt;
+&lt;p&gt;Selection 1:&lt;/p&gt;
 
-  &lt;p&gt;A. 程序无法正常运行，该测试点得满分。&lt;/p&gt;
+&lt;p&gt;A. 程序无法正常运行，该测试点得满分。&lt;/p&gt;
 
-  &lt;p&gt;B. 程序无法正常运行，该测试点得零分。&lt;/p&gt;
+&lt;p&gt;B. 程序无法正常运行，该测试点得零分。&lt;/p&gt;
 
-  &lt;p&gt;C. 程序可以正常运行，该测试点得零分。&lt;/p&gt;
+&lt;p&gt;C. 程序可以正常运行，该测试点得零分。&lt;/p&gt;
 
-  &lt;p&gt;D. 程序无法正常运行，该测试点得一半分数。&lt;/p&gt;
+&lt;p&gt;D. 程序无法正常运行，该测试点得一半分数。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;唔。&lt;/p&gt;
+&lt;p&gt;唔。 &lt;/p&gt;
 
 &lt;p&gt;接着是试机。试验了一下Gedit的外挂shell功能能不能用，写了个a+b，然后玩了一两个小时的python画图。&lt;/p&gt;
 
@@ -1074,7 +1349,7 @@
 
 &lt;p&gt;呜呼！WiFi与空调不可兼得……&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;开幕式&lt;/h3&gt;
+&lt;h3&gt;开幕式&lt;/h3&gt;
 
 &lt;p&gt;拉德茨基进行曲、红旗颂、Hot Chocolate……&lt;/p&gt;
 
@@ -1090,7 +1365,7 @@
 
 &lt;p&gt;然后大家一起在下面拍了照，就去吃饭。冷饮和瓜真的非常好评。吹爆绿豆冰沙。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;天空的颜色&lt;/h3&gt;
+&lt;h3&gt;天空的颜色&lt;/h3&gt;
 
 &lt;p&gt;吃完晚饭。&lt;/p&gt;
 
@@ -1118,7 +1393,7 @@
 
 &lt;p&gt;不由得想起今天上午配色失败的例子。&lt;/p&gt;
 
-&lt;p&gt;C’est la nature.&lt;/p&gt;
+&lt;p&gt;C&amp;#39;est la nature.&lt;/p&gt;
 </description>
         <pubDate>Tue, 17 Jul 2018 00:00:00 +0800</pubDate>
         <link>https://alphagem.github.io/2018/07/17/NOI2018%E6%B8%B8%E8%AE%B0Day0.5.html</link>
@@ -1137,7 +1412,7 @@
         <title>NOI2018游记Day0</title>
         <description>&lt;p&gt;NOI2018系列游记Day0。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;灰白蓝&lt;/h3&gt;
+&lt;h3&gt;灰白蓝&lt;/h3&gt;
 
 &lt;p&gt;福州，天空阴沉，看不出一点早晨的样子。&lt;/p&gt;
 
@@ -1161,7 +1436,7 @@
 
 &lt;p&gt;宿舍是三人间，原是按照省选排名安排的，各个学校都被打散了。一阵重排以后，我作为我们学校四个人中唯一的高一选手，也是唯一的D，自然就被排得混进了其它学校。在宿舍划了一阵水，眼看饭点要到了，于是出门吃饭——食堂门口大排长龙，未到饭点没有开饭。转进作为休息室的学生书吧，遍历了一遍书籍，突然一本书让我一震：这是江本胜的书《水知道答案》。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;《水知道答案》&lt;/h3&gt;
+&lt;h3&gt;《水知道答案》&lt;/h3&gt;
 
 &lt;p&gt;你说谁知道答案？&lt;/p&gt;
 
@@ -1170,8 +1445,8 @@
 &lt;p&gt;然而现在看着这本书上精美的插图，脑子里只有两个念头：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;插图真漂亮。&lt;/li&gt;
-  &lt;li&gt;怀疑是每个人都必须要有的技能。&lt;/li&gt;
+&lt;li&gt;插图真漂亮。&lt;/li&gt;
+&lt;li&gt;怀疑是每个人都必须要有的技能。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;不知道这样的书怎么还会在这里出现。怕不是学校按照什么不是很好的书单买了书，然后就把这本书放在了这里。&lt;/p&gt;
@@ -1180,7 +1455,7 @@
 
 &lt;p&gt;于是只好按着自己的来算。己所不欲，勿施于人。欲加指责，先省己身。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;晚饭与彩排&lt;/h3&gt;
+&lt;h3&gt;晚饭与彩排&lt;/h3&gt;
 
 &lt;p&gt;伙食很好。（40元一人的餐标能不好么……）&lt;/p&gt;
 
@@ -1189,7 +1464,7 @@
 &lt;p&gt;流程大概是这样的：&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;主持人喊出“XX代表队”，该省代表队即起立，大屏幕上会出现省队中每个人的&lt;strong&gt;证件照&lt;/strong&gt;，接着该队伍向着大屏幕挥手，相机指向该队伍，队伍被投放在大屏幕上。然后该队伍喊出他们事先准备好的口号。&lt;/p&gt;
+&lt;p&gt;主持人喊出“XX代表队”，该省代表队即起立，大屏幕上会出现省队中每个人的&lt;strong&gt;证件照&lt;/strong&gt;，接着该队伍向着大屏幕挥手，相机指向该队伍，队伍被投放在大屏幕上。然后该队伍喊出他们事先准备好的口号。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;证件照。&lt;/p&gt;
@@ -1203,7 +1478,7 @@
 &lt;p&gt;哦对，后来还追加了一句“福建加油”。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;超越极限，超越自我，不鸣则已，一鸣惊人。福建加油！&lt;/p&gt;
+&lt;p&gt;超越极限，超越自我，不鸣则已，一鸣惊人。福建加油！&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;五个土味四字短句，两两不押韵。&lt;/p&gt;
@@ -1217,7 +1492,7 @@
 &lt;p&gt;不过我似乎也没有资格指责他们。毕竟我自己写的也很土味……&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;赫赫商宿起东南，锋芒乍现，青青子衿敢为天下先。&lt;/p&gt;
+&lt;p&gt;赫赫商宿起东南，锋芒乍现，青青子衿敢为天下先。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;啊……以五十步笑百步，何如？&lt;/p&gt;
@@ -1225,12 +1500,12 @@
 &lt;p&gt;我觉得还是我旁边一个同学提的口号正经一点。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;三分天注定，六百九十七分靠打拼。&lt;/p&gt;
+&lt;p&gt;三分天注定，六百九十七分靠打拼。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;嗯。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;寝&lt;/h3&gt;
+&lt;h3&gt;寝&lt;/h3&gt;
 
 &lt;p&gt;寝。&lt;/p&gt;
 </description>
@@ -1244,93 +1519,6 @@
         
         
         <category>OI</category>
-        
-      </item>
-    
-      <item>
-        <title>SI基本单位重定义</title>
-        <description>&lt;p&gt;今年5月20号的时候看见SI要改基本单位定义的事情，于是跟物理社别的同学一起研究了一下……这次的重定义主题是“常量化”，新钦点了大量常数。然后千克原器这种玄学的东西终于可以从定义里面踢出去了qwq&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;定义不变的单位&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;秒&lt;/strong&gt;($\mathrm{s}$)：仍沿用现有的定义，一秒定义为铯133原子基态超精细能阶分裂辐射一个周期长度的 $9,192,631,770$ 倍。也就是说，我们钦点&lt;/p&gt;
-
-&lt;p&gt;$^{133}\mathrm{Cs}$原子基态超精细能阶分裂辐射频率为 $\Delta v(^{133}\mathrm{Cs})_{\mathrm{hfs}}=9,192,631,770\mathrm{Hz}$。&lt;/p&gt;
-
-&lt;p&gt;其中我们有 $\mathrm{Hz}=\mathrm{s^{-1}}$。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;米&lt;/strong&gt;($\mathrm{m}$)：仍沿用现有的定义，一米定义为真空中光在 $\frac{1}{299.792.458}\mathrm{s}$ 内通过的距离。也就是说，我们钦点&lt;/p&gt;
-
-&lt;p&gt;真空光速为 $c=299,792,458\mathrm{m\cdot s^{-1}}$。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;坎德拉&lt;/strong&gt;($\mathrm{cd}$)：仍沿用现有的定义，一坎德拉定义为频率为 $540×10^{12}\mathrm{Hz}$ 的单色辐射光源（黄绿色可见光）发出在特定方向辐射强度为 $\frac{1}{683}$ 瓦特每球面度的光时的发光强度。也就是说，我们钦点&lt;/p&gt;
-
-&lt;p&gt;频率为 $540×10^{12}\mathrm{Hz}$ 光辐射的发光效率为 $K_{\mathrm{cd}}=683 \mathrm{cd\cdot sr\cdot W^{-1}}$。&lt;/p&gt;
-
-&lt;p&gt;其中我们有 $\mathrm{W}=\mathrm{J\cdot s^{-1}}=\mathrm{N\cdot m\cdot s^{-1}}=\mathrm{kg\cdot m^2\cdot s^{-3}}$。&lt;/p&gt;
-
-&lt;p&gt;至于其它的频率？坎德拉是发光强度的单位，发光强度这个量的定义挺玄学的，它的定义采用了视见函数，实际上是跟人眼对不同波长光的敏感程度有关系的。视见函数怎么来？当然是找一堆人做实验测量……而 $540\times 10^{12} \text{Hz}$ 是人眼最敏感的波长，所以就拿到定义里来了。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;定义改变的单位&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;千克&lt;/strong&gt;($\mathrm{kg}$)：现有的原定义是一千克定义为国际千克原器的质量。将被改用普朗克常数定义。我们钦点&lt;/p&gt;
-
-&lt;p&gt;普朗克常数为 $h=6.626,070,15\times10^{-34}\mathrm{J\cdot s}=6.626,070,15\times10^{−34} \mathrm{kg\cdot m^2\cdot s^{−1}}$。&lt;/p&gt;
-
-&lt;p&gt;然后根据米和秒，结合普朗克常数，我们可以得到千克。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;开尔文&lt;/strong&gt;($\mathrm{K}$)：现有的原定义是一开尔文定义为水的三相点与绝对零度的温度差的 $\frac{1}{273.16}$。将被改用玻尔兹曼常数定义。我们钦点&lt;/p&gt;
-
-&lt;p&gt;玻尔兹曼常数为 $k=1.380,649\times 10^{–23}\mathrm{J/K}$。&lt;/p&gt;
-
-&lt;p&gt;这样根据米、秒和千克，我们可以得到焦耳，再结合玻尔兹曼常数，我们可以得到开尔文。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;摩尔&lt;/strong&gt;($\mathrm{mol}$)：现有的原定义是 $12\mathrm{g}^{12}\mathrm{C}$ 含有的原子个数。将被改用阿伏伽德罗常数定义。我们钦点&lt;/p&gt;
-
-&lt;p&gt;阿伏伽德罗常数为 $N_{\mathrm{A}}=6.022,140,76\times 10^{23}\mathrm{mol^{–1}}$。&lt;/p&gt;
-
-&lt;p&gt;也就是说，含有阿伏伽德罗常数个粒子的物质的量为一摩尔。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;安培&lt;/strong&gt;($\mathrm{A}$)：现有的原定义是使真空中两根距离一米的横截面积可忽略不计的无限长直导线中处处通过大小相等的电流，当两根导线间的作用力为 $2\times10^{–7}\mathrm{N}$ 每米时，定义导线中的电流大小为一安培。将被改用基本电荷定义。我们钦点&lt;/p&gt;
-
-&lt;p&gt;基本电荷为 $e=1.602,176,634\times 10^{–19}\mathrm{C}​$。&lt;/p&gt;
-
-&lt;p&gt;同时，我们有 $\mathrm{C}=\mathrm{A\cdot s}$。我们就可以根据秒结合基本电荷得到安培。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;总结&lt;/h3&gt;
-
-&lt;p&gt;用两张图来概括一下内容。（图来源：wikimedia commons，详见源码。）&lt;/p&gt;
-
-&lt;p&gt;这一张是旧的单位之间的关系。箭头代表一个单位依赖另一个单位。&lt;/p&gt;
-
-&lt;p&gt;&lt;a title=&quot;By Dono [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0) or GFDL (http://www.gnu.org/copyleft/fdl.html)], from Wikimedia Commons&quot; href=&quot;https://commons.wikimedia.org/wiki/File:SI_base_unit.svg&quot;&gt;&lt;img width=&quot;512&quot; alt=&quot;SI base unit&quot; src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/SI_base_unit.svg/512px-SI_base_unit.svg.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;这一张是新的。可以看到，每个单位现在都依赖于一个常数，单位之间的关系也更密切了。&lt;/p&gt;
-
-&lt;p&gt;&lt;a title=&quot;By Wikipetzi [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], from Wikimedia Commons&quot; href=&quot;https://commons.wikimedia.org/wiki/File:Relations_between_new_SI_units_definitions.png&quot;&gt;&lt;img width=&quot;512&quot; alt=&quot;Relations between new SI units definitions&quot; src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Relations_between_new_SI_units_definitions.png/512px-Relations_between_new_SI_units_definitions.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;总而言之，这一发改的还是挺科学的。千克原器终于退休了，一些类似于普朗克常数、玻尔兹曼常数或者阿伏伽德罗常数之类的重要常数也被定下来，不需要再天天纠结着对着一些实际的物质进行测量，使用更加方便了。&lt;/p&gt;
-
-&lt;p&gt;同时可以看到，很多单位的定义也变得更抽象了，比如使用普朗克常数或是玻尔兹曼常数进行定义的千克和开尔文就难以再用一句简短的话表述它们在现实中的具体含义，而理解这两个单位也需要用到一些更复杂的物理知识。&lt;/p&gt;
-
-&lt;p&gt;就是安培的定义改掉了，导致真空磁导率炸了而不再是常数了，这一点实在是可惜。这样电磁学的好多式子里的原来的常数也就都不再是常数了。啊……或许他们改这一发有他们的考量吧。毕竟如果心疼常数的话可以选择使用自然单位制，SI还是主要要考虑到实际运用中的精度等问题。&lt;/p&gt;
-
-&lt;p&gt;参考资料：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bipm.org/en/measurement-units/&quot;&gt;BIMP给出的现有定义（英语）&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bipm.org/en/measurement-units/rev-si/#communication&quot;&gt;BIMP给出的可能的新定义（英语）&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 23 Jun 2018 00:00:00 +0800</pubDate>
-        <link>https://alphagem.github.io/2018/06/23/SI%E5%9F%BA%E6%9C%AC%E5%8D%95%E4%BD%8D%E9%87%8D%E5%AE%9A%E4%B9%89.html</link>
-        <guid isPermaLink="true">https://alphagem.github.io/2018/06/23/SI%E5%9F%BA%E6%9C%AC%E5%8D%95%E4%BD%8D%E9%87%8D%E5%AE%9A%E4%B9%89.html</guid>
-        
-        <category>自然科学</category>
-        
-        <category>单位与量纲</category>
-        
-        
-        <category>science</category>
         
       </item>
     
