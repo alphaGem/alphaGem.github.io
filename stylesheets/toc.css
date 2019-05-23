@@ -43,6 +43,11 @@
     padding-left: 0;
 }
 
+.toc ol
+{
+    margin-bottom: 7px;
+}
+
 #toc-container {
 	margin-bottom: 10px;
 }

@@ -220,8 +220,13 @@ hr {
 
 pre {
   overflow: auto;
+  tab-size: 4;
 }
 
+pre:hover,
+pre:focus {
+  width: min-content;
+}
 /**
  * Address odd `em`-unit font size rendering in all browsers.
  */
