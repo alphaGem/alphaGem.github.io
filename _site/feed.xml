@@ -6,13 +6,15 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 23 May 2019 19:20:00 +0800</pubDate>
-    <lastBuildDate>Thu, 23 May 2019 19:20:00 +0800</lastBuildDate>
+    <pubDate>Fri, 24 May 2019 10:30:13 +0800</pubDate>
+    <lastBuildDate>Fri, 24 May 2019 10:30:13 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
         <title>伪Top Tree学习笔记</title>
         <description>&lt;p&gt;No te eches a la mar !&lt;/p&gt;
+
+&lt;p&gt;本文介绍的是静态的以Top Tree的部分思想和结构弄出来的可以维护树上动态DP的全局答案的东西，我也不知道该叫啥，或许就叫静态Top Tree或者是某种全局平衡二叉树，标题叫Top Tree是吸引你点进来的。刚发现似乎也有把AAA树叫做伪Top Tree的，所以这里消歧义一下。&lt;/p&gt;
 
 &lt;p&gt;ИСЦХХЕЛИИСЕСБОЕЦЗУОТЕЕЫ&lt;/p&gt;
 
@@ -20,13 +22,13 @@
 
 &lt;p&gt;万恶之源：&lt;a href=&quot;https://loj.ac/problem/2269&quot;&gt;「SDOI2017」切树游戏&lt;/a&gt;。&lt;/p&gt;
 
-&lt;p&gt;这题平凡的做法是用树剖线段树维护动态DP，网络上应该很多题解，这里就不再赘述了。要看题解可以移步&lt;a href=&quot;http://immortalco.blog.uoj.ac/blog/2625&quot;&gt;这篇博客&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;这题平凡的做法是用树剖线段树维护动态DP，网络上应该很多题解，这里就不再赘述了。要看题解可以移步&lt;a href=&quot;http://immortalco.blog.uoj.ac/blog/2625&quot;&gt;这篇immortalCO的博客&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;为了试图用一个 $\log$ 做这题，学了个全局平衡二叉树，然后发现&lt;strong&gt;全局平衡二叉树&lt;/strong&gt;没法维护信息不可减的情况。而且就算写了可除的 $\bmod 10007$ 类，仍然需要对于合并信息进行分类讨论啥的……&lt;/p&gt;
 
 &lt;p&gt;UOJ上的一篇介绍Top Tree的文章有提到Top Tree可以做这个题。今年集训队论文有一篇就是以Top Tree为主题的，还有一篇借用了Top Tree的rake与compress操作的思想……所以总觉得这是个该学的东西，于是就开坑了orz&lt;/p&gt;
 
-&lt;p&gt;然而事实上完整版的Top Tree难以实现，我不觉得我能在考场上写出来，有这时间写Top Tree还不如去做提交答案题。所以这里主要介绍的是静态Top Tree。就像全局平衡二叉树可以看成是静态版本的Link-Cut Tree一样。省去link, cut, expose等操作以后，静态的Top Tree就显得易于实现了。因为主要介绍的不是完整的Top Tree，所以叫做伪Top Tree学习笔记。&lt;/p&gt;
+&lt;p&gt;然而事实上完整版的Top Tree难以实现，我不觉得我能在考场上写出来，有这时间写Top Tree还不如去做提交答案题。所以这里主要介绍的是静态Top Tree。就像全局平衡二叉树可以看成是静态版本的Link-Cut Tree一样。省去link, cut, expose等操作以后，静态的Top Tree就显得易于实现了。因为主要介绍的不是真正的Top Tree，所以叫做伪Top Tree学习笔记。&lt;/p&gt;
 
 &lt;p&gt;因为是学习笔记，所以可能直接扔链接，而不进行具体的介绍，侧重点放在&lt;strong&gt;实现细节&lt;/strong&gt;。毕竟别人造过的轮子，为啥还要自己复读一遍呢……qwq&lt;/p&gt;
 
@@ -37,21 +39,58 @@
 &lt;p&gt;在看下面的内容之前，需要先了解一下&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;簇的定义（考虑到收缩过程中边和簇其实很相似，所以下文可能混用）&lt;/li&gt;
+  &lt;li&gt;簇和一些相关的定义（考虑到收缩过程中边和簇其实很相似，所以下文可能混用）&lt;/li&gt;
   &lt;li&gt;rake操作（并一度点操作，以下简称R操作）&lt;/li&gt;
   &lt;li&gt;compress操作（缩二度点操作，以下简称C操作）&lt;/li&gt;
   &lt;li&gt;Top Tree的应用范畴&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://negiizhao.blog.uoj.ac/blog/4912&quot;&gt;这篇博客&lt;/a&gt;已经把大部分东西介绍得挺清楚的了。这篇文章同时还有给出很多的例题与应用范围之类的东西。读完基本上能对Top Tree有所了解。其中的Contraction-based top tree一段的内容是本文的主要方法。继续阅读之前，请先通读上面这篇博客，理解&lt;a href=&quot;https://baike.baidu.com/item/%E4%B8%BB%E4%BD%93%E6%80%9D%E6%83%B3&quot;&gt;主体思想&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://negiizhao.blog.uoj.ac/blog/4912&quot;&gt;这篇negiizhao的博客&lt;/a&gt;已经把大部分东西介绍得挺清楚的了。这篇文章同时还有给出很多的例题与应用范围之类的东西。读完基本上能对Top Tree有所了解。其中的Contraction-based top tree一段的内容是本文的主要方法。继续阅读之前，可以先通读上面这篇博客，理解&lt;a href=&quot;https://baike.baidu.com/item/%E4%B8%BB%E4%BD%93%E6%80%9D%E6%83%B3&quot;&gt;主体思想&lt;/a&gt;。但是这篇博客内容比较高级，讲的是真的能动来动去的那种Top Tree，所以这里把一些对本文有用的信息摘录如下，这样我就不用把它们再写一遍了。&lt;/p&gt;
 
-&lt;p&gt;关于这方面的操作的细节与更多介绍，也可以考虑看2019年国家集训队论文的《〈公园〉命题报告》与《〈基础圆方树练习题〉命题报告》。可是我还是觉得上面那篇文章写得好。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;我们希望得到一种用于维护树上信息的数据结构，类似于序列上的平衡二叉树。&lt;/p&gt;
+
+  &lt;p&gt;平衡二叉树每次把序列中的 2 段合并为 1 段，所以可以考虑在树上用类似的做法，把某两个“子树”合并为一个“子树”。&lt;/p&gt;
+
+  &lt;p&gt;为了维护信息，我们希望这样的“子树”中只有不超过 2 个点和外部的点邻接，我们把这样的“子树”（和两个端点）称为簇（cluster）。&lt;/p&gt;
+
+  &lt;p&gt;显然，没有进行合并时，所有簇都是表示一个边，表示原树的一个边的簇称为 base cluster。&lt;/p&gt;
+
+  &lt;p&gt;考虑以下两种操作，它们是树收缩（tree contraction）的两个基本操作，rake 消除一个度为 1 的点，compress 消除一个度为 2 的点，此外这些操作会把两条边替换为一条边。&lt;/p&gt;
+
+  &lt;p&gt;&lt;img src=&quot;https://i.jpg.dog/img/be4976c58d2fe09618079e976df0da97.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+  &lt;p&gt;我们可以把这两种操作看作合并两个簇，显然这两个簇合并之后还是簇。合并后簇中和外部邻接的点是图上新边的端点，所以可以认为这个簇表示新边，我们把表示的边的端点称为簇的端点（endpoint）。显然，这样就可以一直合并到只剩一个簇。&lt;/p&gt;
+
+  &lt;p&gt;我们可以对树进行若干轮收缩，每轮收缩执行 rake 和 compress 的一个极大独立操作集合，这样 $O(\log n)$ 轮收缩后，树就只剩一条边了。最后这条边对应的簇称为根簇（root cluster）。&lt;/p&gt;
+
+  &lt;p&gt;收缩过程中，簇的合并结构形成了一个树，我们把这个树称为 top tree。&lt;/p&gt;
+
+  &lt;p&gt;&lt;img src=&quot;https://i.jpg.dog/img/ce1140defc90930f65a8db922f258c6b.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个簇对应着原树的一个路径和一个子树，其中路径为两个端点之间的路径。&lt;/p&gt;
+
+  &lt;p&gt;关于边的信息储存在这条边对应的簇中，关于点的信息在消除这个点之后加入簇中（也就是说，簇内维护的信息，不包括端点上的信息），这在某种意义上类似于 BST。
+类似序列上一些问题的做法，我们将会维护簇对应的路径和子树，以及两个端点相关的信息。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Contraction-based top tree&lt;/p&gt;
+
+  &lt;p&gt;1998年 Holm 和 de Lichtenberg 在他们的硕士论文 Top-trees and dynamic graph algorithms 、2006年 Werneck 在 Design and Analysis of Data Structures for Dynamic Trees 给出了基于收缩的最坏 $O(\log n)$ 的实现。&lt;/p&gt;
+
+  &lt;p&gt;如之前所说，我们对原树进行若干轮收缩，每轮收缩执行 rake 和 compress 的一个极大独立操作集合，这样可以得到 $O(\log n)$ 层的收缩结构。直接实现即可 $O(n)$ 时间建树。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;关于这方面的操作的细节与更多介绍，也可以考虑看2019年国家集训队论文的《〈公园〉命题报告》与《〈基础圆方树练习题〉命题报告》。可是我还是觉得上面提到的那篇blog写得好。&lt;/p&gt;
 
 &lt;h3 id=&quot;尝试一下&quot;&gt;尝试一下&lt;/h3&gt;
 
 &lt;p&gt;当然，真正的Top Tree是一个支持link, cut, expose等操作的高级玩意儿，可惜我蠢得可爱，一时半会儿根本学不会。但是考虑到大部分题应该都不至于毒瘤到要你维护一个支持link,cut而且信息还不可减的动态DP，对于树的形态固定的题目，我们可以考虑使用静态Top Tree来维护我们的信息。下面的静态Top Tree实现是基于&lt;strong&gt;每轮执行极大R操作与C操作集合，进行 $O(\log n)$ 轮收缩的方法&lt;/strong&gt;的。它本身常数可能比较大（当然应该比LCT小），但是其优势在于可以直观地进行一些DP信息的合并。&lt;/p&gt;
 
-&lt;p&gt;理论与思想部分上面已经讲得很清楚了。接下来我们直接上个例题，介绍如何使用Top Tree解决&lt;a href=&quot;https://loj.ac/problem/2269&quot;&gt;「SDOI2017」切树游戏&lt;/a&gt;。在看下面的内容之前，或许你可以先看看&lt;a href=&quot;http://immortalco.blog.uoj.ac/blog/2625&quot;&gt;这篇题解&lt;/a&gt;。至少看到那个不支持修改的 $O((n+\log128)\times128)$ 的做法，了解朴素暴力的工作原理，并且知道如何用FWT优化信息合并中的异或卷积。&lt;/p&gt;
+&lt;p&gt;理论与思想部分上面已经讲得很清楚了。接下来我们直接上个例题，介绍如何使用Top Tree解决&lt;a href=&quot;https://loj.ac/problem/2269&quot;&gt;「SDOI2017」切树游戏&lt;/a&gt;。在看下面的内容之前，或许你可以先看看&lt;a href=&quot;http://immortalco.blog.uoj.ac/blog/2625&quot;&gt;这篇immortalCO的题解&lt;/a&gt;，至少看到那个不支持修改的 $O((n+\log128)\times128)$ 的做法，了解朴素暴力的工作原理，并且知道如何用FWT优化信息合并中的异或卷积。&lt;/p&gt;
 
 &lt;p&gt;首先，我们不难设计出一个初步的想法。记 $f[i][0/1][0/1]$ 为一个多项式，它的第 $j$ 项系数代表编号为 $i$ 的簇，其头与尾的节点是否被包含在连通块内，异或权值为 $j$ 的方案数。合并两个块大致是在做一些异或卷积。&lt;/p&gt;
 
@@ -65,7 +104,7 @@
 
 &lt;p&gt;每一轮初始的时候，所有点都是合法点，所有边（簇）都是合法边（簇）。&lt;/p&gt;
 
-&lt;p&gt;先讨论R操作的情况。假设我们得到了一个合法的可进行R操作的一度点。我们试图把这个一度点到它相邻点的边rake掉。设一度点为 $u$，它相邻点为 $v$。我们任意地指定一条它相邻点的合法边 $(v,w)$（如果不存在这样的边就跳过这个R操作），rake进去，删去 $(u,v)$ 和 $(v,w)$。此时我们应该会得到一个新的簇，它是原来两个簇的并，并且连接 $v$ 和 $w$，并且把这个簇丢到一个tmp集合里，因为这个簇目前还不是合法簇。我们得保证这个新簇不会被作为本轮其余操作的对象。&lt;/p&gt;
+&lt;p&gt;先讨论R操作的情况。假设我们得到了一个合法的可进行R操作的一度点。我们试图把这个一度点到它相邻点的边rake掉。设一度点为 $u$，它相邻点为 $v$。这里讨论把 $(u,v)$ rake掉的情况，对 $(v,u)$ 进行R操作是同理的。我们任意地指定一条关于 $v$ 的合法边 $(v,w)$，其中 $w\ne u$（如果不存在这样的边就跳过这个R操作），rake进去，删去 $(u,v)$ 和 $(v,w)$。此时我们应该会得到一个新的簇，它是原来两个簇的并，并且端点分别是 $v$ 和 $w$。我们把这个簇丢到一个tmp集合里，因为这个簇目前还不是合法簇。我们得保证这个新簇不会被作为本轮其余操作的对象。&lt;/p&gt;
 
 &lt;p&gt;注意到这样操作后，$u$ 点被从树中剥去了，而 $v$ 点和 $w$ 点由于旁边有一条本轮新建的边，所以既不能被rake掉也不能被compress掉，因为如果对它们执行rake或compress操作，就会导致这条边在这轮成为孩子，这是我们所不允许的。事实上，我们可以注意到，如果我们删边不即时修改点度，而是这一轮结束后再修改，那么所有的记录度数与实际边表大小不符的点都是不可rake或compress的点。而显然地，其它所有的一度点与二度点都分别是可rake与compress的。&lt;/p&gt;
 
@@ -79,7 +118,9 @@
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;f[r][0][0]+f[r][0][1]+(f[r][1][0]+f[r][1][1])\circ w_s&lt;/script&gt;
 
-&lt;p&gt;其中 $\circ$ 是异或卷积，$w_s$ 是 $s$ 点对应的权值对应的FWT数组。&lt;/p&gt;
+&lt;p&gt;其中 $w_s$ 是 $s$ 点对应的权值对应的FWT数组。&lt;/p&gt;
+
+&lt;p&gt;当然，这算是进行了一些trick式的把点权转化为边权。实际上，不进行这一步转换也是可以做的，如前文所提到的，用在一个点被消除的时候统计入答案的方法就好了。&lt;/p&gt;
 
 &lt;h4 id=&quot;代码&quot;&gt;代码&lt;/h4&gt;
 
